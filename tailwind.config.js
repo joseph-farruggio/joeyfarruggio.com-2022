@@ -1,6 +1,9 @@
 module.exports = {
+  important: true,
   content: [
     "./public/*.html",
+    "./public/blog/*/*.html",
+
   ],
   theme: {
     fontFamily: {
@@ -8,5 +11,7 @@ module.exports = {
     },
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }

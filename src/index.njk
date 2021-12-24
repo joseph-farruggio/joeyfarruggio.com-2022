@@ -1,6 +1,7 @@
 ---
 title: Joey Farruggio
-layout: "base.njk"
+layout: "layouts/home.njk"
+description: Joey Farruggio is a front-end engineer and designer based in Wisconsin.
 ---
 
 <div class="relative" x-data="{showLeft: false, showRight: false}" x-init="showLeft = true;showRight = true">
@@ -155,34 +156,14 @@ layout: "base.njk"
 
 <section class="max-w-screen-md mx-auto px-4 mt-32">
     <h2 class="font-bold text-orange-400 text-3xl text-highlight-orange">Articles</h2>
-    <article class="mt-16">
-        <h1 class="font-bold text-xl text-highlight-orange"><a href="/" class="text-orange-400">Remove white background from image – CSS solution.</a></h1>
-        <p class="text-slate-100 text-lg mt-4 leading-relaxed">So I’m building a premium WP theme tailored for Affiliates and product review websites – and I’m hoping to release it later this year. I was just working on a product review demo page where I’ve uploaded an image of a MacBook Pro and I wanted to change the background color for the header o</p>
-        <span class="flex items-center space-x-4 mt-4 text-gray-400">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-            <span>Sep 14, 2021</span>
-        </span>
-    </article>
 
-    <article class="mt-16">
-        <h1 class="font-bold text-xl text-highlight-orange"><a href="/" class="text-orange-400">Remove white background from image – CSS solution.</a></h1>
-        <p class="text-slate-100 text-lg mt-4 leading-relaxed">So I’m building a premium WP theme tailored for Affiliates and product review websites – and I’m hoping to release it later this year. I was just working on a product review demo page where I’ve uploaded an image of a MacBook Pro and I wanted to change the background color for the header o</p>
-        <span class="flex items-center space-x-4 mt-4 text-gray-400">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-            <span>Sep 14, 2021</span>
-        </span>
-    </article>
+    {% for post in collections.blog %}
+        {% if post.data.hidden != true %}
+            {% include "postListItem.njk" %}    
+        {% endif %}
+    {% endfor %}
 
-    <article class="mt-16">
-        <h1 class="font-bold text-xl text-highlight-orange"><a href="/" class="text-orange-400">Remove white background from image – CSS solution.</a></h1>
-        <p class="text-slate-100 text-lg mt-4 leading-relaxed">So I’m building a premium WP theme tailored for Affiliates and product review websites – and I’m hoping to release it later this year. I was just working on a product review demo page where I’ve uploaded an image of a MacBook Pro and I wanted to change the background color for the header o</p>
-        <span class="flex items-center space-x-4 mt-4 text-gray-400">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-            <span>Sep 14, 2021</span>
-        </span>
-    </article>
-
-    <a href="" class="flex items-center space-x-2 inline-block mt-16">
+    <a href="/blog" class="flex items-center space-x-2 inline-block mt-16">
         <span>View more articles</span>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-3" fill="currentColor" viewBox="0 0 14.903 14.903"><g data-name="Icon feather-arrow-up-right" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"><path data-name="Path 513" d="M2.121 12.782 12.782 2.121"/><path data-name="Path 514" d="M2.121 2.121h10.661v10.661"/></g></svg>
     </a>

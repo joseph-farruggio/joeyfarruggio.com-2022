@@ -18,6 +18,10 @@ a {
     @apply transition-colors hover:text-orange-400;
 }
 
+.prose img {
+    @apply rounded-lg shadow-lg shadow-slate-900 !important;
+}
+
 [x-cloak] {
     display: none;
 }
