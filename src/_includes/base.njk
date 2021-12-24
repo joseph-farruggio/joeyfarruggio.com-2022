@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#040817] text-white font-body">
+    <header class="">
+        <nav class="space-x-6 max-w-screen-xl mx-auto px-4 py-8 relative z-10">
+            <a href="/" class="text-slate-500 no-underline  px-4 py-3 rounded-lg">Home</a>
+            <a href="/" class="text-slate-500 no-underline  px-4 py-3 rounded-lg">Contact</a>
+            <a href="/" class="text-slate-500 no-underline  px-4 py-3 rounded-lg">Blog</a>
+        </nav>
+    </header>
+    
+    <main class="">
+        {{content | safe}}
+    </main>
+    <script defer src="js/app.js"></script>
+</body>
+</html>

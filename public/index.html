@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joey Farruggio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#040817] text-white font-body">
+    <header class="">
+        <nav class="space-x-6 max-w-screen-xl mx-auto px-4 py-8 relative z-10">
+            <a href="/" class="text-slate-500 no-underline  px-4 py-3 rounded-lg">Home</a>
+            <a href="/" class="text-slate-500 no-underline  px-4 py-3 rounded-lg">Contact</a>
+            <a href="/" class="text-slate-500 no-underline  px-4 py-3 rounded-lg">Blog</a>
+        </nav>
+    </header>
+    
+    <main class="">
+        
+<div class="relative" x-data="{showLeft: false, showRight: false}" x-init="showLeft = true;showRight = true">
+    <section class="grid grid-cols-2 gap-12 items-center max-w-screen-xl mx-auto px-4 py-8 relative z-10">
+        <div class="transition ease-in opacity-0 translate-y-4 delay-200 duration-500" :class="{'opacity-100 translate-y-0': showLeft, 'opacity-0 translate-y-4': !showLeft}">
+            <h1 class="font-bold">
+                <span class="text-orange-400 text-4xl text-highlight-orange">Joey Farruggio</span> <br> 
+                <span class="text-6xl block mt-3 text-white text-highlight-white">Front-end Engineer <span class=" whitespace-nowrap">& Designer</span></span>
+            </h1>
+            <p class="text-slate-500 text-xl mt-12 leading-relaxed">I’m a designer and frontend engineer working mostly with Tailwind CSS and Alpine JS. I’m husband to Jessica, co-founder of four kiddos, and I absolutely love being outside.</p>
+            <div class="flex items-center space-x-12 mt-8">
+                <a href="https://twitter.com/Joey_Farruggio" class="flex items-center space-x-4 underline" target="_blank">
+                    <svg data-name="Group 464" xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 45 36.573"><defs><path data-name="Rectangle 261" fill="#ffa62c" d="M0 0h45v36.573H0z"/></defs><g data-name="Group 463" clip-path="url(#a)"><path data-name="Path 510" d="M45 4.33a18.487 18.487 0 0 1-5.3 1.453A9.257 9.257 0 0 0 43.757.674 18.432 18.432 0 0 1 37.9 2.913a9.237 9.237 0 0 0-15.97 6.322 9.429 9.429 0 0 0 .238 2.1A26.217 26.217 0 0 1 3.133 1.689a9.248 9.248 0 0 0 2.858 12.327 9.211 9.211 0 0 1-4.182-1.156v.119a9.237 9.237 0 0 0 7.406 9.053 9.372 9.372 0 0 1-4.17.159 9.237 9.237 0 0 0 8.626 6.409A18.527 18.527 0 0 1 2.2 32.554a18.829 18.829 0 0 1-2.2-.129 26.11 26.11 0 0 0 14.15 4.148c16.984 0 26.269-14.067 26.269-26.268 0-.4-.01-.8-.028-1.193A18.77 18.77 0 0 0 45 4.336Z" fill="#ffa62c"/></g></svg>
+                    <span>@Joey_Farruggio</span>
+                </a>
+                <a href="https://codepen.io/JosephAllen" class="flex items-center space-x-4 underline" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 44.933" class="h-6"><defs><path data-name="Rectangle 260" fill="#ffa62c" d="M0 0h45v44.933H0z"/></defs><g data-name="Group 461" clip-path="url(#a)"><path data-name="Path 509" d="M44.982 15.4c-.18-1.169-1.484-1.8-2.383-2.383-1.618-1.079-3.192-2.113-4.81-3.192C33.967 7.26 30.1 4.7 26.28 2.135c-.9-.584-1.8-1.214-2.7-1.8a1.9 1.9 0 0 0-2.158 0c-2.562 1.708-5.17 3.462-7.732 5.17L2.363 13.06c-.989.629-2.293 1.259-2.338 2.607-.045 1.484 0 3.012 0 4.5v7.193c0 1.3-.27 2.832.944 3.641 2.877 1.978 5.8 3.866 8.721 5.8 3.6 2.383 7.193 4.81 10.789 7.193.989.674 1.978 1.394 3.192.584 1.034-.674 2.023-1.349 3.057-2.023 4-2.652 8-5.35 12-8l4.451-2.967a9.627 9.627 0 0 0 .859-.588 2.124 2.124 0 0 0 .9-1.843V16.791a7.342 7.342 0 0 0 .045-1.394M24.437 5.552l15.15 10.115-6.743 4.541-8.407-5.619Zm-3.866 0v8.991l-8.362 5.619-6.788-4.5 15.15-10.11M3.892 19.264 8.7 22.5l-4.81 3.237Zm16.679 20.185L5.42 29.334l6.743-4.541 8.362 5.619v9.036ZM22.5 27.086 15.67 22.5l6.83-4.585 6.837 4.585Zm1.933 12.363v-8.991l8.367-5.62 6.743 4.541-15.106 10.07m16.678-13.712-4.81-3.237 4.855-3.237-.045 6.474" fill="#ffa62c"/></g></svg>
+                    <span>codepen.io/JosephAllen</span>
+                </a>
+            </div>
+        </div>
+        <div>
+            <img src="images/avatar.jpg" alt="" class="w-full h-[40rem] object-cover rounded-lg shadow-xl shadow-slate-950">
+        </div>
+    </section>
+    <div class="bg-slate-900 h-full w-96 absolute top-0 right-0 rounded-l-lg"></div>
+</div>
+
+<section class="grid grid-cols-12 gap-12 max-w-screen-xl mx-auto px-4 mt-32">
+    <div class="col-start-1 col-end-6 row-start-1 row-end-2">
+        <h2 class="font-bold text-orange-400 text-3xl text-highlight-orange">What I’m up to currently</h2>
+        <p class="text-slate-100 text-lg mt-4 leading-relaxed">I’m contracting with two main clients currently, BiggerPockets and Vimeo. I’m building and managing custom WordPress themes that get millions of visitors a year.</p>
+    </div>
+
+    <div class="pl-12 -mr-12 col-start-6 col-end-13 row-start-1 row-end-2">
+        <div x-data="{show: false}"     
+            x-intersect.full="show = true"
+            class="bg-slate-900 py-6 px-8 rounded-lg flex space-x-8 items-center transition  delay-200 duration-500 ease-in opacity-0 translate-y-4" 
+            :class="{'opacity-100 translate-y-0': show, 'opacity-0 translate-y-4': !show}">
+            <img src="images/katie.jpg" alt="" class="rounded-lg -ml-20 w-60">
+            <div>
+                <p class="leading-relaxed ">Joey Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil doloremque tenetur, nostrum blanditiis necessitatibus ipsam consequatur vero. Nihil doloremque tenetur, nostrum blanditiis necessitatibus.</p>
+                <p class="mt-4">
+                    Katie Miller <br>
+                    <span class="opacity-40">General Manager @ Bigger Pockets</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-start-4 col-end-11 row-start-2 row-end-3">
+        <div x-data="{show: false}"     
+            x-intersect.full="show = true"
+            class="bg-slate-900 py-6 px-8 rounded-lg flex space-x-8 items-center transition  delay-200 duration-500 ease-in opacity-0 translate-y-4" 
+            :class="{'opacity-100 translate-y-0': show, 'opacity-0 translate-y-4': !show}">
+            <img src="images/robyn.jpg" alt="" class="rounded-lg -ml-20 w-60">
+            <div>
+                <p class="leading-relaxed ">Joey Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil doloremque tenetur, nostrum blanditiis necessitatibus ipsam consequatur vero. Nihil doloremque tenetur, nostrum blanditiis necessitatibus.</p>
+                <p class="mt-4">
+                    Robyn Shower <br>
+                    <span class="opacity-40">Director, SEO @ Vimeo</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="max-w-screen-xl mx-auto px-4 mt-32">
+    <h2 class="font-bold text-orange-400 text-3xl text-highlight-orange">Project Highlight</h2>
+    <p class="text-slate-100 text-lg mt-4 w-1/2 leading-relaxed">A custom module that displays blog posts sorted by page view counts pulled from the Google Analytics API.</p>
+
+    <div class="grid grid-cols-2 gap-12 mt-16">
+        <div>
+
+            <div class="bg-slate-900 p-8 rounded-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12" viewBox="0 0 373.467 60">
+                    <g id="Group_460" data-name="Group 460" transform="translate(-0.235 -0.285)">
+                      <g id="Group_453" data-name="Group 453" transform="translate(0 0)">
+                        <rect id="Rectangle_258" data-name="Rectangle 258" width="62" height="60" transform="translate(0.235 0.285)" fill="none"/>
+                        <g id="Group_452" data-name="Group 452" transform="translate(6.105 2.979)">
+                          <g id="Group_449" data-name="Group 449" transform="translate(35.963)">
+                            <path id="Path_507" data-name="Path 507" d="M130,14.615v41.58c0,4.653,3.3,7.245,6.8,7.245,3.236,0,6.8-2.2,6.8-7.245V14.93A6.71,6.71,0,0,0,136.8,8,6.818,6.818,0,0,0,130,14.615Z" transform="translate(-130 -8)" fill="#f9ab00"/>
+                          </g>
+                          <g id="Group_450" data-name="Group 450" transform="translate(18.165 21.105)">
+                            <path id="Path_508" data-name="Path 508" d="M75,81.615V102.09c0,4.653,3.3,7.245,6.8,7.245,3.236,0,6.8-2.2,6.8-7.245V81.93A6.71,6.71,0,0,0,81.8,75,6.818,6.818,0,0,0,75,81.615Z" transform="translate(-75 -75)" fill="#e37400"/>
+                          </g>
+                          <g id="Group_451" data-name="Group 451" transform="translate(0 42.044)">
+                            <ellipse id="Ellipse_6" data-name="Ellipse 6" cx="7" cy="6.5" rx="7" ry="6.5" transform="translate(0.131 0.262)" fill="#e37400"/>
+                          </g>
+                        </g>
+                      </g>
+                      <path id="Path_506" data-name="Path 506" d="M18.62,34.855c-9.348,0-17.21-7.413-17.21-16.512S9.271,1.83,18.62,1.83A16.353,16.353,0,0,1,30.241,6.384L26.973,9.565A11.96,11.96,0,0,0,18.62,6.348a12,12,0,1,0,0,24.008,11.512,11.512,0,0,0,8.562-3.3A9.246,9.246,0,0,0,29.7,21.376H18.62V16.867h15.6a13.943,13.943,0,0,1,.246,2.821A14.671,14.671,0,0,1,30.45,30.236,15.758,15.758,0,0,1,18.62,34.855Zm39.97-10.63a10.76,10.76,0,1,1-10.76-10.63A10.546,10.546,0,0,1,58.589,24.224Zm-4.717,0a6.064,6.064,0,1,0-12.1,0,6.064,6.064,0,1,0,12.1,0Zm28.841,0a10.76,10.76,0,1,1-10.76-10.63A10.546,10.546,0,0,1,82.713,24.224Zm-4.707,0a6.064,6.064,0,1,0-12.1,0,6.064,6.064,0,1,0,12.1,0ZM106.24,14.24V33.324c0,7.855-4.755,11.073-10.381,11.073a10.413,10.413,0,0,1-9.68-6.279l4.177-1.687a6.03,6.03,0,0,0,5.5,3.78c3.6,0,5.834-2.176,5.834-6.242v-1.53h-.17a7.535,7.535,0,0,1-5.749,2.416,10.632,10.632,0,0,1,0-21.26,7.651,7.651,0,0,1,5.749,2.379h.17V14.24h4.546Zm-4.215,10.022c0-3.743-2.567-6.481-5.834-6.481a6.222,6.222,0,0,0-6.081,6.481,6.171,6.171,0,0,0,6.081,6.4C99.459,30.669,102.025,27.968,102.025,24.261Zm12.625-21.3V34.209h-4.8V2.964Zm18.867,24.764,3.722,2.416a10.923,10.923,0,0,1-9.1,4.711,10.418,10.418,0,0,1-10.684-10.63c0-6.325,4.518-10.63,10.144-10.63,5.664,0,8.439,4.389,9.348,6.767l.493,1.208-14.6,5.882a5.571,5.571,0,0,0,5.295,3.218A6.283,6.283,0,0,0,133.518,27.728ZM122.058,23.9l9.765-3.946a4.253,4.253,0,0,0-4.054-2.259A5.9,5.9,0,0,0,122.058,23.9Z" transform="translate(71.399 10.333)" fill="#fff"/>
+                      <path id="Path_515" data-name="Path 515" d="M16.734-5.273H7.488L5.73,0H.123L9.65-25.594h4.887L24.117,0H18.51ZM8.912-9.545h6.4l-3.217-9.58ZM30.8-19.02l.158,2.2a6.64,6.64,0,0,1,5.467-2.549,5.519,5.519,0,0,1,4.5,1.775,8.283,8.283,0,0,1,1.512,5.309V0h-5.08V-12.164a3.3,3.3,0,0,0-.7-2.347,3.148,3.148,0,0,0-2.338-.729A3.5,3.5,0,0,0,31.1-13.412V0h-5.08V-19.02ZM58.1,0a5.641,5.641,0,0,1-.51-1.705,6.147,6.147,0,0,1-4.8,2.057,6.753,6.753,0,0,1-4.632-1.617A5.2,5.2,0,0,1,46.32-5.344a5.375,5.375,0,0,1,2.241-4.641,11.059,11.059,0,0,1,6.478-1.635h2.338v-1.09a3.134,3.134,0,0,0-.677-2.109,2.662,2.662,0,0,0-2.136-.791,3.027,3.027,0,0,0-2.013.615,2.09,2.09,0,0,0-.729,1.688h-5.08a5.1,5.1,0,0,1,1.02-3.059,6.739,6.739,0,0,1,2.883-2.206,10.506,10.506,0,0,1,4.184-.8A8.3,8.3,0,0,1,60.409-17.6a6.18,6.18,0,0,1,2.065,4.966v8.244A9.093,9.093,0,0,0,63.23-.3V0ZM53.9-3.533a4.375,4.375,0,0,0,2.074-.5,3.29,3.29,0,0,0,1.406-1.345v-3.27h-1.9q-3.814,0-4.061,2.637l-.018.3a2.034,2.034,0,0,0,.668,1.564A2.6,2.6,0,0,0,53.9-3.533ZM72.53,0h-5.1V-27h5.1ZM84.607-7.189l3.516-11.83h5.449L85.926,2.953l-.422,1a5.8,5.8,0,0,1-5.625,3.727,7.993,7.993,0,0,1-2.25-.334V3.5l.773.018a4.179,4.179,0,0,0,2.153-.439,2.887,2.887,0,0,0,1.116-1.459l.6-1.564L75.607-19.02h5.467ZM102.45-23.7v4.676H105.7v3.727H102.45V-5.8a2.267,2.267,0,0,0,.4,1.512,2.031,2.031,0,0,0,1.547.457,8.1,8.1,0,0,0,1.494-.123v3.85a10.458,10.458,0,0,1-3.076.457q-5.344,0-5.449-5.4V-15.293H94.593V-19.02H97.37V-23.7ZM114.686,0h-5.1V-19.02h5.1Zm-5.4-23.941a2.5,2.5,0,0,1,.765-1.881,2.873,2.873,0,0,1,2.083-.738,2.879,2.879,0,0,1,2.074.738,2.487,2.487,0,0,1,.773,1.881,2.494,2.494,0,0,1-.782,1.9,2.886,2.886,0,0,1-2.065.738,2.886,2.886,0,0,1-2.065-.738A2.494,2.494,0,0,1,109.289-23.941Zm18.282,20.2a3.332,3.332,0,0,0,2.285-.773,2.71,2.71,0,0,0,.914-2.057h4.764a6.516,6.516,0,0,1-1.055,3.542,6.959,6.959,0,0,1-2.839,2.5,8.885,8.885,0,0,1-3.981.888,8.257,8.257,0,0,1-6.434-2.593A10.26,10.26,0,0,1,118.87-9.4v-.334a10.143,10.143,0,0,1,2.338-7.014,8.161,8.161,0,0,1,6.416-2.619,8,8,0,0,1,5.722,2.03,7.189,7.189,0,0,1,2.188,5.405h-4.764a3.462,3.462,0,0,0-.914-2.4,3.056,3.056,0,0,0-2.32-.923,3.061,3.061,0,0,0-2.681,1.292,7.479,7.479,0,0,0-.905,4.192v.527a7.573,7.573,0,0,0,.9,4.219A3.1,3.1,0,0,0,127.571-3.744Zm21.956-1.512a1.637,1.637,0,0,0-.923-1.468,10.483,10.483,0,0,0-2.962-.958q-6.785-1.424-6.785-5.766a5.226,5.226,0,0,1,2.1-4.228,8.473,8.473,0,0,1,5.493-1.7,9.12,9.12,0,0,1,5.792,1.705,5.374,5.374,0,0,1,2.171,4.43h-5.08a2.458,2.458,0,0,0-.7-1.8,2.976,2.976,0,0,0-2.2-.712,3.04,3.04,0,0,0-1.986.58,1.831,1.831,0,0,0-.7,1.477,1.565,1.565,0,0,0,.8,1.362,8.228,8.228,0,0,0,2.7.9,22.039,22.039,0,0,1,3.2.853q4.025,1.477,4.025,5.115a4.961,4.961,0,0,1-2.232,4.21A9.63,9.63,0,0,1,146.469.352,10.058,10.058,0,0,1,142.224-.5a7.123,7.123,0,0,1-2.909-2.338,5.432,5.432,0,0,1-1.055-3.208h4.816a2.652,2.652,0,0,0,1,2.074,3.974,3.974,0,0,0,2.5.721,3.678,3.678,0,0,0,2.206-.554A1.723,1.723,0,0,0,149.527-5.256Z" transform="translate(219.235 44.285)" fill="#fff"/>
+                    </g>
+                </svg>
+                  
+                <ul class="mt-12 space-y-6 text-lg">
+                     
+                    
+                        <li class="relative pl-12">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 absolute top-0 left-0 mt-" viewBox="0 0 30.557 30.556"><g data-name="Group 455"><path data-name="Subtraction 1" d="M11.709 30.556a10.011 10.011 0 0 1-9.808-8.094L.186 13.628A10.012 10.012 0 0 1 8.095 1.9L16.929.185a9.989 9.989 0 0 1 11.724 7.909l1.717 8.834a10 10 0 0 1-7.908 11.725l-8.834 1.717a10.085 10.085 0 0 1-1.919.186Zm-1.93-15.778a1 1 0 0 0-.707 1.707l4 4a1 1 0 0 0 1.414 0l8-8a1 1 0 1 0-1.414-1.414l-7.294 7.293-3.292-3.293a.994.994 0 0 0-.707-.293Z" fill="#f9ab00"/></g></svg>
+                            <span>Page view data via Google Analytics API</span>  
+                        </li>
+                    
+                        <li class="relative pl-12">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 absolute top-0 left-0 mt-" viewBox="0 0 30.557 30.556"><g data-name="Group 455"><path data-name="Subtraction 1" d="M11.709 30.556a10.011 10.011 0 0 1-9.808-8.094L.186 13.628A10.012 10.012 0 0 1 8.095 1.9L16.929.185a9.989 9.989 0 0 1 11.724 7.909l1.717 8.834a10 10 0 0 1-7.908 11.725l-8.834 1.717a10.085 10.085 0 0 1-1.919.186Zm-1.93-15.778a1 1 0 0 0-.707 1.707l4 4a1 1 0 0 0 1.414 0l8-8a1 1 0 1 0-1.414-1.414l-7.294 7.293-3.292-3.293a.994.994 0 0 0-.707-.293Z" fill="#f9ab00"/></g></svg>
+                            <span>Custom block to display most popular posts</span>  
+                        </li>
+                    
+                        <li class="relative pl-12">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 absolute top-0 left-0 mt-" viewBox="0 0 30.557 30.556"><g data-name="Group 455"><path data-name="Subtraction 1" d="M11.709 30.556a10.011 10.011 0 0 1-9.808-8.094L.186 13.628A10.012 10.012 0 0 1 8.095 1.9L16.929.185a9.989 9.989 0 0 1 11.724 7.909l1.717 8.834a10 10 0 0 1-7.908 11.725l-8.834 1.717a10.085 10.085 0 0 1-1.919.186Zm-1.93-15.778a1 1 0 0 0-.707 1.707l4 4a1 1 0 0 0 1.414 0l8-8a1 1 0 1 0-1.414-1.414l-7.294 7.293-3.292-3.293a.994.994 0 0 0-.707-.293Z" fill="#f9ab00"/></g></svg>
+                            <span>Custom block to display most popular authors</span>  
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div>
+            <img src="images/bp-screenshot.png" alt="" class="-mt-11">
+        </div>
+    </div>
+</section>
+
+<section class="max-w-screen-xl mx-auto px-4 mt-32">
+    <h2 class="font-bold text-orange-400 text-3xl text-highlight-orange">Project Highlight</h2>
+    <p class="text-slate-100 text-lg mt-4 leading-relaxed w-1/2">A video player with a custom UI and controls built on the Vimeo Player JavaScript SDK.</p>
+
+    <div class="grid grid-cols-2 gap-12 mt-16">
+        <div>
+
+            <div class="bg-slate-900 p-8 rounded-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12" viewBox="0 0 194.404 54.963"><g data-name="Group 8" fill="#00adef"><path data-name="Path 1" d="M43.459 25.861q-.291 6.351-8.867 17.39-8.868 11.529-15 11.529-3.8 0-6.431-7.022L9.652 34.885Q7.7 27.866 5.464 27.863q-.488 0-3.413 2.049L.005 27.275q3.218-2.829 6.345-5.661 4.292-3.711 6.442-3.906 5.076-.488 6.248 6.942 1.267 8.016 1.757 9.969 1.464 6.65 3.221 6.648 1.365 0 4.1-4.314t2.927-6.568q.39-3.724-2.927-3.727a8.144 8.144 0 0 0-3.218.713q3.205-10.5 12.245-10.209 6.699.2 6.314 8.699Z"/><path data-name="Path 2" d="M70.296 39.576a32.9 32.9 0 0 1-7.518 9.364q-6.544 5.658-13.082 5.658a5.668 5.668 0 0 1-4.639-1.952 7.328 7.328 0 0 1-1.512-5.073 46.069 46.069 0 0 1 2-9.952q1.9-6.732 1.906-7.221 0-2.534-1.757-2.536-.586 0-3.321 2.049l-2.246-2.637q3.124-2.829 6.248-5.661 4.2-3.71 6.251-3.906a4.777 4.777 0 0 1 4.733 1.9 8.173 8.173 0 0 1 1.124 5.689q-1.271 5.936-2.736 15.076-.1 4.186 3.027 4.183 1.365 0 4.882-2.89a40.77 40.77 0 0 0 4.785-4.528Zm-8.494-34.72a6.877 6.877 0 0 1-2.442 4.665 8.729 8.729 0 0 1-6.248 2.525q-5.564 0-5.37-4.856.094-2.525 2.976-4.859A9.932 9.932 0 0 1 57.118 0a4.317 4.317 0 0 1 3.418 1.6 4.584 4.584 0 0 1 1.266 3.256Z"/><path data-name="Path 3" d="M131.266 39.576a32.89 32.89 0 0 1-7.518 9.364q-6.543 5.658-13.081 5.658-6.351 0-6.152-7.025a35.523 35.523 0 0 1 1.218-7.512 35.505 35.505 0 0 0 1.221-6.83q.1-3.707-2.254-3.709-2.546 0-6.071 6.054a26.97 26.97 0 0 0-4.017 12.3 14.433 14.433 0 0 0 .822 6.445q-6.813.2-9.539-2.245-2.439-2.149-2.24-7.127a26.317 26.317 0 0 1 .959-6.248 25.057 25.057 0 0 0 .959-5.567q.2-3.612-2.639-3.612-2.448 0-5.281 5.566a28.359 28.359 0 0 0-3.127 11.618q-.2 5.469.7 7.615-6.7.2-9.518-2.825-2.336-2.529-2.137-7.689a54.791 54.791 0 0 1 .9-7.059 54.8 54.8 0 0 0 .9-7.059q.192-1.75-.879-1.752-.586 0-3.321 1.975l-2.342-2.637q.488-.385 6.151-5.661 4.1-3.8 5.563-3.9a4.313 4.313 0 0 1 4.1 2.1 9.228 9.228 0 0 1 1.563 5.321 8.646 8.646 0 0 1-.194 1.855 17.975 17.975 0 0 1 3.418-3.906 17.354 17.354 0 0 1 10.055-4.394q4.784-.389 6.836 2.246a9.525 9.525 0 0 1 1.56 6.151c.457-.388.945-.813 1.467-1.27a25.927 25.927 0 0 1 4.391-4.2 14.5 14.5 0 0 1 7.518-2.93q4.686-.389 6.737 2.237 1.754 2.14 1.563 6.126a45.049 45.049 0 0 1-1.318 7.929 51 51 0 0 0-1.221 5.98 5.255 5.255 0 0 0 .391 2.822c.326.519 1.1.776 2.343.776q1.365 0 4.881-2.89a40.794 40.794 0 0 0 4.785-4.528Z"/><path data-name="Path 4" d="M167.878 39.475q-2.834 4.682-11.13 9.358a41.7 41.7 0 0 1-20.99 5.946q-7.909 0-11.327-5.27a14.445 14.445 0 0 1-2.342-8.591q.094-7.9 7.03-15.033a24.283 24.283 0 0 1 17.964-7.809q9.569 0 10.154 7.792.389 4.964-5.466 10.226a29.763 29.763 0 0 1-15.721 7.3 6.071 6.071 0 0 0 5.272 2.434 39.013 39.013 0 0 0 15.33-3.575 40.83 40.83 0 0 0 9.373-5.218Zm-22.163-10.194q.094-2.619-2.146-2.622-2.927 0-5.946 4.032a13.637 13.637 0 0 0-3.118 7.72 5.408 5.408 0 0 0 0 1.264 21.968 21.968 0 0 0 8.286-5.341q2.823-3.102 2.923-5.053Z"/><path data-name="Path 5" d="M194.381 32.931a23.209 23.209 0 0 1-6.639 15.5 20.615 20.615 0 0 1-15.524 6.531q-7.712 0-11.715-4.973a15.861 15.861 0 0 1-3.221-9.258q-.492-8.384 6.054-15.4a22.776 22.776 0 0 1 17.67-7.8q6.831 0 10.348 4.582 3.321 4.193 3.027 10.818Zm-11.033-.368a12.289 12.289 0 0 0-.733-4.842q-.83-2.2-2.391-2.2-4.981 0-8.2 5.381a18.9 18.9 0 0 0-2.93 9.389 8.381 8.381 0 0 0 .879 4.305A3.311 3.311 0 0 0 173 46.747q4.391 0 7.518-5.184a18.5 18.5 0 0 0 2.83-9Z"/></g></svg>
+                  
+                <ul class="mt-12 space-y-6 text-lg">
+                     
+                    
+                        <li class="relative pl-12">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 absolute top-0 left-0 mt-" viewBox="0 0 30.557 30.556"><g data-name="Group 455"><path data-name="Subtraction 1" d="M11.709 30.556a10.011 10.011 0 0 1-9.808-8.094L.186 13.628A10.012 10.012 0 0 1 8.095 1.9L16.929.185a9.989 9.989 0 0 1 11.724 7.909l1.717 8.834a10 10 0 0 1-7.908 11.725l-8.834 1.717a10.085 10.085 0 0 1-1.919.186Zm-1.93-15.778a1 1 0 0 0-.707 1.707l4 4a1 1 0 0 0 1.414 0l8-8a1 1 0 1 0-1.414-1.414l-7.294 7.293-3.292-3.293a.994.994 0 0 0-.707-.293Z" fill="#f9ab00"/></g></svg>
+                            <span>Custom controls via Vimeo Player API</span>  
+                        </li>
+                    
+                        <li class="relative pl-12">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 absolute top-0 left-0 mt-" viewBox="0 0 30.557 30.556"><g data-name="Group 455"><path data-name="Subtraction 1" d="M11.709 30.556a10.011 10.011 0 0 1-9.808-8.094L.186 13.628A10.012 10.012 0 0 1 8.095 1.9L16.929.185a9.989 9.989 0 0 1 11.724 7.909l1.717 8.834a10 10 0 0 1-7.908 11.725l-8.834 1.717a10.085 10.085 0 0 1-1.919.186Zm-1.93-15.778a1 1 0 0 0-.707 1.707l4 4a1 1 0 0 0 1.414 0l8-8a1 1 0 1 0-1.414-1.414l-7.294 7.293-3.292-3.293a.994.994 0 0 0-.707-.293Z" fill="#f9ab00"/></g></svg>
+                            <span>Style the player to match any brand</span>  
+                        </li>
+                    
+                        <li class="relative pl-12">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 absolute top-0 left-0 mt-" viewBox="0 0 30.557 30.556"><g data-name="Group 455"><path data-name="Subtraction 1" d="M11.709 30.556a10.011 10.011 0 0 1-9.808-8.094L.186 13.628A10.012 10.012 0 0 1 8.095 1.9L16.929.185a9.989 9.989 0 0 1 11.724 7.909l1.717 8.834a10 10 0 0 1-7.908 11.725l-8.834 1.717a10.085 10.085 0 0 1-1.919.186Zm-1.93-15.778a1 1 0 0 0-.707 1.707l4 4a1 1 0 0 0 1.414 0l8-8a1 1 0 1 0-1.414-1.414l-7.294 7.293-3.292-3.293a.994.994 0 0 0-.707-.293Z" fill="#f9ab00"/></g></svg>
+                            <span>Option to autoplay on scroll</span>  
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div>
+            <img src="images/vimeo-screenshot.png" alt="" class=" rounded-lg">
+        </div>
+    </div>
+</section>
+
+<section class="max-w-screen-md mx-auto px-4 mt-32">
+    <h2 class="font-bold text-orange-400 text-3xl text-highlight-orange">Articles</h2>
+    <article class="mt-16">
+        <h1 class="font-bold text-xl text-highlight-orange"><a href="/" class="text-orange-400">Remove white background from image – CSS solution.</a></h1>
+        <p class="text-slate-100 text-lg mt-4 leading-relaxed">So I’m building a premium WP theme tailored for Affiliates and product review websites – and I’m hoping to release it later this year. I was just working on a product review demo page where I’ve uploaded an image of a MacBook Pro and I wanted to change the background color for the header o</p>
+        <span class="flex items-center space-x-4 mt-4 text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+            <span>Sep 14, 2021</span>
+        </span>
+    </article>
+
+    <article class="mt-16">
+        <h1 class="font-bold text-xl text-highlight-orange"><a href="/" class="text-orange-400">Remove white background from image – CSS solution.</a></h1>
+        <p class="text-slate-100 text-lg mt-4 leading-relaxed">So I’m building a premium WP theme tailored for Affiliates and product review websites – and I’m hoping to release it later this year. I was just working on a product review demo page where I’ve uploaded an image of a MacBook Pro and I wanted to change the background color for the header o</p>
+        <span class="flex items-center space-x-4 mt-4 text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+            <span>Sep 14, 2021</span>
+        </span>
+    </article>
+
+    <article class="mt-16">
+        <h1 class="font-bold text-xl text-highlight-orange"><a href="/" class="text-orange-400">Remove white background from image – CSS solution.</a></h1>
+        <p class="text-slate-100 text-lg mt-4 leading-relaxed">So I’m building a premium WP theme tailored for Affiliates and product review websites – and I’m hoping to release it later this year. I was just working on a product review demo page where I’ve uploaded an image of a MacBook Pro and I wanted to change the background color for the header o</p>
+        <span class="flex items-center space-x-4 mt-4 text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+            <span>Sep 14, 2021</span>
+        </span>
+    </article>
+
+    <a href="" class="flex items-center space-x-2 inline-block mt-16">
+        <span>View more articles</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-3" fill="currentColor" viewBox="0 0 14.903 14.903"><g data-name="Icon feather-arrow-up-right" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"><path data-name="Path 513" d="M2.121 12.782 12.782 2.121"/><path data-name="Path 514" d="M2.121 2.121h10.661v10.661"/></g></svg>
+    </a>
+</section>
+    </main>
+    <script defer src="js/app.js"></script>
+</body>
+</html>
