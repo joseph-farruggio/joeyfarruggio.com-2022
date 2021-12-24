@@ -8,6 +8,7 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy({ "src/_fonts/*": "fonts" }); 
     eleventyConfig.addPlugin(syntaxHighlight);
     
+    
     let options = {
       // optional, these are default options
       html: true,
@@ -20,9 +21,6 @@ module.exports = function(eleventyConfig) {
 
     eleventyConfig.setLibrary("md", markdownLib);
 
-    eleventyConfig.addFilter("relativeURL", function(url) {
-      return 'https://joseph-farruggio.github.io/joeyfarruggio.com-2022' + url;
-    });
 
     // /* Markdown Overrides */
     // let markdownLibrary = markdownIt({
@@ -70,6 +68,7 @@ module.exports = function(eleventyConfig) {
       });
 
     return {
+        pathPrefix: "https://joseph-farruggio.github.io/joeyfarruggio.com-2022",
         dir: {
             input: "src",
             output: "public"

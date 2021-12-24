@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
     <meta name="description" content="{{ page.description }}">
-    <link rel="stylesheet" href="{{ '/styles.css' | relativeURL }}">
+    <link rel="stylesheet" href="{{ '/styles.css' | url }}">
     <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
 </head>
 <body class="bg-[#040817] text-white font-body">
     <header class="">
         <nav class="space-x-6 max-w-screen-xl mx-auto px-4 py-8 relative z-10">
-            <a href="{{ '/' | relativeURL }}" class="text-slate-500 transition-colors hover:text-white  no-underline  px-4 py-3 rounded-lg">Home</a>
+            <a href="{{ '/' | url }}" class="text-slate-500 transition-colors hover:text-white  no-underline  px-4 py-3 rounded-lg">Home</a>
             <a href="#" class="text-slate-500 transition-colors hover:text-white  no-underline  px-4 py-3 rounded-lg">Contact</a>
-            <a href="{{ '/blog' | relativeURL }}" class="text-slate-500 transition-colors hover:text-white  no-underline  px-4 py-3 rounded-lg">Blog</a>
+            <a href="{{ '/blog' | url }}" class="text-slate-500 transition-colors hover:text-white  no-underline  px-4 py-3 rounded-lg">Blog</a>
         </nav>
     </header>
     
@@ -25,6 +25,6 @@
     <footer class="py-16 bg-slate-900 mt-16"> 
 
     </footer>
-    <script defer src="{{ '/js/app.js' | relativeURL }}"></script>
+    <script defer src="{{ '/js/app.js' | url }}"></script>
 </body>
 </html>
