@@ -5,11 +5,12 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@master
+      - name: NPM Install
+        run: npm ci
       - name: Build
-        uses: TartanLlama/actions-eleventy@v1.1
-        with:
-          args: --output public
-          install_dependencies: true
+        run: npx eleventy
+        run: npx tailwindcss -i ./src/styles.css -o ./public/styles.css
+        run: ./node_modules/.bin/esbuild src/js/app.js --bundle --outfile=public/js/app.js
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v1.1.0
         env:
