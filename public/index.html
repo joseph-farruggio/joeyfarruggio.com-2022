@@ -21,7 +21,7 @@
     <main class="">
         
 <div class="relative" x-data="{showLeft: false, showRight: false}" x-init="showLeft = true;showRight = true">
-    <section class="grid grid-cols-2 gap-12 items-center max-w-screen-xl mx-auto px-4 py-8 relative z-10">
+    <section class="md:grid grid-cols-2 gap-12 items-center max-w-screen-xl mx-auto px-4 py-8 relative z-10">
         <div class="transition ease-in opacity-0 translate-y-4 delay-200 duration-500" :class="{'opacity-100 translate-y-0': showLeft, 'opacity-0 translate-y-4': !showLeft}">
             <h1 class="font-bold">
                 <span class="text-orange-400 text-4xl text-highlight-orange">Joey Farruggio</span> <br> 
@@ -39,26 +39,26 @@
                 </a>
             </div>
         </div>
-        <div>
+        <div class="mt-16 md:mt-0">
             <img src="images/avatar.jpg" alt="" class="w-full h-[40rem] object-cover rounded-lg shadow-xl shadow-slate-950">
         </div>
     </section>
     <div class="bg-slate-900 h-full w-96 absolute top-0 right-0 rounded-l-lg"></div>
 </div>
 
-<section class="grid grid-cols-12 gap-12 max-w-screen-xl mx-auto px-4 mt-32">
+<section class="md:grid grid-cols-12 gap-12 max-w-screen-xl mx-auto px-4 mt-32">
     <div class="col-start-1 col-end-6 row-start-1 row-end-2">
         <h2 class="font-bold text-orange-400 text-3xl text-highlight-orange">What I’m up to currently</h2>
         <p class="text-slate-100 text-lg mt-4 leading-relaxed">I’m contracting with two main clients currently, BiggerPockets and Vimeo. I’m building and managing custom WordPress themes that get millions of visitors a year.</p>
     </div>
 
-    <div class="pl-12 -mr-12 col-start-6 col-end-13 row-start-1 row-end-2">
+    <div class="mt-16 md:mt-0 md:pl-12 md:-mr-12 col-start-6 col-end-13 row-start-1 row-end-2">
         <div x-data="{show: false}"     
-            x-intersect.full="show = true"
-            class="bg-slate-900 py-6 px-8 rounded-lg flex space-x-8 items-center transition  delay-200 duration-500 ease-in opacity-0 translate-y-4" 
+            x-intersect.half="show = true"
+            class="bg-slate-900 py-6 px-8 rounded-lg md:flex md:space-x-8 items-center transition  delay-200 duration-500 ease-in opacity-0 translate-y-4" 
             :class="{'opacity-100 translate-y-0': show, 'opacity-0 translate-y-4': !show}">
-            <img src="images/katie.jpg" alt="" class="rounded-lg -ml-20 w-60">
-            <div>
+            <img src="images/katie.jpg" alt="" class="rounded-lg -mt-12 mx-auto md:-ml-20 w-60">
+            <div class="mt-8 md:mt-0">
                 <p class="leading-relaxed ">Joey Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil doloremque tenetur, nostrum blanditiis necessitatibus ipsam consequatur vero. Nihil doloremque tenetur, nostrum blanditiis necessitatibus.</p>
                 <p class="mt-4">
                     Katie Miller <br>
@@ -68,13 +68,13 @@
         </div>
     </div>
 
-    <div class=" col-start-4 col-end-11 row-start-2 row-end-3">
+    <div class="mt-16 md:mt-0 col-start-4 col-end-11 row-start-2 row-end-3">
         <div x-data="{show: false}"     
-            x-intersect.full="show = true"
-            class="bg-slate-900 py-6 px-8 rounded-lg flex space-x-8 items-center transition  delay-200 duration-500 ease-in opacity-0 translate-y-4" 
+            x-intersect.half="show = true"
+            class="bg-slate-900 py-6 px-8 rounded-lg md:flex md:space-x-8 items-center transition  delay-200 duration-500 ease-in opacity-0 translate-y-4" 
             :class="{'opacity-100 translate-y-0': show, 'opacity-0 translate-y-4': !show}">
-            <img src="images/robyn.jpg" alt="" class="rounded-lg -ml-20 w-60">
-            <div>
+            <img src="images/robyn.jpg" alt="" class="rounded-lg -mt-12 mx-auto md:-ml-20 w-60">
+            <div class="mt-8 md:mt-0">
                 <p class="leading-relaxed ">Joey Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil doloremque tenetur, nostrum blanditiis necessitatibus ipsam consequatur vero. Nihil doloremque tenetur, nostrum blanditiis necessitatibus.</p>
                 <p class="mt-4">
                     Robyn Shower <br>
@@ -87,11 +87,11 @@
 
 <section class="max-w-screen-xl mx-auto px-4 mt-32">
     <h2 class="font-bold text-orange-400 text-3xl text-highlight-orange">Project Highlight</h2>
-    <p class="text-slate-100 text-lg mt-4 w-1/2 leading-relaxed">A custom module that displays blog posts sorted by page view counts pulled from the Google Analytics API.</p>
+    <p class="text-slate-100 text-lg mt-4 md:w-1/2 leading-relaxed">A custom module that displays blog posts sorted by page view counts pulled from the Google Analytics API.</p>
 
-    <div class="grid grid-cols-2 gap-12 mt-16 transition  delay-200 duration-500 ease-in opacity-0 translate-y-4"
+    <div class="md:grid grid-cols-2 gap-12 mt-16 transition  delay-200 duration-500 ease-in opacity-0 translate-y-4"
     x-data="{show: false}"     
-    x-intersect.full="show = true"
+    x-intersect.half="show = true"
     :class="{'opacity-100 translate-y-0': show, 'opacity-0 translate-y-4': !show}">
         <div>
 
@@ -138,7 +138,7 @@
                 </ul>
             </div>
         </div>
-        <div>
+        <div class="mt-16 md:mt-0">
             <img src="images/bp-screenshot.png" alt="" class="-mt-11">
         </div>
     </div>
@@ -146,11 +146,11 @@
 
 <section class="max-w-screen-xl mx-auto px-4 mt-32">
     <h2 class="font-bold text-orange-400 text-3xl text-highlight-orange">Project Highlight</h2>
-    <p class="text-slate-100 text-lg mt-4 leading-relaxed w-1/2">A video player with a custom UI and controls built on the Vimeo Player JavaScript SDK.</p>
+    <p class="text-slate-100 text-lg mt-4 leading-relaxed md:w-1/2">A video player with a custom UI and controls built on the Vimeo Player JavaScript SDK.</p>
 
-    <div class="grid grid-cols-2 gap-12 mt-16 transition  delay-200 duration-500 ease-in opacity-0 translate-y-4"
+    <div class="md:grid grid-cols-2 gap-12 mt-16 transition  delay-200 duration-500 ease-in opacity-0 translate-y-4"
     x-data="{show: false}"     
-    x-intersect.full="show = true"
+    x-intersect.half="show = true"
     :class="{'opacity-100 translate-y-0': show, 'opacity-0 translate-y-4': !show}">
         <div>
 
@@ -178,7 +178,7 @@
                 </ul>
             </div>
         </div>
-        <div>
+        <div class="mt-16 md:mt-0">
             <img src="images/vimeo-screenshot.png" alt="" class=" rounded-lg">
         </div>
     </div>
