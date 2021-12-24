@@ -7,9 +7,11 @@ jobs:
       - uses: actions/checkout@master
       - name: NPM Install
         run: npm ci
-      - name: Build
+      - name: Build Eleventy
         run: npx eleventy
+      - name: Build Tailwind
         run: npx tailwindcss -i ./src/styles.css -o ./public/styles.css
+      - name: Build JS
         run: ./node_modules/.bin/esbuild src/js/app.js --bundle --outfile=public/js/app.js
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v1.1.0
