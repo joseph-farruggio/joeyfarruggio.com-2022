@@ -1,6 +1,3 @@
-name: Eleventy Build
-
-
 on:
   push:
     branches:
@@ -12,8 +9,8 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v2
-      - name: Build
-        uses: TartanLlama/actions-eleventy@v1.1
+      - run: npm ci
+      - run: npm run build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with: 
