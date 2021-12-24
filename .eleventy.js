@@ -2,11 +2,15 @@ const { DateTime } = require("luxon");
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const markdownIt = require("markdown-it");
 const markdownItAttrs = require('markdown-it-attrs');
+var ghpages = require('gh-pages');
+
+ghpages.publish('public', function(err) {});
 
 module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy({ "src/_images/*": "images" });
     eleventyConfig.addPassthroughCopy({ "src/_fonts/*": "fonts" }); 
     eleventyConfig.addPlugin(syntaxHighlight);
+    
     
     
     let options = {
