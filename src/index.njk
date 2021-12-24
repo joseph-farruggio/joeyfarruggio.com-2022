@@ -72,7 +72,10 @@ layout: "base.njk"
     <h2 class="font-bold text-orange-400 text-3xl text-highlight-orange">Project Highlight</h2>
     <p class="text-slate-100 text-lg mt-4 w-1/2 leading-relaxed">A custom module that displays blog posts sorted by page view counts pulled from the Google Analytics API.</p>
 
-    <div class="grid grid-cols-2 gap-12 mt-16">
+    <div class="grid grid-cols-2 gap-12 mt-16 transition  delay-200 duration-500 ease-in opacity-0 translate-y-4"
+    x-data="{show: false}"     
+    x-intersect.full="show = true"
+    :class="{'opacity-100 translate-y-0': show, 'opacity-0 translate-y-4': !show}">
         <div>
 
             <div class="bg-slate-900 p-8 rounded-lg">
@@ -121,7 +124,10 @@ layout: "base.njk"
     <h2 class="font-bold text-orange-400 text-3xl text-highlight-orange">Project Highlight</h2>
     <p class="text-slate-100 text-lg mt-4 leading-relaxed w-1/2">A video player with a custom UI and controls built on the Vimeo Player JavaScript SDK.</p>
 
-    <div class="grid grid-cols-2 gap-12 mt-16">
+    <div class="grid grid-cols-2 gap-12 mt-16 transition  delay-200 duration-500 ease-in opacity-0 translate-y-4"
+    x-data="{show: false}"     
+    x-intersect.full="show = true"
+    :class="{'opacity-100 translate-y-0': show, 'opacity-0 translate-y-4': !show}">
         <div>
 
             <div class="bg-slate-900 p-8 rounded-lg">
