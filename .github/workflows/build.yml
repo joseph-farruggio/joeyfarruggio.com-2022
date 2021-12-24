@@ -18,4 +18,4 @@ jobs:
         env:
           PUBLISH_DIR: public
           PUBLISH_BRANCH: master
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
