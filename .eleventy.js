@@ -20,6 +20,9 @@ module.exports = function(eleventyConfig) {
 
     eleventyConfig.setLibrary("md", markdownLib);
 
+    eleventyConfig.addFilter("relativeURL", function(url) {
+      return 'https://joseph-farruggio.github.io/joeyfarruggio.com-2022' + url;
+    });
 
     // /* Markdown Overrides */
     // let markdownLibrary = markdownIt({
