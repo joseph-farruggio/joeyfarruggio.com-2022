@@ -1,18 +1,18 @@
-on:
-  push:
-    branches:
-      - master
-      
+on: [push]
+
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  build_deploy:
+    runs-on: ubuntu-18.04
     steps:
-      - name: Git Checkout
-        uses: actions/checkout@v2
-      - run: npm ci
-      - run: npm run build
+      - uses: actions/checkout@master
+      - name: Build
+        uses: TartanLlama/actions-eleventy@v1.1
+        with:
+          args: --output public
+          install_dependencies: true
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with: 
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./public
+        uses: peaceiris/actions-gh-pages@v1.1.0
+        env:
+          PUBLISH_DIR: public
+          PUBLISH_BRANCH: master
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
