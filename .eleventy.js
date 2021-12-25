@@ -3,7 +3,9 @@ const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const markdownIt = require("markdown-it");
 const markdownItAttrs = require('markdown-it-attrs');
 var ghpages = require('gh-pages');
+var fs = require('fs');
 
+fs.writeFile('public/CNAME', "joeyfarruggio.com", function(err) {});
 ghpages.publish('public', function(err) {});
 
 module.exports = function(eleventyConfig) {
