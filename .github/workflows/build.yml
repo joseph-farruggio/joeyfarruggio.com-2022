@@ -17,5 +17,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v1.1.0
         env:
           PUBLISH_DIR: public
-          PUBLISH_BRANCH: master
+          PUBLISH_BRANCH: gh-pages
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

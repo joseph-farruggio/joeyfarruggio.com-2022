@@ -2,6 +2,7 @@ module.exports = {
   important: true,
   content: [
     "./public/*.html",
+    "./public/**/index.html",
     "./public/blog/*/*.html",
 
   ],
