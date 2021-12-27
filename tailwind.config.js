@@ -11,7 +11,11 @@ module.exports = {
     fontFamily: {
       'body': ['Qucksand', 'Helvetica', 'Arial', 'sans-serif'],
     },
-    extend: {},
+    extend: {
+      colors: {
+        darkBG:  '#040817',
+      }
+    },
   },
   plugins: [
     require('@tailwindcss/typography'),
