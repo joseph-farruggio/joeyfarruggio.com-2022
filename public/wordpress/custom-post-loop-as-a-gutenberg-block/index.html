@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>6-Step Guide To Custom Post Loop Gutenberg Blocks</title>
     <meta name="description" content="">
-    <link rel="stylesheet" href="/styles.css">
-    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
-
+    <script defer src="/js/app.js"></script>
     <script>
         // On page load or when changing themes, best to add inline in `head` to avoid FOUC
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -17,9 +15,10 @@
             document.documentElement.classList.remove('dark')
         }
     </script>
-    
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
 </head>
-<body x-data="app()" class="bg-white dark:bg-darkBG transition-colors dark:text-white text-slate-800 font-body">
+<body x-data="app()" class="bg-white dark:bg-[#040817] transition-colors dark:text-white text-slate-800 font-body">
     <header class="flex items-center justify-between max-w-screen-xl mx-auto px-4 py-8">
         <nav class="space-x-6">
             <a href="/" class="dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Home</a>
@@ -130,6 +129,5 @@ select : Select Posts
     <footer class="py-16 bg-slate-900 mt-16"> 
 
     </footer>
-    <script defer src="/js/app.js"></script>
 </body>
 </html>

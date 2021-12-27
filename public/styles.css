@@ -1769,7 +1769,7 @@ iframe {
   background-color: rgb(30 41 59 / var(--tw-bg-opacity)) !important;
 }
 
-.dark .dark\:bg-darkBG {
+.dark .dark\:bg-\[\#040817\] {
   --tw-bg-opacity: 1 !important;
   background-color: rgb(4 8 23 / var(--tw-bg-opacity)) !important;
 }
