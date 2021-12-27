@@ -3,23 +3,31 @@
 @tailwind utilities;
 
 @layer components {
-    .text-highlight-orange {
+    .dark .text-highlight-orange {
         filter: drop-shadow(0 0 18px rgba(255,166,44,.6));
         @apply bg-clip-text text-transparent;
     }
-    .text-highlight-white {
+    .dark .text-highlight-white {
         filter: drop-shadow(0 0 18px rgba(255,255,255,.4));
         @apply bg-clip-text text-transparent;
     }
     /* ... */
 }
 
+
 a {
-    @apply transition-colors hover:text-orange-400;
+    @apply underline-offset-4 transition-colors hover:text-orange-400;
 }
 
+p, li {
+    @apply text-slate-500 text-xl leading-relaxed dark:text-white text-slate-600;
+}
 .prose img {
-    @apply rounded-lg shadow-lg shadow-slate-900 !important;
+    @apply rounded-lg shadow-lg dark:shadow-slate-900 !important;
+}
+
+iframe {
+    max-width: 100%;
 }
 
 [x-cloak] {

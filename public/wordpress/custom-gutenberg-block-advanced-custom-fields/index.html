@@ -8,23 +8,37 @@
     <meta name="description" content="">
     <link rel="stylesheet" href="/styles.css">
     <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+    <script>
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
 </head>
-<body class="bg-[#040817] text-white font-body">
-    <header class="">
-        <nav class="space-x-6 max-w-screen-xl mx-auto px-4 py-8 relative z-10">
-            <a href="/" class="text-slate-500 transition-colors hover:text-white  no-underline  px-4 py-3 rounded-lg">Home</a>
-            <a href="/contact" class="text-slate-500 transition-colors hover:text-white  no-underline  px-4 py-3 rounded-lg">Contact</a>
-            <a href="/blog" class="text-slate-500 transition-colors hover:text-white  no-underline  px-4 py-3 rounded-lg">Blog</a>
+<body x-data="app()" class="bg-white dark:bg-[#040817] transition-colors dark:text-white text-slate-800 font-body">
+    <header class="flex items-center justify-between max-w-screen-xl mx-auto px-4 py-8">
+        <nav class="space-x-6">
+            <a href="/" class="dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Home</a>
+            <a href="/contact" class="dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Contact</a>
+            <a href="/blog" class="dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Blog</a>
         </nav>
+        <button x-on:click="toggleTheme()" class="relative flex items-center justify-between border dark:border-slate-800 bg-white dark:bg-slate-900 border-slate-200 px-4 py-2 rounded-full outline-none focus:outline-none shadow-none">
+            <div class="h-full aspect-square border-slate-300 bg-white dark:bg-slate-800 rounded-full shadow-lg absolute top-0 left-0 dark:-ml-10 dark:left-full transition-transform"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="relative h-6 w-6 dark:text-slate-400 text-orange-400 -ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="relative h-6 w-6 dark:text-orange-400 text-slate-300 ml-4 -mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+        </button>
     </header>
     
     <main class="">
-        <article class="prose prose-invert lg:prose-xl max-w-screen-md mx-auto px-4 mt-12">
+        <article id="post" class="prose lg:prose-xl max-w-screen-md mx-auto px-4 mt-12" :class="{'prose-invert': dark}">
     <h1 class="text-orange-400 text-4xl text-highlight-orange">Create a Hero Block with Gutenberg and Advanced Custom Fields</h1>
     <span class="flex items-center space-x-4 mt-4 text-gray-400">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
         <time datetime="2018-11-08">08 Nov 2018</time>
     </span>
+    <div class="mt-16"></div>   
     <p>6 steps in this guide:</p>
 <ol>
 <li><a href="#register-block">Registering your block</a></li>

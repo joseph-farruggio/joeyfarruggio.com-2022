@@ -3282,8 +3282,70 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   }
   var module_default2 = src_default2;
 
+  // node_modules/@alpinejs/persist/dist/module.esm.js
+  function src_default3(Alpine2) {
+    let persist = () => {
+      let alias;
+      let storage = localStorage;
+      return Alpine2.interceptor((initialValue, getter, setter, path, key) => {
+        let lookup = alias || `_x_${path}`;
+        let initial = storageHas(lookup, storage) ? storageGet(lookup, storage) : initialValue;
+        setter(initial);
+        Alpine2.effect(() => {
+          let value = getter();
+          storageSet(lookup, value, storage);
+          setter(value);
+        });
+        return initial;
+      }, (func) => {
+        func.as = (key) => {
+          alias = key;
+          return func;
+        }, func.using = (target) => {
+          storage = target;
+          return func;
+        };
+      });
+    };
+    Object.defineProperty(Alpine2, "$persist", { get: () => persist() });
+    Alpine2.magic("persist", persist);
+  }
+  function storageHas(key, storage) {
+    return storage.getItem(key) !== null;
+  }
+  function storageGet(key, storage) {
+    return JSON.parse(storage.getItem(key, storage));
+  }
+  function storageSet(key, value, storage) {
+    storage.setItem(key, JSON.stringify(value));
+  }
+  var module_default3 = src_default3;
+
   // src/js/app.js
   module_default.plugin(module_default2);
+  module_default.plugin(module_default3);
+  document.addEventListener("alpine:init", () => {
+    module_default.data("app", () => ({
+      dark: true,
+      toggleTheme() {
+        if (window.localStorage.theme === "dark") {
+          document.documentElement.classList.remove("dark");
+          window.localStorage.theme = null;
+        } else {
+          document.documentElement.classList.add("dark");
+          window.localStorage.theme = "dark";
+        }
+        this.dark = !this.dark;
+      },
+      init() {
+        if (localStorage.theme === "dark" || !("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          this.dark = true;
+        } else {
+          this.dark = false;
+        }
+      }
+    }));
+  });
   window.Alpine = module_default;
   module_default.start();
 })();
