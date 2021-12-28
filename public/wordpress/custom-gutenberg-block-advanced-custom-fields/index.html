@@ -15,14 +15,22 @@
             document.documentElement.classList.remove('dark')
         }
     </script>
+    <style>
+        .dark body {
+            background-color: #040817;
+        }
+        body {
+            background-color: #fff;
+        }
+    </style>
     <link rel="stylesheet" href="/styles.css">
     <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
     <!-- test -->
 </head>
-<body x-data="app()" class="bg-white dark:bg-[#040817] transition-colors dark:text-white text-slate-800 font-body">
+<body x-data="app()" class="transition-colors dark:text-white text-slate-800 font-body">
     <header class="max-w-screen-xl mx-auto px-4 py-4 md:py-8 text-right" x-data="{menuOpen: false}">
         <div class="hidden fixed md:static top-0 left-0 h-screen w-screen md:h-auto md:w-full z-40 pt-32 pb-16 md:p-0 bg-white dark:bg-darkBG md:bg-transparent dark:md:bg-transparent md:flex md:items-center md:justify-between" :class="{'block': menuOpen, 'hidden': !menuOpen}">
-            <nav class="text-center flex flex-col md:block text-2xl md:space-x-6">
+            <nav class="text-center flex flex-col md:block text-2xl md:text-lg md:space-x-6">
                 <a href="/" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Home</a>
                 <a href="/contact" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Contact</a>
                 <a href="/blog" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Blog</a>
