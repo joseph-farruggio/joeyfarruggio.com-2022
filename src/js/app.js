@@ -8,6 +8,16 @@ Alpine.plugin(persist);
 document.addEventListener('alpine:init', () => {
     Alpine.data('app', () => ({
         dark: true,
+        showAll: false,
+
+        showTestimonials() {
+            this.showAll = !this.showAll;
+            if (!this.showAll) {
+                document.getElementById('testimonials').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        },
 
         toggleTheme() {
             if (window.localStorage.theme === 'dark') {

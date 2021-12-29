@@ -1,0 +1,17 @@
+ <figure class="relative flex flex-col-reverse bg-gray-50 rounded-lg p-6 dark:bg-gray-800 dark:highlight-white/5">
+    <blockquote class="mt-6 text-gray-700 dark:text-gray-300">
+        <p>{{ testimonial.body }}</p>
+    </blockquote>
+    <figcaption class="flex items-center space-x-4">
+        <img src="/images/{{ testimonial.image }}" alt="" class="flex-none w-14 h-14 rounded-full object-cover" loading="lazy">
+        <div class="flex-auto">
+            <div class="text-base text-gray-900 font-semibold dark:text-gray-300">
+                <a href="#" tabindex="0">
+                    <span class="absolute inset-0"></span>
+                    {{ testimonial.name }}
+                </a>
+            </div>
+            <div class="mt-0.5">{{ testimonial.name }}</div>
+        </div>
+    </figcaption>
+</figure>

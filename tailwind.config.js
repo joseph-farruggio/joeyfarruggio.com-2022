@@ -1,5 +1,6 @@
 module.exports = {
   important: true,
+  mode: 'jit',
   darkMode: 'class',
   content: [
     "./public/*.html",

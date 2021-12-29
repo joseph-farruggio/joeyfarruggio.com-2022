@@ -3327,6 +3327,15 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   document.addEventListener("alpine:init", () => {
     module_default.data("app", () => ({
       dark: true,
+      showAll: false,
+      showTestimonials() {
+        this.showAll = !this.showAll;
+        if (!this.showAll) {
+          document.getElementById("testimonials").scrollIntoView({
+            behavior: "smooth"
+          });
+        }
+      },
       toggleTheme() {
         if (window.localStorage.theme === "dark") {
           document.documentElement.classList.remove("dark");
