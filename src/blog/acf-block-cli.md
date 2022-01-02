@@ -34,7 +34,7 @@ I'll definitely continue with the rest of the course. Ahmad is very enjoyable to
 
 ## How to use the create-acf-block CLI
 
-When you first run the CLI within your project, you'll be promoted to specify some project preferences:
+When you first run the CLI within your project, you'll be prompted to specify some project preferences:
 
 1. The path to your block registration file. This could be your functions.php file or something like `/inc/acf-blocks.php`.
 1. The path to your block render templates. This is where the CLI will create your block template files.
@@ -103,5 +103,9 @@ Otherwise, assets will be grouped by file type:
 │   quote.js
 ```
 
-7. createAssets()
+7. createAssets()  
    Optionally create the block CSS and JS and place them in the appropriate folder.
+
+And that's it! I was pretty pleased with how easily this all came together. And it took me less than a days worth of work to figure it out and build it. The best part is that I'm totally using this on three or four projects already. It's very helpful!
+
+If you want you checkout the code you can find it at https://github.com/joseph-farruggio/create-acf-block.
