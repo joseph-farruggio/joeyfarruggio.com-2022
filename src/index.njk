@@ -198,11 +198,7 @@ description: Joey Farruggio is a front-end engineer and designer based in Wiscon
 <section class="max-w-screen-md mx-auto px-4 mt-32">
     <h2 class="font-bold dark:text-orange-400 text-slate-900 text-3xl text-highlight-orange">Articles</h2>
 
-    {% for post in collections.blog %}
-        {% if post.data.hidden != true %}
-            {% include "postListItem.njk" %}    
-        {% endif %}
-    {% endfor %}
+    {% include "postsList.njk" %}
 
     <a href="{{ '/blog' | url }}" class="flex items-center space-x-2 inline-block mt-16">
         <span>View more articles</span>

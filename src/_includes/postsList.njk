@@ -1,0 +1,5 @@
+{% for post in collections.blog | reverse %}
+    {% if post.data.hidden != true %}
+        {% include "postListItem.njk" %}    
+    {% endif %}
+{% endfor %}
