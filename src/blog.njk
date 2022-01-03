@@ -2,11 +2,39 @@
 title: Blog | Joey Farruggio
 layout: "layouts/home.njk"
 description: Joey Farruggio is a front-end engineer and designer based in Wisconsin.
+permalink: "blog/{% if pagination.pageNumber > 0 %}page-{{ pagination.pageNumber + 1 }}/{% endif %}index.html"
+pagination:
+  data: collections.blog
+  size: 4
+  reverse: true
+  alias: blog
 ---
 
 <section class="max-w-screen-md mx-auto px-4 mt-32">
     <h2 class="font-bold text-orange-400 text-3xl text-highlight-orange">Articles</h2>
 
-    {% include "postsList.njk" %}
+    {% for post in blog %}
+        
+        {% include "postListItem.njk" %}    
+        
+    {% endfor %}
+
+    <ol class="max-w-xs mx-auto flex items-center justify-between mt-32">
     
+        <li>
+            {% if pagination.href.previous %}
+                <a href="{{ pagination.href.previous }}" class="bg-orange-100 text-orange-600 dark:text-white dark:bg-white dark:bg-opacity-10 px-4 py-3 rounded-md">Previous</a>
+            {% else %}
+                <span class="opacity-50">Previous</span>
+            {% endif %}
+        </li>
+    
+        <li>
+            {% if pagination.href.next %}
+                <a href="{{ pagination.href.next }}" class="bg-orange-100 text-orange-600 dark:text-white dark:bg-white dark:bg-opacity-10 px-4 py-3 rounded-md">Next</a>
+            {% else %}
+                <span class="opacity-50">Next</span>
+            {% endif %}
+        </li>
+    </ol>
 </section>
