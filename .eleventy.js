@@ -5,15 +5,21 @@ const markdownItAttrs = require('markdown-it-attrs');
 var ghpages = require('gh-pages');
 var fs = require('fs');
 
+const sitemap = require("@quasibit/eleventy-plugin-sitemap");
+
 fs.writeFile('public/CNAME', "joeyfarruggio.com", function(err) {});
 ghpages.publish('public', function(err) {});
 
 module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy({ "src/_images/*": "images" });
     eleventyConfig.addPassthroughCopy({ "src/_fonts/*": "fonts" }); 
+    
     eleventyConfig.addPlugin(syntaxHighlight);
-    
-    
+    eleventyConfig.addPlugin(sitemap, {
+      sitemap: {
+        hostname: "https://joeyfarruggio.com",
+      },
+    });
     
     let options = {
       // optional, these are default options
