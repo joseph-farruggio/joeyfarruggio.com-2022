@@ -57,7 +57,7 @@ In the block markup, we'll replace any instances of `get_field()`, `the_field()`
 <div class="hero">
 	<h1><?= $args['heading']; ?></h1>
 	<h2><?= $args['sub_heading']; ?></h2>
-	<img src="<?= $args['image']; ?>" />
+	<img src="<?= esc_url( $args['image'] ); ?>" />
 </div>
 ```
 
