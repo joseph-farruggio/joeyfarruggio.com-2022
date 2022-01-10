@@ -35,14 +35,16 @@ description: Joey Farruggio is a front-end engineer and designer based in Wiscon
     <h2 class="text-center font-bold text-orange-400 text-3xl text-highlight-orange">Happy Clients</h2>
     <p class="text-center mx-auto mt-4 md:w-1/2">When you absolutely love what you do, and you're good at it, it's easy to make folks really happy.</p>
     
-    <div class="mt-12 grid grid-cols-1 gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3" id="testimonials">
+    <div class="mt-12 grid grid-cols-1 gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3" id="testimonials" x-data="{shown: false}" x-intersect="shown = true">
         {% for testimonial in testimonials %}
-                <figure class="relative flex flex-col-reverse justify-end bg-gray-50 rounded-lg p-6 dark:bg-slate-900 dark:highlight-white/5">
+                <figure 
+                    x-data="{url: '/images/{{ testimonial.image }}'}"
+                    class="relative flex flex-col-reverse justify-end bg-gray-50 rounded-lg p-6 dark:bg-slate-900 dark:highlight-white/5">
                     <blockquote class="mt-6 text-gray-700 text-base opacity-75 dark:text-gray-300">
                         <p>{{ testimonial.body }}</p>
                     </blockquote>
                     <figcaption class="flex items-center space-x-4">
-                        <img src="/images/{{ testimonial.image }}" alt="" class="flex-none w-14 h-14 rounded-full object-cover" loading="lazy">
+                        <img :src="!shown || url" alt="" class="flex-none w-14 h-14 rounded-full object-cover" loading="lazy">
                         <div class="flex-auto">
                             <span class="text-lg">{{ testimonial.name }}</span>
                             <span class="mt-0.5 block opacity-60">{{ testimonial.title }}</span>
@@ -155,9 +157,8 @@ description: Joey Farruggio is a front-end engineer and designer based in Wiscon
                 </ul>
             </div>
         </div>
-        <div class="mt-16 dark:md:mt-0 relative">
-            <img src="images/bp-screenshot-2.png" alt="" class="dark:md:-mt-7 md:-mt-20 rounded-lg">
-            <!-- <div class="bg-gradient-to-t dark:hidden from-slate-100 to-transparent h-full w-full absolute top-0 left-0"></div> -->
+        <div class="mt-16 dark:md:mt-0 relative" x-data="{url: null}" x-intersect="url = 'images/bp-screenshot-2.png'">
+            <img :src="url" alt="" class="dark:md:-mt-7 md:-mt-20 rounded-lg">
         </div>
     </div>
 </section>
@@ -189,8 +190,8 @@ description: Joey Farruggio is a front-end engineer and designer based in Wiscon
                 </ul>
             </div>
         </div>
-        <div class="mt-16 md:mt-0 bg-slate-000">
-            <img src="images/vimeo-screenshot.png" alt="" class=" rounded-lg">
+        <div class="mt-16 md:mt-0 bg-slate-000" x-data="{url: null}" x-intersect="url = 'images/vimeo-screenshot.png'">
+            <img :src="url" alt="" class="rounded-lg">
         </div>
     </div>
 </section>
