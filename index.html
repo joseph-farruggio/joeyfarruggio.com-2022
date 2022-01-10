@@ -319,8 +319,8 @@
                 </ul>
             </div>
         </div>
-        <div class="mt-16 md:mt-0 bg-slate-000">
-            <img src="images/vimeo-screenshot.png" alt="" class=" rounded-lg">
+        <div class="mt-16 md:mt-0 bg-slate-000" x-data="{url: null}" x-intersect="url = 'images/vimeo-screenshot.png'">
+            <img :src="url" alt="" class="rounded-lg">
         </div>
     </div>
 </section>
