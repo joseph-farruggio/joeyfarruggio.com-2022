@@ -1,5 +1,5 @@
 ---
-title: Rotating Sponsor Slots with Alpine and ACF
+title: Rotating Sponsor Slots with Alpine, WordPress and ACF
 description: Display rotating ads slots on your WordPress website with Alpine.js and ACF
 date: 2022-01-14
 permalink: "wordpress/{{ page.fileSlug }}/index.html"
