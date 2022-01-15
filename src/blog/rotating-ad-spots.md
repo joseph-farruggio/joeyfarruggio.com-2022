@@ -5,6 +5,10 @@ date: 2022-01-14
 permalink: "wordpress/{{ page.fileSlug }}/index.html"
 ---
 
+I created the theme for the BiggerPockets blog where they sell sponsor slots. The code you see below is similar to what I used to implement rotating sponsor slots with Alpine.js and Advanced Custom Fields. The video below shows ads rotating in on every page load.
+
+<div style="position: relative; padding-bottom: 71.57057654075547%; height: 0;"><iframe src="https://www.loom.com/embed/f32d7fc61d8d42eb8b3f3f9dd586ab55" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
 Advertising networks like AdSense, Mediavine, et al load ads dynamically via JavaScript. With lot's of JavaScript - and it kills page speed performance. Selling sponsored HTML ad spots is a great way to serve highly relevant ads that don't kill performance.
 
 CSS-Tricks does this nicely:
