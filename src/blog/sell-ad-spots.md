@@ -11,7 +11,7 @@ CSS-Tricks does this nicely:
 ![CSS Tricks](/images/css-tricks.png "CSS Tricks")
 
 ## Managing ads within WordPress & Advanced Custom Fields
-![Sponsor field group](/images/acf-sponsors.jpg "Sponsor field group")
+![Sponsor field group](/images/acf-sponsors.png "Sponsor field group")
 
 If you're working with WordPress, storing your sponsors and ads in a repeater field will work well. You can display this field group on an ACF options page if you'd like.
 
