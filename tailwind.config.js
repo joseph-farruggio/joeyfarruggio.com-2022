@@ -3,9 +3,9 @@ module.exports = {
   mode: 'jit',
   darkMode: 'class',
   content: [
-    "./public/*.html",
-    "./public/**/index.html",
-    "./public/blog/*/*.html",
+    "./src/*.njk",
+    "./src/_includes/*.njk",
+    "./src/_includes/layouts/*.njk",
 
   ],
   theme: {
@@ -14,7 +14,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        darkBG:  '#040817',
+        darkBG: '#040817',
       }
     },
   },
