@@ -1,4 +1,4 @@
 #!/bin/bash
 
-npm run build:css
-npm run build:js
+npm run prod:css
+npm run prod:js
