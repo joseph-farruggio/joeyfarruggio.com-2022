@@ -7,8 +7,8 @@
     "dev": "eleventy --serve --watch",
     "dev:css": "npx tailwindcss -i ./src/css/styles.css -o ./src/css/styles.min.css --watch --minify",
     "dev:js": "./node_modules/.bin/esbuild src/js/app.js --bundle --outfile=public/js/app.min.js  --watch",
-    "build:css": "npx tailwindcss -i ./src/css/styles.css -o ./public/styles.min.css --minify",
-    "build:js": "./node_modules/.bin/esbuild src/js/app.js --bundle --outfile=public/js/app.min.js --minify",
+    "build:css": "npx tailwindcss -i ./src/css/styles.css -o ./src/css/styles.min.css --minify",
+    "build:js": "./node_modules/.bin/esbuild src/js/app.js --bundle --outfile=src/js/app.min.js --minify",
     "build": "eleventy && npm run build:css && npm run build:js"
   },
   "author": "",
