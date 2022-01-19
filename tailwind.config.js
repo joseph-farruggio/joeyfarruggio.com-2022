@@ -1,5 +1,4 @@
 module.exports = {
-  important: true,
   mode: 'jit',
   darkMode: 'class',
   content: [
@@ -13,9 +12,11 @@ module.exports = {
       'body': ['Qucksand', 'Helvetica', 'Arial', 'sans-serif'],
     },
     extend: {
+
       colors: {
         darkBG: '#040817',
-      }
+      },
+
     },
   },
   plugins: [
