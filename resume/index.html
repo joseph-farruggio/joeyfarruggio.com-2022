@@ -10,11 +10,11 @@
         // On page load or when changing themes, best to add inline in `head` to avoid FOUC
         try {
             if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark')
-            document.documentElement.style.backgroundColor = "#040817";
+                document.documentElement.classList.add('dark')
+                document.documentElement.style.backgroundColor = "#040817";
             } else {
-            document.documentElement.classList.remove('dark')
-            document.documentElement.style.backgroundColor = "#fff";
+                document.documentElement.classList.remove('dark')
+                document.documentElement.style.backgroundColor = "#fff";
             }
         } catch (_) {}
     </script>
@@ -41,13 +41,13 @@
                 <a href="/contact" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Contact</a>
                 <a href="/blog" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Blog</a>
             </nav>
-            <button x-on:click="toggleTheme()" class="relative flex items-center mx-auto md:mx-0 mt-32 md:mt-0 justify-between border dark:border-slate-800 bg-white dark:bg-slate-900 border-slate-200 px-4 py-2 rounded-full outline-none focus:outline-none shadow-none">
+            <button x-on:click="toggleTheme()" class="print:hidden relative flex items-center mx-auto md:mx-0 mt-32 md:mt-0 justify-between border dark:border-slate-800 bg-white dark:bg-slate-900 border-slate-200 px-4 py-2 rounded-full outline-none focus:outline-none shadow-none">
                 <div class="h-full aspect-square border-slate-300 bg-white dark:bg-slate-800 rounded-full shadow-lg absolute top-0 left-0 dark:-ml-10 dark:left-full transition-transform"></div>
                 <svg xmlns="http://www.w3.org/2000/svg" class="relative h-6 w-6 dark:text-slate-400 text-orange-400 -ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
                 <svg xmlns="http://www.w3.org/2000/svg" class="relative h-6 w-6 dark:text-orange-400 text-slate-300 ml-4 -mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
             </button>
         </div>
-        <button class="border-none ml-full inline-block p-4 relative z-50 md:hidden" @click="menuOpen = !menuOpen">
+        <button class="print:hidden  border-none ml-full inline-block p-4 relative z-50 md:hidden" @click="menuOpen = !menuOpen">
             <svg xmlns="http://www.w3.org/2000/svg" x-show="!menuOpen" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" /></svg>
             <svg xmlns="http://www.w3.org/2000/svg" x-show="menuOpen" x-cloak class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
@@ -55,106 +55,114 @@
     
     <main class="">
         
-<div class="prose max-w-screen-md mx-auto">
+<div class="prose dark:prose-invert max-w-screen-lg mx-auto mt-12 px-8">
     <h1>Joey Farruggio</h1>
-    <ul>
-        <li>joey@joeyfarruggio.com</li>
-        <li>Kenosha, WI</li>
+    <ul class="list-none p-0">
+        <li class="relative pl-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-400 absolute top-0 left-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+            </svg>
+            <span>joey@joeyfarruggio.com</span>
+        </li>
+        <li class="relative pl-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-400 absolute top-0 left-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>Kenosha, WI</span>
+        </li>
     </ul>
+
+    <hr class="print:hidden">
+    
+    <div class="md:flex md:gap-20 md:mt-20">
+        <div class="hidden md:block md:w-2/12 shrink-0 print:hidden">
+            <ul class="p-0 m-0 list-none sticky  top-6">
+                <li class="p-0 mt-0"><a href="#overview" class="dark:text-white dark: text-opacity-75 no-underline dark:hover:text-orange-400">Overview</a></li>
+                <li class="p-0"><a href="#proficiencies" class="dark:text-white dark: text-opacity-75 no-underline dark:hover:text-orange-400">Proficiencies</a></li>
+                <li class="p-0"><a href="#technologies" class="dark:text-white dark: text-opacity-75 no-underline dark:hover:text-orange-400">Technologies</a></li>
+                <li class="p-0"><a href="#experience" class="dark:text-white dark: text-opacity-75 no-underline dark:hover:text-orange-400">Experience</a></li>
+            </ul>
+        </div>
+
+        <div class="flex-grow dark:prose-h2:text-orange-400 dark:prose-a:text-orange-400 print:text-black print:mt-12">
+            <section id="overview">
+                <h2 class="mt-0">Overview</h2>
+                <p>Front-end developer with 8 years of experience in designing and developing interfaces and websites.</p>
+                
+                <ul>
+                    <li><span class="text-orange-400 font-bold">I enjoy working with other people</span></br> Whether it's other engineers or coordinating with other departments.</li>
+                    <li><span class="text-orange-400 font-bold">I enjoy to learn new things</span> </br> I take feedback as growth opportunities, not something to argue about.</li>
+                    <li><span class="text-orange-400 font-bold">I enjoy helping others grow</span> </br> Either by sharing knowledge in a blog post, a tutorial, or pairing with someone to help solve an issue.</li>
+                </ul>
+            </section>
+
+            <hr class="print:hidden">
+
+
+            <section class="print:py-4" id="proficiencies">
+                <h2>Proficiencies</h2>
+                <ul>
+                    <li>Implementing bespoke designs in HTML/CSS</li>
+                    <li>JavaScript - Both procedural and functional</li>
+                    <li>Node - CLI development</li>
+                    <li>PHP - WordPress theme and plugin development</li>
+                    <li>Modern tooling - Webpack, Mix, Gulp</li>
+                    <li>Git</li>
+                </ul>
+            </section>
+
+            <hr class="print:hidden">
+
+            <section class="print:py-4" id="technologies">
+                <h2>Preferred Technologies</h2>
+                <p>These are just tools I currently enjoy working with. I'm always up for learning something new.</p>
+                <ul>
+                    <li>Alpine.js, Vue.js</li>
+                    <li>Tailwind.css</li>
+                    <li>Eleventy</li>
+                    <li>WordPress</li>
+                </ul>
+            </section>
+
+            <hr class="print:hidden">
+            
+            <section class="print:py-4" id="experience">
+                <h2>Experience</h2>
+                <span class="opacity-50">2013 - Present</span>
+                <h3 class="sm:flex sm:justify-between mt-0">Indepenant Contractor</h3>
+
+                <p>I'm currently contracting with two main clients, <a href="https://www.biggerpockets.com">BiggerPockets</a> and <a href="https://www.vimeo.com">Vimeo</a>. I'm building and managing custom WordPress themes that get millions of visitors a year.</p>
+                <p>Typical projects consist of designing and building new components/blocks which empower the marketing/content teams to build and test new pages.</p>
+
+                <hr class="print:hidden">
+
+                <span class="opacity-50">2017 - 2021</span>
+                <h3 class="sm:flex sm:justify-between mt-0 mb-1">Web Developer @ Biz Rocket Markeitng, Inc</h3>
+                <p>Digital marketing agency.</p>
+                
+                <ul>
+                    <li>Owned most of the opportunity life cycle</li>
+                    <li>Worked with clients to understsand their business goals and proposed solutions</li>
+                    <li>Designed and developed custom websites</li>
+                </ul>
+
+                <hr class="print:hidden">
+
+                <span class="opacity-50">2016 - 2017</span>
+                <h3 class="sm:flex sm:justify-between mt-0 mb-1">Web Developer @ The Gratzi, Inc</h3>
+                <p>Digital marketing agency.</p>
+                
+                <ul>
+                    <li>Worked with clients to understsand their business goals and proposed solutions</li>
+                    <li>Designed and developed custom websites</li>
+                </ul>
+            </section>
+            
+        </div>
+    </div>
+
 </div>
-
-
-<section class="max-w-screen-md mx-auto px-4 mt-32">
-    <h2 class="font-bold text-orange-400 text-3xl text-highlight-orange">Articles</h2>
-
-    
-        
-            <article class="mt-16 first:mt-0 relative">
-    <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/wordpress/custom-gutenberg-block-advanced-custom-fields/" class="text-orange-400">Create a Hero Block with Gutenberg and Advanced Custom Fields</a></h1>
-    <p class=" text-lg mt-4 leading-relaxed">Build your first ACF block in less than 10 minutes with this 6-step guide.</p>
-    <span class="flex items-center space-x-4 mt-4 text-gray-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-        <time datetime="2018-11-08">08 Nov 2018</time>
-    </span>
-</article>    
-        
-    
-        
-            <article class="mt-16 first:mt-0 relative">
-    <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/wordpress/custom-post-loop-as-a-gutenberg-block/" class="text-orange-400">6-Step Guide To Custom Post Loop Gutenberg Blocks</a></h1>
-    <p class=" text-lg mt-4 leading-relaxed">Build a custom Gutenberg block to loop through your WordPress blog posts</p>
-    <span class="flex items-center space-x-4 mt-4 text-gray-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-        <time datetime="2020-06-04">04 Jun 2020</time>
-    </span>
-</article>    
-        
-    
-        
-            <article class="mt-16 first:mt-0 relative">
-    <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/wordpress/remove-white-background-css/" class="text-orange-400">Remove white background from image – CSS solution</a></h1>
-    <p class=" text-lg mt-4 leading-relaxed">There&#39;s a clever, CSS only trick to remove the background color from your images. Let&#39;s learn how...</p>
-    <span class="flex items-center space-x-4 mt-4 text-gray-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-        <time datetime="2020-06-04">04 Jun 2020</time>
-    </span>
-</article>    
-        
-    
-        
-    
-        
-    
-        
-            <article class="mt-16 first:mt-0 relative">
-    <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/wordpress/acf-block-cli/" class="text-orange-400">A CLI to create ACF blocks</a></h1>
-    <p class=" text-lg mt-4 leading-relaxed">The create-acf-block CLI registers your block within the acf_register_block_type() function, scaffolds a block render template, and optionally preps CSS and JS.</p>
-    <span class="flex items-center space-x-4 mt-4 text-gray-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-        <time datetime="2022-01-02">02 Jan 2022</time>
-    </span>
-</article>    
-        
-    
-        
-            <article class="mt-16 first:mt-0 relative">
-    <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/wordpress/table-contents-block/" class="text-orange-400">A table of contents Gutenberg block</a></h1>
-    <p class=" text-lg mt-4 leading-relaxed">Insert a table of contents anywhere in your post with this Gutenberg block.</p>
-    <span class="flex items-center space-x-4 mt-4 text-gray-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-        <time datetime="2022-01-03">03 Jan 2022</time>
-    </span>
-</article>    
-        
-    
-        
-            <article class="mt-16 first:mt-0 relative">
-    <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/wordpress/reuse-acf-blocks/" class="text-orange-400">How to reuse ACF blocks on static templates</a></h1>
-    <p class=" text-lg mt-4 leading-relaxed">Learn how to reuse and share your ACF blocks with static templates</p>
-    <span class="flex items-center space-x-4 mt-4 text-gray-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-        <time datetime="2022-01-06">06 Jan 2022</time>
-    </span>
-</article>    
-        
-    
-        
-            <article class="mt-16 first:mt-0 relative">
-    <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/wordpress/rotating-ad-spots/" class="text-orange-400">Rotating Sponsor Slots with Alpine, WordPress and ACF</a></h1>
-    <p class=" text-lg mt-4 leading-relaxed">Display rotating ads slots on your WordPress website with Alpine.js and ACF</p>
-    <span class="flex items-center space-x-4 mt-4 text-gray-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-        <time datetime="2022-01-14">14 Jan 2022</time>
-    </span>
-</article>    
-        
-    
-
-    <a href="/blog" class="flex items-center space-x-2 inline-block mt-16">
-        <span>View more articles</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-3" fill="currentColor" viewBox="0 0 14.903 14.903"><g data-name="Icon feather-arrow-up-right" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"><path data-name="Path 513" d="M2.121 12.782 12.782 2.121"/><path data-name="Path 514" d="M2.121 2.121h10.661v10.661"/></g></svg>
-    </a>
-</section>
 
     </main>
 
