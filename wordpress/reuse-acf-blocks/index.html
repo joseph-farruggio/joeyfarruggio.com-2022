@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to reuse ACF blocks on static templates</title>
+    <meta name="description" content="">
+    <script>
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        try {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+            document.documentElement.style.backgroundColor = "#040817";
+            } else {
+            document.documentElement.classList.remove('dark')
+            document.documentElement.style.backgroundColor = "#fff";
+            }
+        } catch (_) {}
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129275479-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-129275479-1');
+    </script>
+
+    <link rel="stylesheet" href="/css/styles.min.css">
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+    <!-- test -->
+</head>
+<body x-data="app()" class="bg-white dark:bg-[#040817] transition-colors dark:text-white text-slate-800 font-body">
+    <header class="max-w-screen-xl mx-auto px-4 py-4 md:py-8 text-right" x-data="{menuOpen: false}">
+        <div class="hidden fixed md:static top-0 left-0 h-screen w-screen md:h-auto md:w-full z-40 pb-16 md:p-0 bg-white dark:bg-darkBG md:bg-transparent dark:md:bg-transparent md:flex md:items-center md:justify-between" :class="{'block': menuOpen, 'hidden': !menuOpen}">
+            <nav class="text-center flex flex-col md:block text-2xl md:text-lg md:space-x-6">
+                <a href="/" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Home</a>
+                <a href="/contact" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Contact</a>
+                <a href="/blog" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Blog</a>
+            </nav>
+            <button x-on:click="toggleTheme()" class="relative flex items-center mx-auto md:mx-0 mt-32 md:mt-0 justify-between border dark:border-slate-800 bg-white dark:bg-slate-900 border-slate-200 px-4 py-2 rounded-full outline-none focus:outline-none shadow-none">
+                <div class="h-full aspect-square border-slate-300 bg-white dark:bg-slate-800 rounded-full shadow-lg absolute top-0 left-0 dark:-ml-10 dark:left-full transition-transform"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="relative h-6 w-6 dark:text-slate-400 text-orange-400 -ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="relative h-6 w-6 dark:text-orange-400 text-slate-300 ml-4 -mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+            </button>
+        </div>
+        <button class="border-none ml-full inline-block p-4 relative z-50 md:hidden" @click="menuOpen = !menuOpen">
+            <svg xmlns="http://www.w3.org/2000/svg" x-show="!menuOpen" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" x-show="menuOpen" x-cloak class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+    </header>
+    
+    <main class="">
+        <article id="post" class="prose lg:prose-xl max-w-screen-md mx-auto px-4 mt-12" :class="{'prose-invert': dark}">
+    <h1 class="text-orange-400 text-4xl text-highlight-orange">How to reuse ACF blocks on static templates</h1>
+    <span class="flex items-center space-x-4 mt-4 text-gray-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+        <time datetime="2022-01-06">06 Jan 2022</time>
+    </span>
+    <div class="mt-16"></div>   
+    <p>If you want to share your ACF block templates so that they can be reused on static, ACF + classic editor templates, <code>get_template_parts()</code> and args are your friend.</p>
+<p>You might have a similar theme structure to mine where each of your blocks are registered with a render template in something like <code>/template-parts/acf-blocks</code>.</p>
+<pre><code>./template-parts
+│
+└───/acf-blocks
+│    │   block-a.php
+│    │   block-b.php
+│    │   block-c.php
+</code></pre>
+<p>Meanwhile, you're creating a static page template that just doesn't make sense to put into Gutenberg and you'd like to reuse the layout of one of those ACF blocks. Here's how you do that.</p>
+<p>Say you have a typical hero block that takes a <code>heading</code>, <code>sub-heading</code>, and an <code>image</code>. We'll pull in the ACF block render template into our static page template with <code>get_template_parts()</code> and pass in our content as arguments.</p>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span><br>    <span class="token function">get_template_part</span><span class="token punctuation">(</span> <span class="token string single-quoted-string">'template-parts/acf-blocks/block-a'</span><span class="token punctuation">,</span> <span class="token constant">null</span><span class="token punctuation">,</span> <span class="token keyword">array</span><span class="token punctuation">(</span><br>        <span class="token string single-quoted-string">'heading'</span>       <span class="token operator">=></span> <span class="token string single-quoted-string">'This is some heading text'</span><span class="token punctuation">,</span><br>        <span class="token string single-quoted-string">'sub_heading'</span>   <span class="token operator">=></span> <span class="token string single-quoted-string">'This is some sub-heading text'</span><span class="token punctuation">,</span><br>        <span class="token string single-quoted-string">'image'</span>         <span class="token operator">=></span>  <span class="token function">get_template_directory_URI</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'/images/my-image.jpg'</span><br>    <span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token delimiter important">?></span></span></code></pre>
+<p>The content passed to the block is stored in key/value pairs in an array as the third parameter.</p>
+<p>In your ACF block render template you parse those arguments and set defaults.</p>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span><br>    <span class="token variable">$args</span> <span class="token operator">=</span> <span class="token function">wp_parse_args</span><span class="token punctuation">(</span><br>        <span class="token variable">$args</span><span class="token punctuation">,</span><br>        <span class="token keyword">array</span><span class="token punctuation">(</span><br>        <span class="token string single-quoted-string">'heading'</span> <span class="token operator">=></span> <span class="token function">get_field</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'heading'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><br>        <span class="token string single-quoted-string">'sub_heading'</span> <span class="token operator">=></span> <span class="token function">get_field</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'sub_heading'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><br>        <span class="token string single-quoted-string">'image'</span> <span class="token operator">=></span> <span class="token function">get_field</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'image'</span><span class="token punctuation">)</span><br>        <span class="token punctuation">)</span><br>    <span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token delimiter important">?></span></span></code></pre>
+<p>We're parsing the arguments passed to the block render template, but setting the default values as ACF fields since our Gutenberg blocks won't actually be calling <code>get_template_part()</code>.</p>
+<p>In the block markup, we'll replace any instances of <code>get_field()</code>, <code>the_field()</code>, etc.</p>
+<pre class="language-php"><code class="language-php"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>hero<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span><span class="token php language-php"><span class="token delimiter important">&lt;?=</span> <span class="token variable">$args</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'heading'</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token delimiter important">?></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span><br>	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span><span class="token punctuation">></span></span><span class="token php language-php"><span class="token delimiter important">&lt;?=</span> <span class="token variable">$args</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'sub_heading'</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token delimiter important">?></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">></span></span><br>	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token php language-php"><span class="token delimiter important">&lt;?=</span> <span class="token function">esc_url</span><span class="token punctuation">(</span> <span class="token variable">$args</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'image'</span><span class="token punctuation">]</span> <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter important">?></span></span><span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+<p>And there you have it. Now your ACF block template can be used on classic editor pages or static templates.</p>
+
+</article>
+
+<div class=" max-w-screen-md mx-auto px-4 mt-12">
+    <div id="disqus_thread"></div>
+</div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://joeyfarruggio-com.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </main>
+
+    <footer class="py-16 bg-slate-900 mt-16"> 
+
+    </footer>
+    <script defer src="/js/app.min.js"></script>
+</body>
+</html>
