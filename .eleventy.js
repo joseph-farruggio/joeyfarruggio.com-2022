@@ -15,6 +15,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/_fonts/*": "fonts" });
   eleventyConfig.addPassthroughCopy({ "src/css/*": "css" });
   eleventyConfig.addPassthroughCopy({ "src/js/*": "js" });
+  eleventyConfig.addPassthroughCopy({ "node_modules/@builder.io/partytown/lib": "/partytown" });
 
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(sitemap, {

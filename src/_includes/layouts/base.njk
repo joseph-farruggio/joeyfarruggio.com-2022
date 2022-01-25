@@ -10,18 +10,18 @@
         // On page load or when changing themes, best to add inline in `head` to avoid FOUC
         try {
             if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark')
-            document.documentElement.style.backgroundColor = "#040817";
+                document.documentElement.classList.add('dark')
+                document.documentElement.style.backgroundColor = "#040817";
             } else {
-            document.documentElement.classList.remove('dark')
-            document.documentElement.style.backgroundColor = "#fff";
+                document.documentElement.classList.remove('dark')
+                document.documentElement.style.backgroundColor = "#fff";
             }
         } catch (_) {}
     </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129275479-1"></script>
-    <script>
+    <script async type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=UA-129275479-1"></script>
+    <script type="text/partytown">
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());

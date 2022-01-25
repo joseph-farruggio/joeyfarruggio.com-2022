@@ -20,13 +20,17 @@ document.addEventListener('alpine:init', () => {
         },
 
         toggleTheme() {
-            if (window.localStorage.theme === 'dark') {
+
+
+            if (window.localStorage.theme === null) {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            } else {
                 document.documentElement.classList.remove('dark');
                 window.localStorage.theme = null;
-            } else {
-                document.documentElement.classList.add('dark');
-                window.localStorage.theme = 'dark';
             }
+
+            console.log(window.localStorage.theme);
 
             this.dark = !this.dark;
         },

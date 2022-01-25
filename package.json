@@ -25,6 +25,7 @@
     "@11ty/eleventy": "^0.12.1",
     "@alpinejs/intersect": "^3.7.1",
     "@alpinejs/persist": "^3.7.1",
+    "@builder.io/partytown": "^0.2.1",
     "@quasibit/eleventy-plugin-sitemap": "^2.1.4",
     "alpinejs": "^3.7.1",
     "esbuild": "^0.14.8",
