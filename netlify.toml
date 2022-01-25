@@ -1,0 +1,7 @@
+[[redirects]]
+  from = "/~partytown"
+  to = "https://partytown.joeyfarruggio.com"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify", Access-Control-Allow-Origin: *}
+
