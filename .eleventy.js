@@ -16,7 +16,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/css/*": "css" });
   eleventyConfig.addPassthroughCopy({ "src/js/*": "js" });
   eleventyConfig.addPassthroughCopy({ "node_modules/@builder.io/partytown/lib": "/~partytown" });
-  eleventyConfig.addPassthroughCopy({ "src/_redirects": "_redirects" });
+  eleventyConfig.addPassthroughCopy({ "src/netlify.toml": "netlify.toml" });
 
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(sitemap, {
