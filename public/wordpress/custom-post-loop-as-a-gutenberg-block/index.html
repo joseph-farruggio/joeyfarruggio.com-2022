@@ -7,21 +7,22 @@
     <title>6-Step Guide To Custom Post Loop Gutenberg Blocks</title>
     <meta name="description" content="">
     <script>
-    partytown = {
-        resolveUrl: function(url) {
-            if (url.hostname === 'www.google-analytics.com') {
-                const proxyUrl = new URL('https://joeyfarruggio.com/');
-                proxyUrl.searchParams.append('url', url);
-                return proxyUrl;
-            }
-            return url;
-        },
-        debug: true,
-        logCalls: true,
-        logSetters: true,
-        logGetters: true,
-        forward: ['dataLayer.push']
-    };
+        partytown = {
+            lib: "/~partytown/",
+            resolveUrl: function(url) {
+                if (url.hostname === 'www.google-analytics.com') {
+                    const proxyUrl = new URL('https://joeyfarruggio.com/');
+                    proxyUrl.searchParams.append('url', url);
+                    return proxyUrl;
+                }
+                return url;
+            },
+            debug: true,
+            logCalls: true,
+            logSetters: true,
+            logGetters: true,
+            forward: ['dataLayer.push']
+        };
     </script>
     <script defer src="/~partytown/partytown.js"></script>
     <script>
