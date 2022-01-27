@@ -5,11 +5,11 @@
 @layer components {
 	.dark .text-highlight-orange {
 		filter: drop-shadow(0 0 18px rgba(255, 166, 44, 0.6));
-		@apply bg-clip-text text-transparent;
+		@apply bg-clip-text;
 	}
 	.dark .text-highlight-white {
 		filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.4));
-		@apply bg-clip-text text-transparent;
+		@apply bg-clip-text;
 	}
 	/* ... */
 }

@@ -90,6 +90,21 @@
     <div class="mt-12 grid grid-cols-1 gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3" id="testimonials" x-data="{shown: false}" x-intersect="shown = true">
         
                 <figure 
+                    x-data="{url: '/images/matt.jpg'}"
+                    class="relative flex flex-col-reverse justify-end bg-gray-50 rounded-lg p-6 dark:bg-slate-900 dark:highlight-white/5">
+                    <blockquote class="mt-6 text-gray-700 text-base opacity-75 dark:text-gray-300">
+                        <p>Joey&#39;s been one of the best devs I&#39;ve ever worked with - super responsive, meticulous, and genuinely just a super nice guy. Can&#39;t think of anyone else I&#39;d recommend.</p>
+                    </blockquote>
+                    <figcaption class="flex items-center space-x-4">
+                        <img :src="!shown || url" alt="" class="flex-none w-14 h-14 rounded-full object-cover" loading="lazy">
+                        <div class="flex-auto">
+                            <span class="text-lg">Matthew Howells-Barby</span>
+                            <span class="mt-0.5 block opacity-60">VP, Marketing @HubSpot</span>
+                        </div>
+                    </figcaption>
+                </figure>
+        
+                <figure 
                     x-data="{url: '/images/christianT.jpg'}"
                     class="relative flex flex-col-reverse justify-end bg-gray-50 rounded-lg p-6 dark:bg-slate-900 dark:highlight-white/5">
                     <blockquote class="mt-6 text-gray-700 text-base opacity-75 dark:text-gray-300">

@@ -909,14 +909,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   filter: drop-shadow(0 0 18px rgba(255, 166, 44, 0.6));
   -webkit-background-clip: text;
           background-clip: text;
-  color: transparent;
 }
 
 .dark .text-highlight-white {
   filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.4));
   -webkit-background-clip: text;
           background-clip: text;
-  color: transparent;
+
 }
 
 /* ... */

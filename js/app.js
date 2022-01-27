@@ -20,9 +20,7 @@ document.addEventListener('alpine:init', () => {
         },
 
         toggleTheme() {
-
-
-            if (window.localStorage.theme === null) {
+            if (window.localStorage.theme != 'dark') {
                 document.documentElement.classList.add('dark');
                 localStorage.theme = 'dark';
             } else {
