@@ -1,6 +1,7 @@
 import Alpine from 'alpinejs'
 import intersect from '@alpinejs/intersect'
 import persist from '@alpinejs/persist'
+import initVimeoPlayer from './components/VimeoPlayer';
 
 Alpine.plugin(intersect);
 Alpine.plugin(persist);
@@ -40,8 +41,10 @@ document.addEventListener('alpine:init', () => {
                 this.dark = false;
             }
         }
-    }))
+    }));
 })
+
+initVimeoPlayer();
 
 window.Alpine = Alpine
 Alpine.start()
