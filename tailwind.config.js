@@ -1,5 +1,6 @@
 module.exports = {
   mode: 'jit',
+  important: true,
   darkMode: 'class',
   content: [
     "./src/*.njk",

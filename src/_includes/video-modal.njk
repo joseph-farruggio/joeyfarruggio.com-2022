@@ -1,0 +1,66 @@
+<div x-show="playing" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <!--
+      Background overlay, show/hide based on modal state.
+
+      Entering: "ease-out duration-300"
+        From: "opacity-0"
+        To: "opacity-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+    <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+    <!-- This element is to trick the browser into centering the modal contents. -->
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+    <!--
+      Modal panel, show/hide based on modal state.
+
+      Entering: "ease-out duration-300"
+        From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        To: "opacity-100 translate-y-0 sm:scale-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100 translate-y-0 sm:scale-100"
+        To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+    -->
+    <div class="inline-block align-bottom overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle max-w-screen-lg w-full sm:p-6">
+       <div x-cloak class="max-w-screen-md mx-auto relative">
+            <iframe id="matt-testimonial" src="https://player.vimeo.com/video/670789031?h=14487be9d4&title=0&byline=0&portrait=0&controls=0" class="relative bg-black aspect-video h-full w-full 2xl:rounded-lg" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
+            <button x-on:click="toggleVideo()" :class="firstPlay ? 'flex' : 'hidden'"
+                class="absolute top-1/2 left-1/2 -ml-20 -mt-20 p-10 cursor-pointer group flex items-center justify-center">
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 dark:text-white text-white relative z-10" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                </svg>      
+            </button>
+
+            <div x-show="!firstPlay" class="absolute top-0 right-0 w-full h-full aspect-video items-center justify-end">
+                <button x-on:click="toggleVideo()"
+                    class="absolute mr-2 mb-2 right-0 bottom-0 bg-transparent border-none p-0 cursor-pointer group flex items-center justify-center">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" x-show="!playing" class="h-12 w-12 text-white relative z-10"
+                        viewBox="0 0 16 16" fill="currentColor">
+                        <path id="play"
+                            d="M10,18a8,8,0,1,0-8-8A8,8,0,0,0,10,18ZM9.555,7.168A1,1,0,0,0,8,8v4a1,1,0,0,0,1.555.832l3-2a1,1,0,0,0,0-1.664l-3-2Z"
+                            transform="translate(-2 -2)" fill-rule="evenodd" />
+                    </svg>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" x-show="playing" class="h-12 w-12 text-white relative z-10"
+                        viewBox="0 0 16 16" fill="currentColor">
+                        <path id="pause"
+                            d="M18,10a8,8,0,1,1-8-8,8,8,0,0,1,8,8ZM7,8A1,1,0,0,1,9,8v4a1,1,0,0,1-2,0Zm5-1a1,1,0,0,0-1,1v4a1,1,0,0,0,2,0V8A1,1,0,0,0,12,7Z"
+                            transform="translate(-2 -2)" fill-rule="evenodd" />
+                    </svg>
+
+                    <div
+                        class="h-12 w-12 bg-black bg-opacity-50 rounded-full absolute z-0 top-0 left-0 shadow-g group-hover:shadow-xl">
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

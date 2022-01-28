@@ -31,16 +31,43 @@ description: Joey Farruggio is a front-end engineer and designer based in Wiscon
     <div class="dark:bg-slate-900 bg-slate-50 h-full w-10/12 md:w-96 absolute top-0 right-0 rounded-l-lg"></div>
 </div>
 
-<section class="max-w-screen-xl mx-auto px-4 mt-32 lg:dark:bg-transparent lg:px-8 lg:py-16 max-h-[43rem] md:max-h-[none] overflow-hidden relative" :class="{'max-h-[none] pb-32': showAll, 'max-h-[43rem]': !showAll}">
-    <h2 class="text-center font-bold text-orange-400 text-3xl text-highlight-orange">Happy Clients</h2>
-    <p class="text-center mx-auto mt-4 md:w-1/2">When you absolutely love what you do, and you're good at it, it's easy to make folks really happy.</p>
+<section class="px-4 mt-32 lg:dark:bg-transparent lg:px-8 lg:py-16 overflow-hidden relative">
+    <div class="max-w-screen-xl mx-auto ">
+        <h2 class="text-center font-bold text-orange-400 text-3xl text-highlight-orange">Happy Clients</h2>
+        <p class="text-center mx-auto mt-4 md:w-1/2">When you absolutely love what you do, and you're good at it, it's easy to make folks really happy.</p>
+    </div>
     
-    <div class="mt-12 grid grid-cols-1 gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3" id="testimonials" x-data="{shown: false}" x-intersect="shown = true">
+
+    <figure class="my-20 md:grid md:grid-cols-2 md:items-center md:gap-8 max-w-screen-lg mx-auto" x-data="player('matt-testimonial')">
+        <figcaption class="mt-6">
+            <div class="flex items-center justify-center sm:justify-start">
+                <img src="/images/matt.jpg" class="w-20 aspect-square object-cover rounded-full md:mr-4" alt="">
+                <p class="text-center  md:text-left md:text-2xl"><a href="https://mhb.xyz" target="_blank" class="">Matthew Howells-Barby</a> <br> <span class="opacity-75 text-lg">VP, Marketing @HubSpot</span></p> 
+            </div>
+
+            <p class="text-3xl font-serif italic mt-4 text-orange-400 text-highlight-orange">"One of the best devs I've ever worked with. I couldn't recommend anyone else."</p>
+        </figcaption>
+
+        <div class="relative mt-12">
+            <img src="/images/video-thumbnail.jpg" alt="" class="relative z-10">
+            <div class="absolute top-0 left-0 h-full w-full bg-gradient-to-t from-black to-transparent z-10"></div>
+            <button x-on:click="toggleVideo()"
+                class="absolute top-1/2 left-1/2 -ml-20 -mt-20 p-10 cursor-pointer group flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 dark:text-white text-white relative z-10" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                </svg>      
+            </button>
+        </div>
+
+        {% include "video-modal.njk" %}            
+    </figure>
+
+    <div :class="{'max-h-[none] pb-32': showAll, 'max-h-[43rem]': !showAll}" class="max-h-[43rem] md:max-h-[none] max-w-screen-xl mx-auto mt-12 grid grid-cols-1 gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3" id="testimonials" x-data="{shown: false}" x-intersect:enter="shown = true">
         {% for testimonial in testimonials %}
                 <figure 
                     x-data="{url: '/images/{{ testimonial.image }}'}"
                     class="relative flex flex-col-reverse justify-end bg-gray-50 rounded-lg p-6 dark:bg-slate-900 dark:highlight-white/5">
-                    <blockquote class="mt-6 text-gray-700 text-base opacity-75 dark:text-gray-300">
+                    <blockquote class="mt-6 text-gray-700 text-base opacity-75 font-normal dark:text-gray-300">
                         <p>{{ testimonial.body }}</p>
                     </blockquote>
                     <figcaption class="flex items-center space-x-4">
@@ -53,6 +80,7 @@ description: Joey Farruggio is a front-end engineer and designer based in Wiscon
                 </figure>
         {% endfor %}
     </div>
+
     <div class="inset-x-0 bottom-0 md:hidden flex justify-center bg-gradient-to-t from-white pt-32 pb-8 pointer-events-none dark:from-darkBG absolute" :class="{'bg-gradient-to-t from-white': !showAll}">
         <button type="button" @click="showTestimonials()" :class="!showAll || 'mt-32'" class="relative bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 text-sm text-white font-semibold h-12 px-6 rounded-lg flex items-center dark:bg-gray-700 dark:hover:bg-gray-600 pointer-events-auto">
             <span x-show="!showAll">Show more...</span>
