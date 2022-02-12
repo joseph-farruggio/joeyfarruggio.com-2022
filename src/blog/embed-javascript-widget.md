@@ -72,7 +72,7 @@ import Alpine from 'alpinejs'
 // If you abstracted your Alpine component logic, you'd import that here
 import widget from './widget.js'
 
-// import widget from './modal.js'
+// import widget template
 import widgetHTML from './../widget.html';
 ```
 
@@ -81,7 +81,13 @@ Next we're going to initialize Alpine and target a div to inject our widget:
 ``` js
 // initAlpine.js continued
 const initAlpine = () => {
-    Alpine.data('widget', widget)
+  
+    /**
+     *  If you're abstracting your component logic into a JS file (imported above), 
+     * you would register your component with Alpine like this:
+     *  Alpine.data('widget', widget); 
+     */
+
     window.Alpine = Alpine
     Alpine.start();
 
