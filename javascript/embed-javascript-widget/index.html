@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Embed JavaScript Widgets as HTML</title>
+    <meta name="description" content="" />
+    
+    <script>
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        try {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark')
+                document.documentElement.style.backgroundColor = "#040817";
+            } else {
+                document.documentElement.classList.remove('dark')
+                document.documentElement.style.backgroundColor = "#fff";
+            }
+        } catch (_) {}
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129275479-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-129275479-1');
+    </script>
+
+    <link rel="stylesheet" href="/css/styles.min.css" />
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet" />
+    <!-- test -->
+</head>
+<body x-data="app()" class="bg-white dark:bg-[#040817] transition-colors dark:text-white text-slate-800 font-body">
+    <header class="max-w-screen-xl mx-auto px-4 py-4 md:py-8 text-right" x-data="{menuOpen: false}">
+        <div class="hidden fixed md:static top-0 left-0 h-screen w-screen md:h-auto md:w-full z-40 pb-16 md:p-0 bg-white dark:bg-darkBG md:bg-transparent dark:md:bg-transparent md:flex md:items-center md:justify-between" :class="{'block': menuOpen, 'hidden': !menuOpen}">
+            <nav class="text-center flex flex-col md:block text-2xl md:text-lg md:space-x-6">
+                <a href="/" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Home</a>
+                <a href="/contact" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Contact</a>
+                <a href="/blog" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Blog</a>
+            </nav>
+            <button x-on:click="toggleTheme()" class="print:hidden relative flex items-center mx-auto md:mx-0 mt-32 md:mt-0 justify-between border dark:border-slate-800 bg-white dark:bg-slate-900 border-slate-200 px-4 py-2 rounded-full outline-none focus:outline-none shadow-none">
+                <div class="h-full aspect-square border-slate-300 bg-white dark:bg-slate-800 rounded-full shadow-lg absolute top-0 left-0 dark:-ml-10 dark:left-full transition-transform"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="relative h-6 w-6 dark:text-slate-400 text-orange-400 -ml-2" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="relative h-6 w-6 dark:text-orange-400 text-slate-300 ml-4 -mr-2" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+            </button>
+        </div>
+        <button class="print:hidden  border-none ml-full inline-block p-4 relative z-50 md:hidden" @click="menuOpen = !menuOpen">
+            <svg xmlns="http://www.w3.org/2000/svg" x-show="!menuOpen" class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" x-show="menuOpen" x-cloak class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+    </header>
+    
+    <main data-cms-content-wrapper="/src/_includes/layouts/base.njk">
+        <article id="post" class="prose lg:prose-xl max-w-screen-md mx-auto px-4 mt-12" :class="{'prose-invert': dark}">
+    <h1 class="dark:text-orange-400 text-4xl text-highlight-orange">Embed JavaScript Widgets as HTML</h1>
+    <p class=" text-lg mt-4 leading-relaxed">Embed widgets as HTML, not an iframe, with JavaScript</p>
+    <span class="flex items-center space-x-4 mt-4 text-gray-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+        <time datetime="2022-02-12">12 Feb 2022</time>
+    </span>
+    <div class="mt-16"></div>   
+    <p>6 steps in this guide:</p>
+<ol>
+<li><a href="#overview">What we're building</a></li>
+<li><a href="#local-dev-setup">Local dev setup</a></li>
+<li><a href="#create-widget">Create an Alpine widget</a></li>
+<li><a href="#javascript">Prepare our JavaScript</a></li>
+<li><a href="#html-loader">Setup HTML Loader and Laravel Mix</a></li>
+<li><a href="#distribute">Distributing our JavaScript Widget</a></li>
+<li><a href="#github-actions">GitHub Actions</a></li>
+<li><a href="#demo">A live demo on this page</a></li>
+<li><a href="#issues">Potential issues</a></li>
+</ol>
+<h2 id="overview">What we're building</h2>
+<p>When you're building JavaScript widgets with the intention of making them sharable so they can be embedded on any website, there's a way to improve the performance and mobile responsiveness of the widget by injecting the widget as HTML and not embedding it as an iFrame.</p>
+<p>What we're going to do is setup a local dev environment and build a simple widget. We'll setup a build process that will create a single JavaScript file that we can distribute over a CDN. By including that JavaScript file on another website we can inject our widget as actual HTML and avoid iFrames.</p>
+<p>Most of my widget projects are built with Tailwind CSS for styling and Alpine.js for data binding and reactivity, but feel free to use what you're comfortable with.</p>
+<h2 id="local-dev-setup">Local dev setup</h2>
+<p>Here are some of the NPM packages I'm using and what they're for:</p>
+<p><a href="#https://laravel-mix.com/">Laravel Mix</a><br>
+An elegant wrapper for Webpack that makes building assets like CSS and JS dead simple.</p>
+<p><a href="https://webpack.js.org/loaders/html-loader/">HTML-Loader</a><br>
+This Webpack package exports HTML as a string. It will allow us to import HTML templates into our JavaScript.</p>
+<p><a href="#https://tailwindcss.com/">Tailwind CSS</a><br>
+A utility-first CSS framework packed with classes like flex, pt-4, text-center and rotate-90 that can be composed to build any design, directly in your markup.</p>
+<p><a href="https://github.com/JeffreyWay/laravel-mix-tailwind">Larevel-Mix-Tailwind</a><br>
+An extension to help Laravel Mix process your Tailwind stylesheet.</p>
+<p><a href="https://alpinejs.dev/">Alpine.js</a><br>
+Your new, lightweight, JavaScript framework. Heavily inspired by Vue.js, but much much simpler.</p>
+<h2 id="create-widget">Create an Alpine widget</h2>
+<p>Let's start our project by creating a simple HTML template. In a new project folder create an html file - I'll name mine <code>widget.html</code>.</p>
+<p>I'm going to create a simple Alpine component with a button that will toggle the visibility of content:</p>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">x-data</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{open: false}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>open = !open<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Toggle<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><br>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">x-show</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>open<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Now you see me<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+<h2 id="javascript">Prepare our JavaScript</h2>
+<p>I'm going to store all of my JS files in a <code>/src</code> directory and I'll start with creating an <code>app.js</code> and an <code>initAlpine.js</code>.</p>
+<p>In <code>initAlpine.js</code> I'll import the Alpine NPM package and I'll import my <code>widget.html</code> template:</p>
+<pre class="language-js"><code class="language-js"><span class="token comment">// initAlpine.js</span><br><span class="token comment">// Import the Alpine JS framework</span><br><span class="token keyword">import</span> Alpine <span class="token keyword">from</span> <span class="token string">'alpinejs'</span><br><br><span class="token comment">// If you abstracted your Alpine component logic, you'd import that here</span><br><span class="token keyword">import</span> widget <span class="token keyword">from</span> <span class="token string">'./widget.js'</span><br><br><span class="token comment">// import widget from './modal.js'</span><br><span class="token keyword">import</span> widgetHTML <span class="token keyword">from</span> <span class="token string">'./../widget.html'</span><span class="token punctuation">;</span></code></pre>
+<p>Next we're going to initialize Alpine and target a div to inject our widget:</p>
+<pre class="language-js"><code class="language-js"><span class="token comment">// initAlpine.js continued</span><br><span class="token keyword">const</span> <span class="token function-variable function">initAlpine</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span><br>    Alpine<span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span><span class="token string">'widget'</span><span class="token punctuation">,</span> widget<span class="token punctuation">)</span><br>    window<span class="token punctuation">.</span>Alpine <span class="token operator">=</span> Alpine<br>    Alpine<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>    <span class="token comment">// #app is a div that we're going to inject our markup into</span><br>    document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"app"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> widgetHTML<span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token keyword">export</span> <span class="token keyword">default</span> initAlpine<span class="token punctuation">;</span></code></pre>
+<p>In <code>app.js</code> we'll import our <code>initAlpine.js</code> file:</p>
+<pre class="language-js"><code class="language-js"><span class="token comment">// app.js</span><br><span class="token keyword">import</span> initAlpine <span class="token keyword">from</span> <span class="token string">'./initAlpine'</span><span class="token punctuation">;</span><br><span class="token function">initAlpine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="html-loader">Setup HTML Loader and Laravel Mix</h2>
+<p>Here's the basic setup for Laravel Mix. With this you can run <code>npx mix</code> and it will process our Alpine JS and import our widget template file. We'll have a <code>/dist/app.js</code> file that we can include on any webpage that will inject our little Alpine widget into a <code>&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</code>.</p>
+<pre class="language-js"><code class="language-js"><span class="token comment">// Require Laravel Mix</span><br><span class="token keyword">let</span> mix <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'laravel-mix'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token comment">// Process our app.js file and output it to /dist/app.js</span><br>mix<span class="token punctuation">.</span><span class="token function">js</span><span class="token punctuation">(</span><span class="token string">'src/app.js'</span><span class="token punctuation">,</span> <span class="token string">'dist/app.js'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setPublicPath</span><span class="token punctuation">(</span><span class="token string">'dist'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token comment">// Setup HTML-Loader to allow us to import HTML templates</span><br>mix<span class="token punctuation">.</span><span class="token function">webpackConfig</span><span class="token punctuation">(</span><span class="token punctuation">{</span><br>  module<span class="token operator">:</span> <span class="token punctuation">{</span><br>    rules<span class="token operator">:</span> <span class="token punctuation">[</span><br>      <span class="token punctuation">{</span><br>        test<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.html$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span><br>        loader<span class="token operator">:</span> <span class="token string">'html-loader'</span><br>      <span class="token punctuation">}</span><br>    <span class="token punctuation">]</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="distribute">Distributing our JavaScript Widget</h2>
+<p>At this point we have a production ready script to share, but how do we go about sharing it? The easiest and quickest thing you can do is push your project up to Github and allow a CDN like  <a href="https://www.jsdelivr.com">jsdeliver.com</a> to cache and serve your JavaScript for you. Another similar option is <a href="http://raw.githack.com/">raw.githack.com</a>.</p>
+<p>The way this works is you include your production JS in your repo. You can't load JavaScript files directly from GitHub, but you can pass that JS off to JSDeliver.com and they'll cache it and serve it for you. For JSDeliver.com it looks like this:</p>
+<p>https://cdn.jsdelivr.net/gh/<code>user</code>/<code>repo</code>@<code>version</code>/<code>file</code></p>
+<p>My GitHub username is <code>joseph-farruggio</code> and say my repo name is <code>js-widget</code> which is at version <code>1.0</code>.</p>
+<p>I'd access my JS from the CDN by linking to: https://cdn.jsdelivr.net/gh/joseph-farruggio/js-widget@1.0/dist/app.js.</p>
+<p>JSDeliver has some other neat features too:</p>
+<ol>
+<li>For testing, you can omit the version completely to get the latest one - not for production use.</li>
+<li>Add &quot;.min&quot; to any JS/CSS file to get a minified version if it doesn't already exist.</li>
+</ol>
+<h2 id="github-actions">GitHub Actions</h2>
+<p>If you'd prefer not to build and version control production/built assets locally, you can run a GitHub action which will run Laravel Mix to build your JavaScript and then copy it to a <code>built</code> branch. This is what I do personally. I'll have a <code>master</code> branch that contains my latest source files and a <code>master-built</code> branch that only contains the production assets. It's literally just a JS and a CSS file.</p>
+<p>Here's what that Github Action looks like:</p>
+<pre class="language-yaml"><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> Build and copy production assets to a built branch<br><br><span class="token key atrule">on</span><span class="token punctuation">:</span><br>  <span class="token key atrule">push</span><span class="token punctuation">:</span><br>    <span class="token key atrule">branches</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>master<span class="token punctuation">]</span><br>  <span class="token key atrule">pull_request</span><span class="token punctuation">:</span><br>    <span class="token key atrule">branches</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>master<span class="token punctuation">]</span><br><br><span class="token key atrule">jobs</span><span class="token punctuation">:</span><br>  <span class="token key atrule">build</span><span class="token punctuation">:</span><br>    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest<br><br>    <span class="token key atrule">steps</span><span class="token punctuation">:</span><br>      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Checkout<br>        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v2<br>      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Setup Node.js<br>        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/setup<span class="token punctuation">-</span>node@v2<span class="token punctuation">-</span>beta<br>        <span class="token key atrule">with</span><span class="token punctuation">:</span><br>          <span class="token key atrule">node-version</span><span class="token punctuation">:</span> <span class="token string">"12"</span><br>          <span class="token key atrule">check-latest</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><br>      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install NPM dependencies &amp; Compile assets for production<br>        <span class="token key atrule">run</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string"><br>          npm install<br>          npm run build</span><br><br>      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> List output files<br>        <span class="token key atrule">run</span><span class="token punctuation">:</span> ls<br><br>      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Push<br>        <span class="token key atrule">uses</span><span class="token punctuation">:</span> s0/git<span class="token punctuation">-</span>publish<span class="token punctuation">-</span>subdir<span class="token punctuation">-</span>action@develop<br>        <span class="token key atrule">env</span><span class="token punctuation">:</span><br>          <span class="token key atrule">REPO</span><span class="token punctuation">:</span> self<br>          <span class="token key atrule">BRANCH</span><span class="token punctuation">:</span> master<span class="token punctuation">-</span>built <span class="token comment"># The branch name where you want to push the assets</span><br>          <span class="token key atrule">FOLDER</span><span class="token punctuation">:</span> dist <span class="token comment"># The directory where your assets are generated</span><br>          <span class="token key atrule">GITHUB_TOKEN</span><span class="token punctuation">:</span> $ <span class="token comment"># GitHub will automatically add this - you don't need to bother getting a token</span><br>          <span class="token key atrule">MESSAGE</span><span class="token punctuation">:</span> <span class="token string">"Build: ({sha}) {msg}"</span> <span class="token comment"># The commit message</span></code></pre>
+<p>Any time there is a push or a pull request to master, the project builds and the production assets get copied to the <code>master-built</code> branch.</p>
+<h2 id="demo">Live demo</h2>
+<div id="app"></div>
+<script src="https://rawcdn.githack.com/joseph-farruggio/Ineject-HTML-Components-with-Script/ff4a542f22236f4d365d935393ba3f7cdd186e3b/app.js"></script>
+<h2 id="issues">Potential Issues</h2>
+<p>Since this method injects HTML markup, it's possible to get styling conflicts. Any CSS loaded on the same page can accidentally affect your widget. In my Tailwind config I set <code>important: true;</code> so that all of my Tailwind classes apply the <code>!important</code> flag making style conflicts less likely. But it can still happen.</p>
+
+</article>
+
+<div class=" max-w-screen-md mx-auto px-4 mt-12">
+    <div id="disqus_thread"></div>
+</div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://joeyfarruggio-com.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </main>
+
+    <footer class="py-16 bg-slate-900 mt-16"> 
+
+    </footer>
+    <script defer src="/js/app.min.js"></script>
+</body>
+</html>
