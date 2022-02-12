@@ -5,7 +5,7 @@ date: 2022-02-12
 permalink: "javascript/{{ page.fileSlug }}/index.html"
 ---
 
-6 steps in this guide:
+In this guide:
 
 1. [What we're building](#overview)
 1. [Local dev setup](#local-dev-setup)
