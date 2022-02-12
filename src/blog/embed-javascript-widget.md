@@ -13,6 +13,7 @@ In this guide:
 1. [Prepare our JavaScript](#javascript)
 1. [Setup HTML Loader and Laravel Mix](#html-loader)
 1. [Distributing our JavaScript Widget](#distribute)
+1. [Including CSS with our widget](#css)
 1. [GitHub Actions](#github-actions)
 1. [A live demo on this page](#demo)
 1. [Potential issues](#issues)
@@ -146,6 +147,41 @@ JSDeliver has some other neat features too:
 
 1. For testing, you can omit the version completely to get the latest one - not for production use.
 1. Add ".min" to any JS/CSS file to get a minified version if it doesn't already exist.
+
+## Including CSS with our widget {#css}
+
+We'll want to include a CSS file to style our widget. Instead of requiring people who want to embed our widget to include a JS and a CSS file, we can create the `<link rel="stylesheet">` our selves and download the CSS we need. Here's what that looks like:
+
+In our /src folder I'll create a new JS file called `injectCSS.js`.
+
+``` js
+const injectCSS = () => {
+  // Create a <link> element
+  var link = document.createElement("link");
+
+  // Set the link type to and rel attributes
+  link.type = "text/css";
+  link.rel = "stylesheet";
+  
+  if (process.env.NODE_ENV  == 'production') {
+    // A CDN link to your production CSS
+    link.href = "https://cdn.jsdelivr.net/gh/joseph-farruggio/js-widget@1.0/dist/styles.css";
+  } else {
+    // Your local CSS for local development
+    link.href = "./../dist/styles.css";
+  }
+
+  // Append the stylesheet to the <head> of the DOM
+  var head = document.head;
+  head.appendChild(link);
+}
+
+export default injectCSS;
+```
+
+You'll need to import the `injectCSS.js` file in `app.js`, just like we imported Alpine and out HTML template.
+
+
 
 ## GitHub Actions {#github-actions}
 
