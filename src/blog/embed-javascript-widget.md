@@ -179,7 +179,7 @@ const injectCSS = () => {
 export default injectCSS;
 ```
 
-You'll need to import the `injectCSS.js` file in `app.js`, just like we imported Alpine and out HTML template.
+You'll need to import the `injectCSS.js` file in `app.js`, just like we imported Alpine and out HTML template. You'll also need to process your stylesheet and include it in your build process.
 
 
 
