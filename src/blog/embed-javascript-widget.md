@@ -234,9 +234,13 @@ Any time there is a push or a pull request to master, the project builds and the
 
 Below is a simple weather widget that I built with Alpine. It takes in a zip code, converts it to lat/lon coordinates and requests the current weather using the openweathermap.org API. I used the exact steps above, so that means I included JS that's injecting the weather widget markup into the `<div id="app"></div>` that I included right after this paragraph. Give it a try!
 
-<div id="app"></div>
-<script src="https://rawcdn.githack.com/joseph-farruggio/Ineject-HTML-Components-with-Script/ff4a542f22236f4d365d935393ba3f7cdd186e3b/app.js"></script>
+<div id="app"></div> 
+<script defer src="https://rawcdn.githack.com/joseph-farruggio/Ineject-HTML-Components-with-Script/ff4a542f22236f4d365d935393ba3f7cdd186e3b/app.js"></script>
 
 ## Potential Issues {#issues}
 
+**Conflicting CSS**  
 Since this method injects HTML markup, it's possible to get styling conflicts. Any CSS loaded on the same page can accidentally affect your widget. In my Tailwind config I set `important: true;` so that all of my Tailwind classes apply the `!important` flag making style conflicts less likely. But it can still happen.
+
+**Conflicting IDs**  
+I'd recommend creating a unique ID instead of using `<div id="app"></div>`. Maybe name it after your widget or something like `<div id="weather-widget"></div>`. The chances of someone having a ID conflict with #app is significant, but much less so with #weather-widget. You could obviously go a step further and generate a random string for the ID, but I'll leave that up to you.
