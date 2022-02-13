@@ -235,7 +235,8 @@ Any time there is a push or a pull request to master, the project builds and the
 Below is a simple weather widget that I built with Alpine. It takes in a zip code, converts it to lat/lon coordinates and requests the current weather using the openweathermap.org API. I used the exact steps above, so that means I included JS that's injecting the weather widget markup into the `<div id="app"></div>` that I included right after this paragraph. Give it a try!
 
 <div id="app"></div> 
-<script defer src="https://rawcdn.githack.com/joseph-farruggio/Ineject-HTML-Components-with-Script/ff4a542f22236f4d365d935393ba3f7cdd186e3b/app.js"></script>
+<script defer src="https://cdn.jsdelivr.net/gh/joseph-farruggio/Ineject-HTML-Components-with-Script@1/dist/app.min.js"></script>
+
 
 ## Potential Issues {#issues}
 
