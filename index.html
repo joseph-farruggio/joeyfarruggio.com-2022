@@ -83,15 +83,70 @@
     <div class="dark:bg-slate-900 bg-slate-50 h-full w-10/12 md:w-96 absolute top-0 right-0 rounded-l-lg"></div>
 </div>
 
-<section class="px-4 mt-32 lg:dark:bg-transparent lg:px-8 lg:py-16 max-h-[43rem] md:max-h-[none] overflow-hidden relative" :class="{'max-h-[none] pb-32': showAll, 'max-h-[43rem]': !showAll}">
+<section class="px-4 mt-32 lg:dark:bg-transparent lg:px-8 lg:py-16 overflow-hidden relative">
     <div class="max-w-screen-xl mx-auto ">
         <h2 class="text-center font-bold text-orange-400 text-3xl text-highlight-orange">Happy Clients</h2>
         <p class="text-center mx-auto mt-4 md:w-1/2">When you absolutely love what you do, and you're good at it, it's easy to make folks really happy.</p>
     </div>
     
 
-    <figure class="my-12" x-data="player('matt-testimonial')">
-        <div class="max-w-screen-md mx-auto relative">
+    <figure class="my-20 md:my-32 md:grid md:grid-cols-2 md:items-center md:gap-8 max-w-screen-lg mx-auto" x-data="player('matt-testimonial')">
+        <figcaption class="mt-6">
+            <div class="flex items-center justify-center md:justify-start">
+                <img src="/images/matt.jpg" class="w-20 aspect-square object-cover rounded-full md:mr-4" alt="">
+                <div class="md:text-2xl">
+                    <a href="https://mhb.xyz" target="_blank" class="text-orange-400 text-highlight-orange">Matthew Howells-Barby</a> 
+                    <div class="opacity-80 text-lg">
+                    <span>VP, Marketing @HubSpot</span>
+                    <span>•</span>
+                    <a href="https://mhb.xyz" class="underline">mhb.xyz</a>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-3xl font-serif italic mt-6 max-w-xl mx-auto md:mx-0">"One of the best devs I've ever worked with. I couldn't recommend anyone else."</p>
+        </figcaption>
+
+        <div class="relative mt-12">
+            <img src="/images/video-thumbnail.jpg" alt="" class="relative z-10">
+            <div class="absolute top-0 left-0 h-full w-full bg-gradient-to-t from-black to-transparent z-10"></div>
+            <button x-on:click="toggleVideo()"
+                class="absolute top-1/2 left-1/2 -ml-20 -mt-20 p-10 cursor-pointer group flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 dark:text-white text-white relative z-10" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                </svg>      
+            </button>
+        </div>
+
+        <div x-show="playing" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <!--
+      Background overlay, show/hide based on modal state.
+
+      Entering: "ease-out duration-300"
+        From: "opacity-0"
+        To: "opacity-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+    <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+    <!-- This element is to trick the browser into centering the modal contents. -->
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+    <!--
+      Modal panel, show/hide based on modal state.
+
+      Entering: "ease-out duration-300"
+        From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        To: "opacity-100 translate-y-0 sm:scale-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100 translate-y-0 sm:scale-100"
+        To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+    -->
+    <div class="inline-block align-bottom overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle max-w-screen-lg w-full sm:p-6">
+       <div x-cloak class="max-w-screen-md mx-auto relative">
             <iframe id="matt-testimonial" src="https://player.vimeo.com/video/670789031?h=14487be9d4&title=0&byline=0&portrait=0&controls=0" class="relative bg-black aspect-video h-full w-full 2xl:rounded-lg" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
 
             <button x-on:click="toggleVideo()" :class="firstPlay ? 'flex' : 'hidden'"
@@ -126,13 +181,12 @@
                 </button>
             </div>
         </div>
-        
-        <figcaption class="mt-6">
-            <p class="text-center"><a href="https://mhb.xyz" target="_blank" class="">Matthew Howells-Barby</a> <br> <span class="opacity-75 text-sm">VP, Marketing @HubSpot</span></p> 
-        </figcaption>
+    </div>
+  </div>
+</div>            
     </figure>
 
-    <div class="max-w-screen-xl mx-auto mt-12 grid grid-cols-1 gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3" id="testimonials" x-data="{shown: false}" x-intersect:enter="shown = true">
+    <div :class="{'max-h-[none] pb-32': showAll, 'max-h-[43rem]': !showAll}" class="max-h-[43rem] md:max-h-[none] max-w-screen-xl mx-auto mt-12 grid grid-cols-1 gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3" id="testimonials" x-data="{shown: false}" x-intersect:enter="shown = true">
         
                 <figure 
                     x-data="{url: '/images/christianT.jpg'}"
@@ -225,6 +279,7 @@
                 </figure>
         
     </div>
+
     <div class="inset-x-0 bottom-0 md:hidden flex justify-center bg-gradient-to-t from-white pt-32 pb-8 pointer-events-none dark:from-darkBG absolute" :class="{'bg-gradient-to-t from-white': !showAll}">
         <button type="button" @click="showTestimonials()" :class="!showAll || 'mt-32'" class="relative bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 text-sm text-white font-semibold h-12 px-6 rounded-lg flex items-center dark:bg-gray-700 dark:hover:bg-gray-600 pointer-events-auto">
             <span x-show="!showAll">Show more...</span>
@@ -388,6 +443,17 @@
     
     
         <article class="mt-16 first:mt-0 relative">
+    <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/javascript/embed-javascript-widget/" class="text-orange-400">Embed JavaScript Widgets as HTML</a></h1>
+    <p class=" text-lg mt-4 leading-relaxed">Embed widgets as HTML, not an iframe, with JavaScript</p>
+    <span class="flex items-center space-x-4 mt-4 text-gray-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+        <time datetime="2022-02-12">12 Feb 2022</time>
+    </span>
+</article>    
+    
+
+    
+        <article class="mt-16 first:mt-0 relative">
     <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/wordpress/rotating-ad-spots/" class="text-orange-400">Rotating Sponsor Slots with Alpine, WordPress and ACF</a></h1>
     <p class=" text-lg mt-4 leading-relaxed">Display rotating ads slots on your WordPress website with Alpine.js and ACF</p>
     <span class="flex items-center space-x-4 mt-4 text-gray-400">
@@ -480,5 +546,6 @@
 
     </footer>
     <script defer src="/js/app.min.js"></script>
+    
 </body>
 </html>
