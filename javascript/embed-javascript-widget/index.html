@@ -131,12 +131,15 @@ Your new, lightweight, JavaScript framework. Heavily inspired by Vue.js, but muc
 <h2 id="demo">Live demo</h2>
 <p>Below is a simple weather widget that I built with Alpine. It takes in a zip code, converts it to lat/lon coordinates and requests the current weather using the openweathermap.org API. I used the exact steps above, so that means I included JS that's injecting the weather widget markup into the <code>&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</code> that I included right after this paragraph. Give it a try!</p>
 <div id="app"></div> 
-<script defer src="https://cdn.jsdelivr.net/gh/joseph-farruggio/Ineject-HTML-Components-with-Script@master-built/app.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/gh/joseph-farruggio/Ineject-HTML-Components-with-Script@master-built/app.js"></script>
 <h2 id="issues">Potential Issues</h2>
 <p><strong>Conflicting CSS</strong><br>
 Since this method injects HTML markup, it's possible to get styling conflicts. Any CSS loaded on the same page can accidentally affect your widget. In my Tailwind config I set <code>important: true;</code> so that all of my Tailwind classes apply the <code>!important</code> flag making style conflicts less likely. But it can still happen.</p>
 <p><strong>Conflicting IDs</strong><br>
 I'd recommend creating a unique ID instead of using <code>&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</code>. Maybe name it after your widget or something like <code>&lt;div id=&quot;weather-widget&quot;&gt;&lt;/div&gt;</code>. The chances of someone having a ID conflict with #app is significant, but much less so with #weather-widget. You could obviously go a step further and generate a random string for the ID, but I'll leave that up to you.</p>
+<p><strong>Conflicting Alpine Instances</strong><br>
+To avoid issues when injecting an Alpine widget on a site that's already running Alpine, change the name from <code>Alpine</code> when you import it. For example:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">import</span> widgetAlpine <span class="token keyword">from</span> <span class="token string">"alpinejs"</span><span class="token punctuation">;</span></code></pre>
 
 </article>
 
