@@ -141,11 +141,11 @@ I'd recommend creating a unique ID instead of using <code>&lt;div id=&quot;app&q
 If your Alpine widget gets injected onto a page that's already running its own instance of Alpine, you're likely going to get errors. The primary reason being, if your widget or the host website has Alpine components extracted with <code>Alpine.data</code>, the dedicated component won't exist in the other Alpine instance. I think there are two steps to prevent this issue:</p>
 <ol>
 <li>
-<p>Inline your Alpine component logic in <code>x-data</code>.<br>
+<p><strong>Inline your Alpine component logic in <code>x-data</code>.</strong><br>
 This will prevent the host website's Alpine instance from complaining about not being able to find your component.</p>
 </li>
 <li>
-<p>Check if Alpine is attached to the window before you <code>start()</code> your own instance of Alpine.<br>
+<p><strong>Check if Alpine is attached to the window before you <code>start()</code> your own instance of Alpine.</strong><br>
 This will prevent your Alpine instance from complaining about not being able to find the host website's components.</p>
 </li>
 </ol>

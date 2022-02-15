@@ -249,10 +249,10 @@ I'd recommend creating a unique ID instead of using `<div id="app"></div>`. Mayb
 **Conflicting Alpine Instances**  
 If your Alpine widget gets injected onto a page that's already running its own instance of Alpine, you're likely going to get errors. The primary reason being, if your widget or the host website has Alpine components extracted with `Alpine.data`, the dedicated component won't exist in the other Alpine instance. I think there are two steps to prevent this issue:
 
-1. Inline your Alpine component logic in `x-data`.  
+1. **Inline your Alpine component logic in `x-data`.**  
 This will prevent the host website's Alpine instance from complaining about not being able to find your component.
 
-2. Check if Alpine is attached to the window before you `start()` your own instance of Alpine.  
+2. **Check if Alpine is attached to the window before you `start()` your own instance of Alpine.**  
 This will prevent your Alpine instance from complaining about not being able to find the host website's components.
 
 ``` js
