@@ -235,7 +235,7 @@ Any time there is a push or a pull request to master, the project builds and the
 Below is a simple weather widget that I built with Alpine. It takes in a zip code, converts it to lat/lon coordinates and requests the current weather using the openweathermap.org API. I used the exact steps above, so that means I included JS that's injecting the weather widget markup into the `<div id="app"></div>` that I included right after this paragraph. Give it a try!
 
 <div id="app"></div> 
-<script defer src="https://cdn.jsdelivr.net/gh/joseph-farruggio/Ineject-HTML-Components-with-Script@master-built/app.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/gh/joseph-farruggio/Ineject-HTML-Components-with-Script@master-built/app.js"></script>
 
 
 ## Potential Issues {#issues}
@@ -245,3 +245,10 @@ Since this method injects HTML markup, it's possible to get styling conflicts. A
 
 **Conflicting IDs**  
 I'd recommend creating a unique ID instead of using `<div id="app"></div>`. Maybe name it after your widget or something like `<div id="weather-widget"></div>`. The chances of someone having a ID conflict with #app is significant, but much less so with #weather-widget. You could obviously go a step further and generate a random string for the ID, but I'll leave that up to you.
+
+**Conflicting Alpine Instances**  
+To avoid issues when injecting an Alpine widget on a site that's already running Alpine, change the name from `Alpine` when you import it. For example:
+
+``` js
+import widgetAlpine from "alpinejs";
+```
