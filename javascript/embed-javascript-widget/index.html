@@ -138,8 +138,19 @@ Since this method injects HTML markup, it's possible to get styling conflicts. A
 <p><strong>Conflicting IDs</strong><br>
 I'd recommend creating a unique ID instead of using <code>&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</code>. Maybe name it after your widget or something like <code>&lt;div id=&quot;weather-widget&quot;&gt;&lt;/div&gt;</code>. The chances of someone having a ID conflict with #app is significant, but much less so with #weather-widget. You could obviously go a step further and generate a random string for the ID, but I'll leave that up to you.</p>
 <p><strong>Conflicting Alpine Instances</strong><br>
-To avoid issues when injecting an Alpine widget on a site that's already running Alpine, change the name from <code>Alpine</code> when you import it. For example:</p>
-<pre class="language-js"><code class="language-js"><span class="token keyword">import</span> widgetAlpine <span class="token keyword">from</span> <span class="token string">"alpinejs"</span><span class="token punctuation">;</span></code></pre>
+If your Alpine widget gets injected onto a page that's already running its own instance of Alpine, you're likely going to get errors. The primary reason being, if your widget or the host website has Alpine components extracted with <code>Alpine.data</code>, the dedicated component won't exist in the other Alpine instance. I think there are two steps to prevent this issue:</p>
+<ol>
+<li>
+<p><strong>Inline your Alpine component logic in <code>x-data</code>.</strong><br>
+This will prevent the host website's Alpine instance from complaining about not being able to find your component.</p>
+</li>
+<li>
+<p><strong>Check if Alpine is attached to the window before you <code>start()</code> your own instance of Alpine.</strong><br>
+This will prevent your Alpine instance from complaining about not being able to find the host website's components.</p>
+</li>
+</ol>
+<pre class="language-js"><code class="language-js"><span class="token comment">// Give the host website's Alpine instance a chance to mount</span><br>document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"DOMContentLoaded"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>		<span class="token comment">// If Alpine doesn't exist, start it up/</span><br>    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>window<span class="token punctuation">.</span>Alpine<span class="token punctuation">)</span> <span class="token punctuation">{</span><br>			window<span class="token punctuation">.</span>Alpine <span class="token operator">=</span> Alpine<span class="token punctuation">;</span><br>			Alpine<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>		<span class="token punctuation">}</span><br>	<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>I don't think this is 100% fool proof. So if you have ideas, questions, concerns, please let me know in the comments!</p>
 
 </article>
 
@@ -170,6 +181,5 @@ To avoid issues when injecting an Alpine widget on a site that's already running
 
     </footer>
     <script defer src="/js/app.min.js"></script>
-    
 </body>
 </html>
