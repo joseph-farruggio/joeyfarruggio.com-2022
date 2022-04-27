@@ -9,8 +9,13 @@
     
     <script>
         // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        
         try {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            if (!('theme' in window.localStorage)) {
+                document.documentElement.classList.add('dark')
+                document.documentElement.style.backgroundColor = "#040817";
+            }
+            else if (window.localStorage.theme === 'dark' || (!('theme' in window.localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.classList.add('dark')
                 document.documentElement.style.backgroundColor = "#040817";
             } else {
@@ -62,6 +67,17 @@
     
         
         <article class="mt-16 first:mt-0 relative">
+    <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/javascript/web-worker-api/" class="text-orange-400">How to use web workers to serve an API</a></h1>
+    <p class=" text-lg mt-4 leading-relaxed">I moved a weighty JavaScript password strength library to a web worker. It made my app lighter, faster, and I learned working with web workers can be quite easy.</p>
+    <span class="flex items-center space-x-4 mt-4 text-gray-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+        <time datetime="2022-04-24">24 Apr 2022</time>
+    </span>
+</article>    
+        
+    
+        
+        <article class="mt-16 first:mt-0 relative">
     <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/javascript/embed-javascript-widget/" class="text-orange-400">Embed JavaScript Widgets as HTML</a></h1>
     <p class=" text-lg mt-4 leading-relaxed">Embed widgets as HTML, not an iframe, with JavaScript</p>
     <span class="flex items-center space-x-4 mt-4 text-gray-400">
@@ -89,17 +105,6 @@
     <span class="flex items-center space-x-4 mt-4 text-gray-400">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
         <time datetime="2022-01-06">06 Jan 2022</time>
-    </span>
-</article>    
-        
-    
-        
-        <article class="mt-16 first:mt-0 relative">
-    <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/wordpress/table-contents-block/" class="text-orange-400">A table of contents Gutenberg block</a></h1>
-    <p class=" text-lg mt-4 leading-relaxed">Insert a table of contents anywhere in your post with this Gutenberg block.</p>
-    <span class="flex items-center space-x-4 mt-4 text-gray-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-        <time datetime="2022-01-03">03 Jan 2022</time>
     </span>
 </article>    
         
