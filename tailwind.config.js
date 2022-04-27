@@ -29,11 +29,6 @@ module.exports = {
                 color: theme("colors.gray.900"),
               },
             },
-
-            img: {
-              // borderRadius: defaultTheme('borderRadius.length'),
-              // shadow: defaultTheme('shadow.lg'),
-            },
           },
         },
         invert: {
