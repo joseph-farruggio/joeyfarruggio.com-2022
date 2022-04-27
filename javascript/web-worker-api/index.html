@@ -10,7 +10,7 @@
     <script>
         // On page load or when changing themes, best to add inline in `head` to avoid FOUC
         try {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            if (window.localStorage.theme === 'dark' || (!('theme' in window.localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.classList.add('dark')
                 document.documentElement.style.backgroundColor = "#040817";
             } else {
@@ -63,12 +63,24 @@
         <time datetime="2022-04-24">24 Apr 2022</time>
     </span>
     <div class="mt-16"></div>   
-    <div 
-x-intersect:enter="if (dark == true) { tempThemeChange = true; toggleTheme(); }" 
-x-intersect:enter="if (tempThemeChange == true) { toggleTheme() }" class="bg-white text-black p-4 max-w-md mx-auto">
+    <p>I was researching JavaScript libraries to test a password's strength. I found a robust library called <a href="https://github.com/dropbox/zxcvbn">Zxcvbn</a>. The library allows you to pass in a string <code>let results = zxcvbn('Tr0ub4dour&amp;3');</code> and it returns an object with the results of the test.</p>
+<p>The test results consist of:</p>
+<ol>
+<li>Estimated number of guesses it would take to crack your password</li>
+<li>Time in seconds it would take to crack your password</li>
+<li>A 4-point score where 0 is is weak and 4 is strong.</li>
+<li>Feedback, warnings, and suggestions to make your password stronger</li>
+<li>And more, just look into the library yourself if you're interested</li>
+</ol>
+<p>I built a simple Alpine.js app that includes the Zxcvbn library. The template conditionally displays feedback, warnings, and suggestions based on the results from the test. You can test the Alpine.js app yourself below:</p>
+<div 
+    x-data="{tempThemeChange: false}"
+    x-intersect:enter="if (dark == true) { tempThemeChange = true; toggleTheme(); }" 
+    x-intersect:leave="if (tempThemeChange == true) { toggleTheme() }" class="bg-white text-black p-4 max-w-md mx-auto">
     <div id="app"></div>
     <script src="https://cdn.jsdelivr.net/gh/joseph-farruggio/password-strength-widget@main-built/app.min.js"></script>
 </div>
+
 </article>
 
 <div class=" max-w-screen-md mx-auto px-4 mt-12">
