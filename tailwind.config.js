@@ -33,7 +33,7 @@ module.exports = {
         },
         invert: {
           css: {
-            color: theme("colors.white"),
+            color: theme("colors.slate.300"),
             a: {
               color: theme("colors.orange.400"),
               "&:hover": {
