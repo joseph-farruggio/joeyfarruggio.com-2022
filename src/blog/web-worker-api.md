@@ -18,7 +18,7 @@ The test results consist of:
 I built a simple Alpine.js app that includes the Zxcvbn library. The template conditionally displays feedback, warnings, and suggestions based on the results from the test. You can test the Alpine.js app yourself below:
 
 <div 
-    class="bg-white border border-slate-400 rounded-lg text-black p-4 mx-auto my-12 lg:my-20 not-prose" id="app">
+    class="bg-white border border-slate-400 rounded-lg text-black p-4 lg:px-20 lg:py-12 mx-auto my-12 lg:my-20 not-prose" id="app">
     <script src="https://cdn.jsdelivr.net/gh/joseph-farruggio/password-strength-widget@main-built/app.min.js"></script>
 </div>
 
