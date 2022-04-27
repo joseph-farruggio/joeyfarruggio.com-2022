@@ -15,15 +15,12 @@
 }
 
 a {
-	@apply underline-offset-4 transition-colors hover:text-orange-400;
+	@apply underline-offset-4;
 }
 
 p,
 li {
-	@apply text-slate-500 text-xl leading-relaxed dark:text-white text-slate-600;
-}
-.prose img {
-	@apply rounded-lg shadow-lg dark:shadow-slate-900 !important;
+	@apply leading-relaxed;
 }
 
 iframe {
@@ -74,5 +71,5 @@ iframe {
 }
 
 code {
-	@apply dark:text-orange-400;
+	@apply dark:text-orange-400 bg-slate-100 p-1 rounded-sm dark:bg-slate-800;
 }
