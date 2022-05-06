@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog | Joey Farruggio</title>
+    <title>How to create a filterable ACF Gallery</title>
     <meta name="description" content="">
     
     <script>
@@ -60,72 +60,38 @@
     </header>
     
     <main class="">
-        
-<section class="max-w-screen-md mx-auto px-4 mt-32">
-    <h2 class="font-bold text-orange-400 text-3xl text-highlight-orange">Articles</h2>
-
-    
-        
-        <article class="mt-16 first:mt-0 relative">
-    <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/wordpress/filter-acf-gallery/" class="text-orange-400">How to create a filterable ACF Gallery</a></h1>
+        <article id="post" class="prose lg:prose-xl max-w-screen-md mx-auto px-4 mt-12" :class="{'prose-invert': dark}">
+    <h1 class="dark:text-orange-400 text-4xl text-highlight-orange">How to create a filterable ACF Gallery</h1>
     <p class=" text-lg mt-4 leading-relaxed">I recently built  filterable logo gallery for a Vimeo.com landing page. Here&#39;s how I did it.</p>
     <span class="flex items-center space-x-4 mt-4 text-gray-400">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
         <time datetime="2022-05-05">05 May 2022</time>
     </span>
-</article>    
-        
+    <div class="mt-16"></div>   
     
-        
-        <article class="mt-16 first:mt-0 relative">
-    <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/javascript/web-worker-api/" class="text-orange-400">How to use web workers to serve an API</a></h1>
-    <p class=" text-lg mt-4 leading-relaxed">I moved a weighty JavaScript password strength library to a web worker. It made my app lighter, faster, and I learned working with web workers can be quite easy.</p>
-    <span class="flex items-center space-x-4 mt-4 text-gray-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-        <time datetime="2022-04-24">24 Apr 2022</time>
-    </span>
-</article>    
-        
-    
-        
-        <article class="mt-16 first:mt-0 relative">
-    <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/javascript/embed-javascript-widget/" class="text-orange-400">Embed JavaScript Widgets as HTML</a></h1>
-    <p class=" text-lg mt-4 leading-relaxed">Embed widgets as HTML, not an iframe, with JavaScript</p>
-    <span class="flex items-center space-x-4 mt-4 text-gray-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-        <time datetime="2022-02-12">12 Feb 2022</time>
-    </span>
-</article>    
-        
-    
-        
-        <article class="mt-16 first:mt-0 relative">
-    <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/wordpress/rotating-ad-spots/" class="text-orange-400">Rotating Sponsor Slots with Alpine, WordPress and ACF</a></h1>
-    <p class=" text-lg mt-4 leading-relaxed">Display rotating ads slots on your WordPress website with Alpine.js and ACF</p>
-    <span class="flex items-center space-x-4 mt-4 text-gray-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-        <time datetime="2022-01-14">14 Jan 2022</time>
-    </span>
-</article>    
-        
-    
+</article>
 
-    <ol class="max-w-xs mx-auto flex items-center justify-between mt-32">
-    
-        <li>
-            
-                <span class="opacity-50">Previous</span>
-            
-        </li>
-    
-        <li>
-            
-                <a href="/blog/page-2/" class="bg-orange-100 text-orange-600 dark:text-white dark:bg-white dark:bg-opacity-10 px-4 py-3 rounded-md">Next</a>
-            
-        </li>
-    </ol>
-</section>
-
+<div class=" max-w-screen-md mx-auto px-4 mt-12">
+    <div id="disqus_thread"></div>
+</div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://joeyfarruggio-com.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </main>
 
     <footer class="py-16 bg-slate-900 mt-16"> 
