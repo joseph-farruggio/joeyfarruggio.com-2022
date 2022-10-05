@@ -1,173 +1,222 @@
 ---
-title: 6-Step Guide To Custom Post Loop Gutenberg Blocks
-description: Build a custom Gutenberg block to loop through your WordPress blog posts
-date: 2020-06-04
+title: 5-Step Guide To Creating a Posts Loop Block in Gutenberg with ACF and block.json
+description: Build a custom block to loop through your WordPress blog posts with Advanced Custom Fields and block.json.
+date: 2022-10-05
 permalink: "wordpress/{{ page.fileSlug }}/index.html"
 ---
 
-## Steps in this guide:
+> This post was updated on October, 5th 2022 to reflect changes in how we register blocks in WordPress 6.0 and Advanced Custom Fields 6.0.
 
-1. [Setting up the CPT](#set-up-cpt)
-1. [Creating the Custom Fields](#create-custom-fields)
-1. [Register the Block](#register-testimonial-block)
-1. [Create the Block Fields](#create-block-fields)
-1. [Building the Block Template](#build-template)
-1. [Using the Testimonial Block](#using-block)
+## Steps in this guide: {#ignore-toc .ignore-toc x-intersect:enter="$store.showToc = false" x-intersect:leave="$store.showToc = true"}
 
-Here’s what we’ll accomplish in this brief guide – we’ll have a custom Gutenberg block that allows you to interface with the `WP_Query` class. You can loop through your posts or a custom post type and add query parameters like taxonomy, post count, and post order.
+1. [Creating our fields](#create-fields)
+1. [Register our blocks with block.json](#register-block)
+1. [Handle our block data](#block-data)
+1. [Create the block render template](#render-template)
+1. [Using the block](#using-block)
 
-To demonstrate this, we’ll create a Testimonials block. The block will query a testimonial custom post type and display posts in a template.
+## Creating our fields {#create-fields}
 
-In my previous post I covered how to create a custom [Gutenberg block](/wordpress/custom-gutenberg-block-advanced-custom-fields/) with Advanced Custom Field’s `acf_register_block_type()`. But the [ACF documentation](https://www.advancedcustomfields.com/resources/acf_register_block_type/) is a more complete resource.
+What fields will our block will need to control an output of posts? Sometimes I like to start here because it gets me thinking about how I’m going to use the block. I know this block will interface with the WP_Query class, so a few fields immediately come to mind.
 
-## Setting up the CPT {#set-up-cpt}
-I recommend using the free [CPT UI](https://wordpress.org/plugins/custom-post-type-ui/) plugin for quickly setting up custom post types.
+1. **Selection Type** <br/>Will we display the most recent posts or do we want to hand pick them?
+2. **Category**  <br/>If we’re displaying the most recent posts, do we want to limit them to a specific category?
+3. **Limit**  <br/>If we’re displaying the most recent posts, do we want to set a limit for how many are returned?
+4. **Select Posts**  <br/>If we choose "select posts", we'll want a relationship field to hand pick our posts from a list.
 
-!["Custom Post Type plugin"](/images/acf-custom-post-type.png "Custom Post Type plugin")
+!["Field Group"](/images/block-guide-field-group.jpg "Creating the block's field group")
 
-I don’t want to use Gutenberg to create the testimonial itself. The classic editor or custom fields will do just fine. In order to disable Gutenberg for the CPT you need to set the `Show in REST API` to false. Set it to true if you do want to use the Gutenberg editor.
+The `Category` and `Limit` fields are conditionally displayed if the `Selection Type` is "recent". Likewise, the `Select Posts` field is only displayed if the `Selection type` is "select posts".
 
-!["Disable Gutenberg for CPT"](/images/show-in-rest.png "Disable Gutenberg for CPT")
+Want to import this field group into ACF Pro? [Get the JSON](https://gist.github.com/joseph-farruggio/72c69968b23c6701932af84690516240){target="_blank"} – Once you've imported the JSON into ACF, make sure to update the location rules to match your block name after you register your block.
 
 
-## Creating the Custom Fields {#create-custom-fields}
-Within Advanced Custom Fields, I created just one field for the testimonial author’s company name. I’ll use the post title for the author’s name, the feature image for the author’s profile image, and the default classic editor for the testimonial content itself.
+## Register the block {#register-block}
 
-!["Create ACF field group"](/images/testimonial-field-group.png "Create ACF field group")
+Since WP 6.0, the recommended way of registering blocks is [via block.json](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/). This is a big deal, because keeping our ACF blocks as close to core as possible allows us to take advantage of many native block features.
 
-## Register the Block {#register-testimonial-block}
-Within your `functions.php` file (or in another file that include such as /inc/acf-blocks.php) register your testimonial block. Be sure to scan through the [ACF documentation](https://www.advancedcustomfields.com/resources/acf_register_block_type/) to fully understand what’s happening here, but most of it should be self explanatory.
+You can register blocks from a plugin or your theme. For simplicity, and to make this guide more accessible to beginners, I’ll be doing this directly in my theme. Go ahead and stub out the following structure:
+
+``` text
+/theme-root
+│
+└─── /blocks
+│   │   register-blocks.php
+│   │
+│   └─── /posts-block
+│       │   block.json
+│       │   block.php
+│       │   template.php
+```
+
+Inside of `/blocks/register-blocks.php`, we’ll include the path to our block’s json file. This is where we’ll register all of our future blocks:
 
 ``` php
-functions.php
-// Register Custom Blocks
-add_action('acf/init', 'my_register_blocks');
-function my_register_blocks() {
-
-    // check function exists.
-    if( function_exists('acf_register_block_type') ) {
-
-        // register a testimonial block.
-        acf_register_block_type(array(
-            'name'				=> 'testimonials',
-            'title'				=> __( 'Testimonials'),
-            'description'		=> __( 'A custom testimonial block.'),
-            'render_template'   => 'template-parts/blocks/testimonials/block.php',
-            'category'			=> 'formatting',
-            'icon'				=> 'admin-comments',
-            'keywords'			=> array( 'testimonial' ),
-            'enqueue_style' => get_template_directory_uri() . '/template-parts/blocks/testimonial/testimonial.css',
-        ));
-    }
-}
+register_block_type( get_template_directory() . '/blocks/posts-loop/block.json' );
 ```
 
-### A note on enqueuing block CSS and JS:
+In your `functions.php` you can include the path to `/blocks/register-blocks.php.`
 
-When you enqueue your CSS and JS within the `acf_register_block_type()` function, your assets are only loaded when your block is present on a page. And those assets get enqueued both on the front-end and the back-end. If you view your block from the editor with preview mode, you may notice areas where you’ll need to write extra CSS scoped specifically for preview mode in the editor. This is because the Gutenberg editor itself enqueues default styling that may affect your block in an unintended way.
-
-The `enqueue_style` above reflects the ACF documentation in that the CSS is being enqueued from the same directory as the block template itself.
-
-This isn’t how I do it in my themes though. I have all of my theme and block SCSS in a `/src` directory and that SCSS gets compiled to CSS and minified in a `/dist` directory. SCSS files for blocks live in /src/scss/blocks/block_name.scss. That means I’ll enqueue my block CSS like so:
-
-```
-'enqueue_style' => get_template_directory_uri() . '/dist/css/blocks/block_name.min.css'
+``` php
+/**
+ * Register ACF Blocks
+ */
+require get_template_directory() . '/blocks/register-blocks.php';
 ```
 
-### Update Summer 2021
-I'm fully on board with [Taildind CSS](https://tailwindcss.com). That means I'm not creating and enqueeing block CSS files. Instead, I'm using Tailwind classes that depend on a base stylesheet. Now I have less CSS files to enquee and overall less CSS shipped in production in general.
+## Handle our block data {#block-data}
+`/blocks/posts-block/block.php` will serve as the *model / controller* for our block. It’s where we’ll handle all of the data that gets passed into the render template or the *view*. This helps keep things clean and organized so our logic is one place (block.php) and our front-end template (template.php) is in another.
 
-## Create the Block Fields {#create-block-fields}
-I want some level of configuration over my testimonial block. Depending on where I use it, I’ll want to either loop testimonials with a `posts_per_page` to set a limit or I’ll want to hand select which testimonials to display.
-
-
-Back in Advanced Custom Fields we’ll create three fields to create this functionality.
-
-Note: I like prefixing my ACF field groups that contain block controls with “Block:“. This way I can more easily distinguish field groups that are used for the Testimonial CPT and field groups for the block that displays testimonials.
-
-!["Testimonial Block Field Group"](block-testimonials "Testimonial Block Field Group")
-
-
-In this field group I’ve created a Button Group to allow the user to select between limiting the post loop with a post count or selecting from a list of published testimonials.
-
-The `Loop Argument Type` field contains two options:
-
-```
-count : Count
-select : Select Posts
-```
-
-Both the `Testimonial Count` and `Select Testimonials` fields have a conditional setting to only be displayed based on the selection of `Loop Argument Type`.
-
-The `Select Testimonials` field should be set to return just the post ID.
-
-## Building the Block Template {#build-template}
-Next I’ll create my template and add some PHP to handle any logic needed for the loop.
-
-`template-parts/blocks/testimonials/block.php`
 ``` php
 <?php
 /**
- * Block Name: Testimonials
- *
- * This is the template that displays the testimonials loop block.
+ * Posts Loop Block
  */
 
-$argType = get_field( 'loop_argument_type' );
-if( $argType == "count" ) :
-  $args = array( 
-    'orderby' => 'title',
-    'post_type' => 'testimonials',
-    'posts_per_page' => get_field( 'testimonial_count' )
-  );
-else:
-  $testimonials = get_field( 'select_testimonials' );
-  $args = array( 
-    'orderby' => 'title',
-    'post_type' => 'testimonials',
-    'post__in' => $testimonials
-  );
-endif;
+// $data is what we're going to expose to our render template
+$data = array(
+	'selection_type' => get_field( 'selection_type' ),
+	'category' => get_field( 'category' ),
+	'limit' => get_field( 'limit' ),
+	'select_posts' => get_field('select_posts')
+);
 
-$the_query = new WP_Query( $args );
+// WP Query Args
+$queryArgs = array(
+    'post_type' => 'post',
+);
+
+// If the selection type is "recent", check  for categories and limit
+if ( $data['selection_type'] == 'recent' ) {
+    $queryArgs['category__in'] = $data['category'];
+    $queryArgs['posts_per_page'] = $data['limit'];
+}
+
+// If the selection type is "select", pass in the selected post IDs
+if ( $data['selection_type'] == 'select' ) {
+    $queryArgs['post__in'] = $data['select_posts'];
+}
+
+// Create a new WP_Query instance
+$posts = new WP_Query( $queryArgs );
+
+// Expose the response of WP_Query to the render template
+$data['posts'] = $posts;
+
+/** 
+ * Pass the block data into the template part
+ * @param array $block contains attributes and data for the block coming from Gutenberg
+ * @param boolean $is_preview whether the block is in the preview state (the Gutenberg editor) or not (the front-end)
+ * @param integer $post_id the post id of the post that the block is in
+ * @param array $data is what we're going to expose to our render template
+ */ 
+
+get_template_part(
+	'blocks/posts-loop/template',
+	null,
+	array(
+		'block'      => $block,
+		'is_preview' => $is_preview,
+		'post_id'    => $post_id,
+		'data'       => $data,
+	)
+);
 ```
 
-Then, I’ll start the loop and populate our testimonial fields in the same template. Now, the markup and CSS is up to you. I’m keeping it simple for this guide.
+## Create the block render template {#render-template}
+Now we can create the block’s render template: `/blocks/posts-loop/template.php`.
 
-`template-parts/blocks/testimonials/block.php`
-```php
-continued code...
+``` php
+<?php
+/**
+ * Block Name: Posts Loop Block
+ *
+ * Description: Displays a list of posts.
+ */
 
-<?php 
-  if ( $the_query->have_posts() ) :
-    while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-      
-      <div class="testimonial">
-        <?php the_post_thumbnail('post-thumbnail'); ?>
-        <?php the_content(); ?>
-        <b><?php the_title(); ?></b> <br>
-        <small><?php the_field('company', get_the_ID()); ?></small>
-      </div>
-    
-    <?php endwhile; ?>
-<?php endif;?>
+// The block attributes
+$block = $args['block'];
+
+// The block data
+$data = $args['data'];
+
+// Dynamic block ID
+$block_id = 'posts-loop-block-' . $block['id'];
+
+// Check for custom block ID
+if( !empty($block['anchor']) ) {
+    $block_id = $block['anchor'];
+}
+
+// Block classes
+$className = 'posts-loop-block';
+if( !empty($block['className']) ) {
+    $className .= ' ' . $block['className'];
+}
+?>
+
+<!-- Our front-end template to loop the posts -->
+<div id="<?php echo $block_id; ?>" class="<?php echo $className; ?>">
+    <?php
+    if( $data['posts']->have_posts() ) {
+        while( $data['posts']->have_posts() ) {
+            $data['posts']->the_post();
+            ?>
+            <div class="post">
+                <h2><?php the_title(); ?></h2>
+                <div class="post-content">
+                    <?php the_excerpt(); ?>
+                </div>
+            </div>
+            <?php
+        }
+    }
+    ?>
+</div>
 ```
 
-## IMPORTANT
+Within our render template, our block attributes, such as the block’s ID or classnames, are found in `$args['block']`. Our block data, fields we specified in `blocks/posts-loop/block.php`, are found in `$args[’data’]`.
 
-There’s one thing that I need to point out here to save you from some frustration. When looping through posts in a Gutenberg block, you must add the post ID as the second parameter when using `get_field()`. Otherwise, `get_field()` is scoped to the post/page that your block is published on and not the testimonial itself.
+The response of WP_Query is exposed to this render template in `$data['posts']`. This is because of the work we did in `/blocks/posts-loop/block.php`. Here's the line specifically:
 
-```<?php echo get_field( 'quote', get_the_ID() ); ?>```
+``` php
+// Create a new WP_Query instance
+$posts = new WP_Query( $queryArgs );
 
-## Using the Testimonial Block {#using-block}
-I want to add testimonials to my home page, so within the editor I added a testimonial block. If I want to simple display the latest X number of posts, I can do that by setting `Loop Argument Type` to `Count` and then setting a `Testimonial Count`:
+// Expose the response of WP_Query to the render template
+$data['posts'] = $posts;
+```
 
-!["Loop arguments"](/images/loop-args.png "Loop arguments")
+## Using the block {#using-block}
+!["Block backend UI"](/images/block-guide-editor.jpg "Using the block in the editor")
 
-But if I wanted to hand pick which testimonials I wanted to display, I could set the Loop `Argument Type` to `Select Posts`:
+This is what our block looks like when we insert it into the editor. The block's preview is on the left in the content column and our block's fields are in the right sidebar.
 
-!["Using the block"](/images/using-block.png "Using the block")
+!["Block backend UI - Select Posts"](/images/block-guide-select-posts.jpg "Using the block in the editor to select posts")
 
-And there we have it! Our custom post type is looped and applied to a custom template which is configurable and reusable as a block throughout any post or page.
+If I change the "Selection Type" from `Recent` to `Select posts` I'll be able to use the "Select Posts" relationship field.
 
-!["Using the block"](/images/block-in-use.png "Using the block")
+---
+
+🤜 🤛 You did it!
+
+If you've followed along, let me know how this went or if you have any questions.
+
+<aside 
+  x-data="visibleNavHighlighter" 
+  x-on:scroll.window.throttle.50ms="onScroll()" 
+  x-show.important="$store.showToc"
+  x-transition.opacity
+  x-cloak>
+  <div class="fixed mt-20 right-0 bottom-0 hidden w-64 overflow-y-auto py-8 px-6 md:top-[4rem] xl:block">
+    <p class="text-base">In This Guide</p>
+    <ul class="space-y-3 list-none m-0 p-0">
+        <template x-for="heading in headings">
+            <li class="text-base p-0">
+                <a :href="'#'+heading.id" class="no-underline" 
+                :class="visibleHeadingId == heading.id ? 'font-medium text-orange-400 dark:text-orange-400' : 'text-slate-800 dark:text-white'" x-text="heading.innerText"></a>
+            </li>
+        </template>
+    </ul>
+  </div>
+</aside>
