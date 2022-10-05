@@ -70,6 +70,6 @@ iframe {
 	display: none;
 }
 
-code {
+:where(code):not(:where(pre *)) {
 	@apply dark:text-orange-400 bg-slate-100 p-1 rounded-sm dark:bg-slate-800;
 }

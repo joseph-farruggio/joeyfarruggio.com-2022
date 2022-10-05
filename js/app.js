@@ -54,7 +54,7 @@ document.addEventListener("alpine:init", () => {
     init() {
       // Grab all the headings inside the main container.
       this.headings = document.querySelectorAll(
-        "h2:not([no-sidebar]), h3:not([no-sidebar]), h4:not([no-sidebar])"
+        "h2:not(.ignore-toc), h3:not(.ignore-toc), h4:not(.ignore-toc)"
       );
 
       this.assignHeadingIds();
@@ -105,6 +105,8 @@ document.addEventListener("alpine:init", () => {
       this.visibleHeadingId = headingsByDistanceFromTop[closestNegativeTop].id;
     },
   }));
+
+  Alpine.store("showToc", false);
 });
 
 initVimeoPlayer();
