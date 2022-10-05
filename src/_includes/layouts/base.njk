@@ -42,7 +42,7 @@
     <meta property="og:title" content="{{ title }}"/>
     <meta property="og:url" content="https://joeyfarruggio.com{{ page.url }}" />
     <meta property="og:description" content="{{description}}" />
-    <meta property="og:image" content="/images/avatar-small.jpg" />
+    <meta property="og:image" content="{{'/images/avatar-small.jpg' | url }}" />
     <meta property="og:type" content="article" />
 </head>
 <body x-data="app()" class="bg-white dark:bg-[#040817] transition-colors dark:text-white text-slate-800 font-body">
