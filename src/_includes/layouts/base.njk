@@ -39,11 +39,19 @@
     <link rel="stylesheet" href="{{ '//css/nightowl.min.css' | url }}">
     {# <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet"> #}
     
+    <!-- Open Graph / Facebook -->
     <meta property="og:title" content="{{ title }}"/>
     <meta property="og:url" content="https://joeyfarruggio.com{{ page.url }}" />
     <meta property="og:description" content="{{description}}" />
     <meta property="og:image" content="{{'https://joeyfarruggio.com/images/avatar-small.jpg' | url }}" />
     <meta property="og:type" content="article" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" ontent="https://joeyfarruggio.com{{ page.url }}" />
+    <meta property="twitter:title" content="{{ title }}"/>
+    <meta property="twitter:description" content="{{description}}" />
+    <meta property="twitter:image" content="{{'https://joeyfarruggio.com/images/avatar-small.jpg' | url }}" />
 </head>
 <body x-data="app()" class="bg-white dark:bg-[#040817] transition-colors dark:text-white text-slate-800 font-body">
     <header class="max-w-screen-xl mx-auto px-4 py-4 md:py-8 text-right" x-data="{menuOpen: false}">
