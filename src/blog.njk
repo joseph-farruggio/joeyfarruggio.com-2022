@@ -14,8 +14,9 @@ pagination:
     <h2 class="font-bold text-orange-400 text-3xl text-highlight-orange">Articles</h2>
 
     {% for post in blog %}
-        
-        {% include "postListItem.njk" %}    
+        {% if post.data.hidden != true %}
+            {% include "postListItem.njk" %}    
+        {% endif %}
         
     {% endfor %}
 

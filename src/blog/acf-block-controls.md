@@ -7,16 +7,16 @@ hidden: true
 ---
 
 ## Create a more consistent editing experience
-I was really excited when Elliot Codon launched ACF blocks back in 2019. However, I was concerned with the difference in the editing experience between when commingling ACF and Core blocks. I saw this in two ways: 
+I was really excited when Elliot Codon launched ACF blocks back in 2019. However, I was concerned with the difference in the editing experience  when commingling ACF and Core blocks. I saw this in two ways: 
 
 1. **The way you edit your content is different.** </br>Rich editing UIs for Core blocks and custom fields for ACF bocks.
 1. **The UI for sidebar controls were completely different.** </br>ACF and Core blocks had very different UIs for controls. From color pickers to radio inputs, everything was different.
 
-ACF blocks, and the block editor as a whole, have come a long way since then. We're getting closer to providing a better, more consistent editing experience. In a future guide I'll cover `<InnerBlocks>` and how we can insert Core blocks into a parent ACF block as children. This will help with address point #1 above, but in this guide I'll cover how to enable Core sidebar controls in your ACF block.
+ACF blocks, and the block editor as a whole, have come a long way since then. We're getting closer to providing a better, more consistent editing experience. In a future guide I'll cover `<InnerBlocks>` and how we can insert Core blocks into a parent ACF block as children. This will help with addressing point #1 above, but in this guide I'll cover how to enable Core sidebar controls in your ACF block.
 
 ## Block Controls
 
-We'll be enabling controls for our block's `block.json` file inside of the `supports` object. <span class="hidden xl:inline">Feel free to use the table of contents to the right to jump around and learn about a block control that interests you.</span>
+We'll be enabling controls within our block's `block.json` file. <span class="hidden xl:inline">Feel free to use the table of contents to the right to jump around and learn about a block control that interests you.</span>
 
 ### Alignment
 Alignment lets you side the width of your block or center it. Alignment should come enabled by default, but we'll set the pattern of defining our block's capabilities here.
@@ -47,7 +47,7 @@ If you're using `theme.json`, we define our content width and our wide width und
 
 Both ACF and Core blocks use these alignment sizes and have corresponding classnames. If you set your block to the wide alignment, the classname would be `alignwide` while the full width alignment would be `alignfull`.
 
-Here's how we access our block's alignment and apply the appropriate classname. From our block's render template: `template.json`
+Here's how we access our block's alignment and apply the appropriate classname. From our block's render template: `template.php`
 
 ``` php
 <?php
@@ -83,7 +83,7 @@ In your CSS, make sure you provide styles for your wide and full width classname
 ### Text Alignment
 !["Text alignment Settings"](/images/text-alignment-ui.jpg "Alignment Settings")
 
-Enabled the text alignment control in your block's block.json:
+Enable the text alignment control in your block's block.json:
 
 ``` json
 {
@@ -142,27 +142,6 @@ You can control the vertical alignment of the inner content with `alignContent: 
     }
 }
 ```
-
-### Color Picker
-By far my favorite control is the Core color picker. You can enable the color picker for the background of your block, the text color for its contents, and (for some reason) the color of links in your content.
-
-``` json
-{
-    "name": "posts-loop",
-    "title": "Posts Loop Block",
-    ...
-    "supports": {
-        ...
-        "color": {
-            "background": true,
-            "text": true,
-            "link": false
-        }
-    }
-}
-```
-
-!["Color Picker Settings"](/images/color-picker.jpg "Color Picker Settings")
 
 ### Spacing
 Achieve a bit more design flexibility with spacing controls and apply margin and padding to your ACF block.
@@ -233,7 +212,66 @@ Back in our block's render template:
 </div>
 ```
 
+### Color Picker
+By far my favorite control is the Core color picker. You can enable the color picker for the background of your block, the text color for its contents, and (for some reason) the color of links in your content.
 
+``` json
+{
+    "name": "posts-loop",
+    "title": "Posts Loop Block",
+    ...
+    "supports": {
+        ...
+        "color": {
+            "background": true,
+            "text": true,
+            "link": false
+        }
+    }
+}
+```
+
+!["Color Picker Settings"](/images/color-picker.jpg "Color Picker Settings")
+
+Gutenberg generates a few classes for Core blocks with colors applied. If a Core block has a background class applied you'll get:
+
+``` html
+<div class="has-background has-{color_slug}-background-color">
+    ...
+</div>
+```
+
+If you apply text color you'll get:
+
+``` html
+<div class="has-text-color has-{color_slug}-color">
+    ...
+</div>
+```
+
+Let's bring these classes into your block template:
+
+``` php
+<?php
+    // Set the background color classnames
+    if ( ! empty( $block['backgroundColor'] ) ) {
+        $className .= ' has-background';
+        $className .= ' has-' . $block['backgroundColor'] . '-background-color';
+    }
+
+    // Set the text color classnames
+    if ( ! empty( $block['textColor'] ) ) {
+        $className .= ' has-text-color';
+        $className .= ' has-' . $block['textColor'] . '-color';
+    }
+?>
+```
+
+The classnames `has-background` and `has-text-color` are really handy. There are times where you may want to globally apply styles to blocks that have a background color. One example might be group blocks. If a group block has a background color you can pretty much guarantee you'll want to apply padding. Otherwise the group's contents will sit on the edge of the background.
+
+### Other controls
+
+This isn't a full list of the controls available in the block API. Dig around in the [Block Editor Handbook](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/){target="_blank"} and you'll discover other controls and capabilities to bring into your block.
 
 ---
 
