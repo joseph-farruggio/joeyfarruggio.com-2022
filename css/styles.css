@@ -73,3 +73,7 @@ iframe {
 :where(code):not(:where(pre *)) {
 	@apply dark:text-orange-400 bg-slate-100 p-1 rounded-sm dark:bg-slate-800;
 }
+
+.formkit-alert.formkit-alert-success {
+    @apply bg-cyan-100 text-cyan-800 p-8 rounded-md font-bold;
+}
