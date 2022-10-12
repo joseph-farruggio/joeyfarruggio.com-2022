@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating Sponsor Slots with Alpine, WordPress and ACF</title>
+    <meta name="description" content="">
+    
+    <script>
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        
+        try {
+            if (!('theme' in window.localStorage)) {
+                document.documentElement.classList.add('dark')
+                document.documentElement.style.backgroundColor = "#040817";
+            }
+            else if (window.localStorage.theme === 'dark' || (!('theme' in window.localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark')
+                document.documentElement.style.backgroundColor = "#040817";
+            } else {
+                document.documentElement.classList.remove('dark')
+                document.documentElement.style.backgroundColor = "#fff";
+            }
+        } catch (_) {}
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129275479-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-129275479-1');
+    </script>
+
+    <link rel="stylesheet" href="/css/styles.min.css">
+    <link rel="stylesheet" href="/css/nightowl.min.css">
+    
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Rotating Sponsor Slots with Alpine, WordPress and ACF"/>
+    <meta property="og:url" content="https://joeyfarruggio.com/wordpress/rotating-ad-spots/" />
+    <meta property="og:description" content="Display rotating ads slots on your WordPress website with Alpine.js and ACF" />
+    <meta property="og:image" content="https://joeyfarruggio.com/images/avatar-small.jpg" />
+    <meta property="og:type" content="article" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" ontent="https://joeyfarruggio.com/wordpress/rotating-ad-spots/" />
+    <meta property="twitter:title" content="Rotating Sponsor Slots with Alpine, WordPress and ACF"/>
+    <meta property="twitter:description" content="Display rotating ads slots on your WordPress website with Alpine.js and ACF" />
+    <meta property="twitter:image" content="https://joeyfarruggio.com/images/avatar-small.jpg" />
+</head>
+<body x-data="app()" class="bg-white dark:bg-[#040817] transition-colors dark:text-white text-slate-800 font-body">
+    <header class="max-w-screen-xl mx-auto px-4 py-4 md:py-8 text-right" x-data="{menuOpen: false}">
+        <div class="hidden fixed md:static top-0 left-0 h-screen w-screen md:h-auto md:w-full z-40 pb-16 md:p-0 bg-white dark:bg-darkBG md:bg-transparent dark:md:bg-transparent md:flex md:items-center md:justify-between" :class="{'block': menuOpen, 'hidden': !menuOpen}">
+            <nav class="text-center flex flex-col md:block text-2xl md:text-lg md:space-x-6">
+                <a href="/" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Home</a>
+                <a href="/contact" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Contact</a>
+                <a href="/blog" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Blog</a>
+            </nav>
+            <button x-on:click="toggleTheme()" class="print:hidden relative flex items-center mx-auto md:mx-0 mt-32 md:mt-0 justify-between border dark:border-slate-800 bg-white dark:bg-slate-900 border-slate-200 px-4 py-2 rounded-full outline-none focus:outline-none shadow-none">
+                <div class="h-full aspect-square border-slate-300 bg-white dark:bg-slate-800 rounded-full shadow-lg absolute top-0 left-0 dark:-ml-10 dark:left-full transition-transform"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="relative h-6 w-6 dark:text-slate-400 text-orange-400 -ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="relative h-6 w-6 dark:text-orange-400 text-slate-300 ml-4 -mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+            </button>
+        </div>
+        <button class="print:hidden  border-none ml-full inline-block p-4 relative z-50 md:hidden" @click="menuOpen = !menuOpen">
+            <svg xmlns="http://www.w3.org/2000/svg" x-show="!menuOpen" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" x-show="menuOpen" x-cloak class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+    </header>
+    
+    <main class="">
+        <article id="post" class="prose lg:prose-xl max-w-screen-md mx-auto px-4 mt-12" :class="{'prose-invert': dark}">
+    <h1 class="dark:text-orange-400 text-4xl text-highlight-orange">Rotating Sponsor Slots with Alpine, WordPress and ACF</h1>
+    <p class=" text-lg mt-4 leading-relaxed">Display rotating ads slots on your WordPress website with Alpine.js and ACF</p>
+    <span class="flex items-center space-x-4 mt-4 text-gray-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+        <time datetime="2022-01-14">14 Jan 2022</time>
+    </span>
+    <div class="mt-16"></div>   
+    <p>I created the theme for the BiggerPockets blog where they sell sponsor slots. The code you see below is similar to what I used to implement rotating sponsor slots with Alpine.js and Advanced Custom Fields. The video below shows ads rotating in on every page load.</p>
+<div style="position: relative; padding-bottom: 71.57057654075547%; height: 0;"><iframe src="https://www.loom.com/embed/f32d7fc61d8d42eb8b3f3f9dd586ab55" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+<p>Advertising networks like AdSense, Mediavine, et al load ads dynamically via JavaScript. With lot's of JavaScript - and it kills page speed performance. Selling sponsored HTML ad spots is a great way to serve highly relevant ads that don't kill performance.</p>
+<p>CSS-Tricks does this nicely:
+<img src="/images/css-tricks.png" alt="CSS Tricks" title="CSS Tricks"></p>
+<h2>Managing ads within WordPress &amp; Advanced Custom Fields</h2>
+<p><img src="/images/acf-sponsors.png" alt="Sponsor field group" title="Sponsor field group"></p>
+<p>If you're working with WordPress, storing your sponsors and ads in a repeater field will work well. You can display this field group on an ACF options page if you'd like.</p>
+<pre class="language-php"><code class="language-php"><span class="token function">acf_add_options_page</span><span class="token punctuation">(</span><span class="token keyword">array</span><span class="token punctuation">(</span><br>    <span class="token string single-quoted-string">'page_title'</span> 	<span class="token operator">=></span> <span class="token string single-quoted-string">'Sponsors'</span><span class="token punctuation">,</span><br>    <span class="token string single-quoted-string">'menu_title'</span>	<span class="token operator">=></span> <span class="token string single-quoted-string">'Sponsor Settings'</span><span class="token punctuation">,</span><br>    <span class="token string single-quoted-string">'menu_slug'</span> 	<span class="token operator">=></span> <span class="token string single-quoted-string">'sponsor-settings'</span><span class="token punctuation">,</span><br>    <span class="token string single-quoted-string">'capability'</span>	<span class="token operator">=></span> <span class="token string single-quoted-string">'edit_posts'</span><span class="token punctuation">,</span><br>    <span class="token string single-quoted-string">'redirect'</span>		<span class="token operator">=></span> <span class="token constant boolean">false</span><br><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2>Build your <code>$sponsors</code> array:</h2>
+<p>Once you've got a place to create and store your sponsors, you can map it to a template.</p>
+<p>Here's a simplified version of what that might look like. In my real world use case, I had to escape some fields that contained strings with single quotes. Otherwise is was resulting in malformed JSON later. So make sure you test this if you run into issues.</p>
+<pre class="language-php"><code class="language-php"><span class="token comment">// Prepare our array</span><br><span class="token variable">$sponsors</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span><br><br><span class="token comment">// Check if there are any sponsors in ACF</span><br><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">have_rows</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'sponsors'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'option'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br><br>    <span class="token keyword">while</span> <span class="token punctuation">(</span> <span class="token function">have_rows</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'sponsors'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'option'</span><span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span><br>        <span class="token function">the_row</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>        <br>        <span class="token comment">// Prepare the current sponsor in the loop</span><br>        <span class="token variable">$sponsor</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><br>            <span class="token string single-quoted-string">'name'</span>              <span class="token operator">=></span> <span class="token function">get_sub_field</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'name'</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><br>            <span class="token string single-quoted-string">'description'</span>       <span class="token operator">=></span> <span class="token function">get_sub_field</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'short_description'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><br>            <span class="token string single-quoted-string">'ad_link'</span>           <span class="token operator">=></span> <span class="token function">get_sub_field</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'ad_link'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><br>            <span class="token string single-quoted-string">'image'</span>             <span class="token operator">=></span> <span class="token function">get_sub_field</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'image'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><br>        <span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>        <span class="token comment">// Push the current sponsor to the $sponsors array</span><br>        <span class="token variable">$sponsors</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$sponsor</span><span class="token punctuation">;</span>      <br>    <br>  <span class="token punctuation">}</span> <span class="token comment">// endwhile</span><br><span class="token punctuation">}</span> <span class="token comment">// endif</span></code></pre>
+<h2>The front-end template</h2>
+<p>Pass the sponsors array into an Alpine.data component, loop through that array, and map it to a <code>&lt;template&gt;</code>:</p>
+<pre class="language-php"><code class="language-php"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">x-data</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>sponsors(<span class="token php language-php"><span class="token delimiter important">&lt;?=</span> <span class="token function">json_encode</span><span class="token punctuation">(</span><span class="token variable">$sponsors</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter important">?></span></span>)<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><br>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">x-for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>sponsor in sponsors<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><br>        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">:src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>sponsor.image<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">x-text</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>sponsor.name<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><br>        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">x-text</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>sponsor.description<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><br>      <br>        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <br>        <span class="token attr-name">:href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ad.ad_link<span class="token punctuation">"</span></span> <br>        <span class="token attr-name">x-text</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ad.linkTitle<span class="token punctuation">"</span></span><br>        <span class="token attr-name">target</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>_blank<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Learn more<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span><br><br>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><br>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+<h2>Randomize the sponsors</h2>
+<p>Build our sponsors component logic:</p>
+<p>If you're dealing with multiple sponsors, you might want to limit the number of ads that are displayed</p>
+<pre class="language-js"><code class="language-js">Alpine<span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span><span class="token string">'sponsors'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">sponsorsJSON</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">{</span><br>    sponsors<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br><br>    <span class="token comment">// Randomize an array</span><br>    <span class="token function">shuffle</span><span class="token punctuation">(</span><span class="token parameter">array</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>        <span class="token keyword">return</span> array<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br><br>    <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>        <span class="token comment">// Shuffle the array and return just the first two</span><br>        <span class="token keyword">this</span><span class="token punctuation">.</span>sponsors <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">shuffle</span><span class="token punctuation">(</span>sponsorsJSON<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2>Analytics</h2>
+<p>Track clicks and impressions with Alpine <code>@click</code> and <code>x-intersect</code>:</p>
+<ol>
+<li>Add <code>x-intersect</code> to the parent div that calls the <code>sponsorViewed()</code> function</li>
+<li>Add <code>@click</code> to the the CTA/link that calls the <code>sponsorClicked()</code> function</li>
+</ol>
+<pre class="language-php"><code class="language-php"><span class="token operator">&lt;</span>template x<span class="token operator">-</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string double-quoted-string">"sponsor in sponsors"</span><span class="token operator">></span><br>    <span class="token operator">&lt;</span>div x<span class="token operator">-</span>intersect<span class="token operator">=</span><span class="token string double-quoted-string">"sponsorViewed(sponsor.name)"</span><span class="token operator">></span><br>        <span class="token operator">&lt;</span>img <span class="token punctuation">:</span>src<span class="token operator">=</span><span class="token string double-quoted-string">"sponsor.image"</span><span class="token operator">></span><br>        <span class="token operator">&lt;</span>p x<span class="token operator">-</span>text<span class="token operator">=</span><span class="token string double-quoted-string">"sponsor.name"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span><br>        <span class="token operator">&lt;</span>p x<span class="token operator">-</span>text<span class="token operator">=</span><span class="token string double-quoted-string">"sponsor.description"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span><br>        <br>        <span class="token operator">&lt;</span>a <br>        @click<span class="token operator">=</span><span class="token string double-quoted-string">"sponsorClicked(sponsor.name)"</span><br>        <span class="token punctuation">:</span>href<span class="token operator">=</span><span class="token string double-quoted-string">"ad.ad_link"</span> <br>        x<span class="token operator">-</span>text<span class="token operator">=</span><span class="token string double-quoted-string">"ad.linkTitle"</span><br>        target<span class="token operator">=</span><span class="token string double-quoted-string">"_blank"</span><span class="token operator">></span>Learn more<span class="token operator">&lt;</span><span class="token operator">/</span>a<span class="token operator">></span><br><br>    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span><br><span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span></code></pre>
+<p>Emit an event to Google Analytics or something similar when the sponsor/ad is clicked or viewed:</p>
+<pre class="language-js"><code class="language-js"><span class="token function">sponsorClicked</span><span class="token punctuation">(</span><span class="token parameter">sponsor<span class="token punctuation">,</span></span> <span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token function">gtag</span><span class="token punctuation">(</span><span class="token string">'event'</span><span class="token punctuation">,</span> <span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><br>        <span class="token string">'event_category'</span><span class="token operator">:</span> <span class="token string">'Sidebar Ad'</span><span class="token punctuation">,</span><br>        <span class="token string">'event_label'</span><span class="token operator">:</span> sponsor<br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><br><span class="token punctuation">}</span><span class="token punctuation">,</span><br><br><span class="token function">sponsorViewed</span><span class="token punctuation">(</span><span class="token parameter">sponsor</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token function">gtag</span><span class="token punctuation">(</span><span class="token string">'event'</span><span class="token punctuation">,</span> <span class="token string">'view'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><br>        <span class="token string">'event_category'</span><span class="token operator">:</span> <span class="token string">'Sidebar Ad'</span><span class="token punctuation">,</span><br>        <span class="token string">'event_label'</span><span class="token operator">:</span> sponsor<br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">,</span></code></pre>
+
+</article>
+
+<div class=" max-w-screen-md mx-auto px-4 mt-12">
+    <div id="disqus_thread"></div>
+</div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://joeyfarruggio-com.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </main>
+
+    <footer class="py-16 bg-slate-900 mt-16"> 
+
+    </footer>
+    <script defer src="/js/app.min.js"></script>
+</body>
+</html>
