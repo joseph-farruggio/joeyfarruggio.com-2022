@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How to Register Blocks with ACF and block.json</title>
+    <meta name="description" content="" />
+    
+    <script>
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        
+        try {
+            if (!('theme' in window.localStorage)) {
+                document.documentElement.classList.add('dark')
+                document.documentElement.style.backgroundColor = "#040817";
+            }
+            else if (window.localStorage.theme === 'dark' || (!('theme' in window.localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark')
+                document.documentElement.style.backgroundColor = "#040817";
+            } else {
+                document.documentElement.classList.remove('dark')
+                document.documentElement.style.backgroundColor = "#fff";
+            }
+        } catch (_) {}
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129275479-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-129275479-1');
+    </script>
+
+    <link rel="stylesheet" href="/css/styles.min.css" />
+    <link rel="stylesheet" href="/css/nightowl.min.css" />
+    
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="How to Register Blocks with ACF and block.json" />
+    <meta property="og:url" content="https://joeyfarruggio.com/lessons/register-acf-blocks/" />
+    <meta property="og:description" content="Let&#39;s set the ground work and scaffold our first ACF block." />
+    <meta property="og:image" content="https://joeyfarruggio.com/images/avatar-small.jpg" />
+    <meta property="og:type" content="article" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" ontent="https://joeyfarruggio.com/lessons/register-acf-blocks/" />
+    <meta property="twitter:title" content="How to Register Blocks with ACF and block.json" />
+    <meta property="twitter:description" content="Let&#39;s set the ground work and scaffold our first ACF block." />
+    <meta property="twitter:image" content="https://joeyfarruggio.com/images/avatar-small.jpg" />
+</head>
+<body x-data="app()" class="bg-white dark:bg-[#040817] transition-colors dark:text-white text-slate-800 font-body">
+    <header class="max-w-screen-xl mx-auto px-4 py-4 md:py-8 text-right" x-data="{menuOpen: false}">
+        <div class="hidden fixed md:static top-0 left-0 h-screen w-screen md:h-auto md:w-full z-40 pb-16 md:p-0 bg-white dark:bg-darkBG md:bg-transparent dark:md:bg-transparent md:flex md:items-center md:justify-between" :class="{'block': menuOpen, 'hidden': !menuOpen}">
+            <nav class="text-center flex flex-col md:block text-2xl md:text-lg md:space-x-6">
+                <a href="/" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Home</a>
+                <a href="/contact" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Contact</a>
+                <a href="/blog" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Blog</a>
+            </nav>
+            <button x-on:click="toggleTheme()" class="print:hidden relative flex items-center mx-auto md:mx-0 mt-32 md:mt-0 justify-between border dark:border-slate-800 bg-white dark:bg-slate-900 border-slate-200 px-4 py-2 rounded-full outline-none focus:outline-none shadow-none">
+                <div class="h-full aspect-square border-slate-300 bg-white dark:bg-slate-800 rounded-full shadow-lg absolute top-0 left-0 dark:-ml-10 dark:left-full transition-transform"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="relative h-6 w-6 dark:text-slate-400 text-orange-400 -ml-2" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="relative h-6 w-6 dark:text-orange-400 text-slate-300 ml-4 -mr-2" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+            </button>
+        </div>
+        <button class="print:hidden  border-none ml-full inline-block p-4 relative z-50 md:hidden" @click="menuOpen = !menuOpen">
+            <svg xmlns="http://www.w3.org/2000/svg" x-show="!menuOpen" class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" x-show="menuOpen" x-cloak class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+    </header>
+    
+    <main data-cms-content-wrapper="/src/_includes/layouts/base.njk">
+        <article id="post" class="prose lg:prose-xl max-w-screen-md mx-auto px-4 mt-12" :class="{'prose-invert': dark}">
+    <h1 class="dark:text-orange-400 text-4xl text-highlight-orange">How to Register Blocks with ACF and block.json</h1>
+    <p class=" text-lg mt-4 leading-relaxed">Let&#39;s set the ground work and scaffold our first ACF block.</p>
+    <span class="flex items-center space-x-4 mt-4 text-gray-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+        <time datetime="2022-10-09">09 Oct 2022</time>
+    </span>
+    <div class="mt-16"></div>   
+    <h2 id="ignore-toc" class="ignore-toc" x-intersect:enter="$store.showToc = false" x-intersect:leave="$store.showToc = true">Steps in this guide:</h2>
+<ol>
+<li><a href="#register-block">Register our blocks with block.json</a></li>
+<li><a href="#block-data">Handle our block data</a></li>
+<li><a href="#render-template">Create the block render template</a></li>
+<li><a href="#using-block">Using the block</a></li>
+</ol>
+<h2 id="register-block">Register the block</h2>
+<p>Since WP 6.0, the recommended way of registering blocks is <a href="https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/">via block.json</a>. This is a big deal, because keeping our ACF blocks as close to Core as possible allows us to take advantage of many native block features.</p>
+<p>You can register blocks from a plugin or your theme. For simplicity, and to make this guide more accessible to beginners, I’ll be doing this directly in my theme. Go ahead and stub out the following structure:</p>
+<pre class="language-text"><code class="language-text">/theme-root<br>│<br>└─── /blocks<br>│   │   register-blocks.php<br>│   │<br>│   └─── /my-first-block<br>│       │   block.json<br>│       │   block.php<br>│       │   template.php</code></pre>
+<p>In <code>/blocks/my-first/block.json</code>, we'll configure our block. The JSON example below is just about the bare minimum you need to register a block.</p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"my-first-block"</span><span class="token punctuation">,</span><br>    <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"My First Block"</span><span class="token punctuation">,</span><br>    <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Displays my very first ACF block."</span><span class="token punctuation">,</span><br>    <span class="token property">"category"</span><span class="token operator">:</span> <span class="token string">"theme"</span><span class="token punctuation">,</span><br>    <span class="token property">"apiVersion"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span><br>    <span class="token property">"acf"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>        <span class="token property">"mode"</span><span class="token operator">:</span> <span class="token string">"preview"</span><span class="token punctuation">,</span><br>        <span class="token property">"renderTemplate"</span><span class="token operator">:</span> <span class="token string">"blocks/my-first-block/block.php"</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token property">"supports"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>        <span class="token property">"anchor"</span><span class="token operator">:</span> <span class="token boolean">true</span><br>    <span class="token punctuation">}</span><br><span class="token punctuation">}</span></code></pre>
+<p>Inside of <code>/blocks/register-blocks.php</code>, we’ll include the path to our block’s json file. This is where we’ll register all future blocks:</p>
+<pre class="language-php"><code class="language-php"><span class="token function">register_block_type</span><span class="token punctuation">(</span> <span class="token function">get_template_directory</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'/blocks/my-first-block/block.json'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>In your <code>functions.php</code> you can include the path to <code>/blocks/register-blocks.php.</code>.</p>
+<pre class="language-php"><code class="language-php"><span class="token comment">/**<br> * Register ACF Blocks<br> */</span><br><span class="token keyword">require</span> <span class="token function">get_template_directory</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'/blocks/register-blocks.php'</span><span class="token punctuation">;</span></code></pre>
+<p>Just to recap what's going on:</p>
+<p>Our <code>function.php</code> file includes our <code>/blocks/register-blocks.php</code> file. <code>/blocks/register-blocks.php</code> will be where we register all of our future blocks by pointing to each block's block.json.</p>
+<h2 id="block-data">Handle our block data</h2>
+<p><code>/blocks/my-first-block/block.php</code> will serve as the <em>model / controller</em> for our block. It’s where we’ll handle all of the data that gets passed into the render template. This helps keep things clean and organized so our logic is in one place (block.php) and our front-end template (template.php) is in another.</p>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span><br><span class="token comment">/**<br> * My First Block<br> */</span><br><br><span class="token comment">// $data is what we're going to expose to our render template</span><br><span class="token variable">$data</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><br>	<span class="token string single-quoted-string">'example_field'</span> <span class="token operator">=></span> <span class="token function">get_field</span><span class="token punctuation">(</span> <span class="token string single-quoted-string">'example_field'</span> <span class="token punctuation">)</span><span class="token punctuation">,</span><br>    <span class="token string single-quoted-string">'another_field'</span> <span class="token operator">=></span> <span class="token function">get_field</span><span class="token punctuation">(</span> <span class="token string single-quoted-string">'another_field'</span> <span class="token punctuation">)</span><br><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token comment">// Dynamic block ID</span><br><span class="token variable">$block_id</span> <span class="token operator">=</span> <span class="token string single-quoted-string">'my-first-block-'</span> <span class="token operator">.</span> <span class="token variable">$block</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">;</span><br><br><span class="token comment">// Check if a custom ID is set in the block editor</span><br><span class="token keyword">if</span><span class="token punctuation">(</span> <span class="token operator">!</span><span class="token keyword">empty</span><span class="token punctuation">(</span><span class="token variable">$block</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'anchor'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token variable">$block_id</span> <span class="token operator">=</span> <span class="token variable">$block</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'anchor'</span><span class="token punctuation">]</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token comment">// Block classes</span><br><span class="token variable">$class_name</span> <span class="token operator">=</span> <span class="token string single-quoted-string">'my-first-block'</span><span class="token punctuation">;</span><br><span class="token keyword">if</span><span class="token punctuation">(</span> <span class="token operator">!</span><span class="token keyword">empty</span><span class="token punctuation">(</span><span class="token variable">$block</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'class_name'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token variable">$class_name</span> <span class="token operator">.=</span> <span class="token string single-quoted-string">' '</span> <span class="token operator">.</span> <span class="token variable">$block</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'class_name'</span><span class="token punctuation">]</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token comment">/** <br> * Pass the block data into the template part<br> */</span> <br><span class="token function">get_template_part</span><span class="token punctuation">(</span><br>	<span class="token string single-quoted-string">'blocks/my-first-block/template'</span><span class="token punctuation">,</span><br>	<span class="token constant">null</span><span class="token punctuation">,</span><br>	<span class="token keyword">array</span><span class="token punctuation">(</span><br>		<span class="token string single-quoted-string">'block'</span>      <span class="token operator">=></span> <span class="token variable">$block</span><span class="token punctuation">,</span><br>		<span class="token string single-quoted-string">'is_preview'</span> <span class="token operator">=></span> <span class="token variable">$is_preview</span><span class="token punctuation">,</span><br>		<span class="token string single-quoted-string">'post_id'</span>    <span class="token operator">=></span> <span class="token variable">$post_id</span><span class="token punctuation">,</span><br><br>		<span class="token string single-quoted-string">'data'</span>       <span class="token operator">=></span> <span class="token variable">$data</span><span class="token punctuation">,</span><br>        <span class="token string single-quoted-string">'class_name'</span> <span class="token operator">=></span> <span class="token variable">$class_name</span><span class="token punctuation">,</span><br>        <span class="token string single-quoted-string">'block_id'</span>   <span class="token operator">=></span> <span class="token variable">$block_id</span><span class="token punctuation">,</span><br>	<span class="token punctuation">)</span><br><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p><code>$block</code>, <code>$is_preview</code>, and <code>$post_id</code> are variables given to us by the block registration API.</p>
+<p><strong>$block</strong><br>
+Contains all of the attributes of our block from the block API. We have access to the block's name, description, ID, class names, and many other attributes that come from the block editor.</p>
+<p><strong>$is_preview</strong><br>
+Either <code>true</code> or <code>false</code> – it tells us whether the block is currently being viewed in the block editor (<code>true</code>) or the front-end (<code>false</code>).</p>
+<p><strong>$post_id</strong><br>
+The ID of the post or page that the block is being viewed on.</p>
+<p>The other three variables, <code>$data</code>, <code>$class_name</code>, and <code>$block_id</code> are variables that we have defined ourselves.</p>
+<h2 id="render-template">Create the block render template</h2>
+<p>Now we can create the block’s render template: <code>/blocks/my-first-block/template.php</code>.</p>
+<pre class="language-php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span><br><span class="token comment">/**<br> * Block Name: My First Block<br> *<br> * Description: Displays my very first block.<br> */</span><br><br><span class="token comment">// The block attributes</span><br><span class="token variable">$block</span> <span class="token operator">=</span> <span class="token variable">$args</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'block'</span><span class="token punctuation">]</span><span class="token punctuation">;</span><br><br><span class="token comment">// The block data</span><br><span class="token variable">$data</span> <span class="token operator">=</span> <span class="token variable">$args</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'data'</span><span class="token punctuation">]</span><span class="token punctuation">;</span><br><br><span class="token comment">// The block ID</span><br><span class="token variable">$block_id</span> <span class="token operator">=</span> <span class="token variable">$args</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'block_id'</span><span class="token punctuation">]</span><span class="token punctuation">;</span><br><br><span class="token comment">// The block class names</span><br><span class="token variable">$class_name</span> <span class="token operator">=</span> <span class="token variable">$args</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'class_name'</span><span class="token punctuation">]</span><span class="token punctuation">;</span><br><span class="token delimiter important">?></span></span><br><br><span class="token comment">&lt;!-- Our front-end template --></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token keyword">echo</span> <span class="token variable">$block_id</span><span class="token punctuation">;</span> <span class="token delimiter important">?></span></span><span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token keyword">echo</span> <span class="token variable">$class_name</span><span class="token punctuation">;</span> <span class="token delimiter important">?></span></span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>    <span class="token php language-php"><span class="token delimiter important">&lt;?php</span><br>        <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token variable">$data</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'example_field'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>            <span class="token keyword">echo</span> <span class="token string double-quoted-string">"&lt;p>"</span> <span class="token operator">.</span> <span class="token variable">$data</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'example_field'</span><span class="token punctuation">]</span> <span class="token operator">.</span> <span class="token string double-quoted-string">"&lt;/p>"</span><span class="token punctuation">;</span><br>        <span class="token punctuation">}</span><br><br>        <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token variable">$data</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'another_field'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>            <span class="token keyword">echo</span> <span class="token string double-quoted-string">"&lt;p>"</span> <span class="token operator">.</span> <span class="token variable">$data</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'another_field'</span><span class="token punctuation">]</span> <span class="token operator">.</span> <span class="token string double-quoted-string">"&lt;/p>"</span><span class="token punctuation">;</span><br>        <span class="token punctuation">}</span><br>    <span class="token delimiter important">?></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+<p>All of the data exposed to our block's render template is found in the <code>$args</code> variable.</p>
+
+</article>
+
+<div class=" max-w-screen-md mx-auto px-4 mt-12">
+    <div id="disqus_thread"></div>
+</div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://joeyfarruggio-com.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </main>
+
+    <footer class="py-16 bg-slate-900 mt-16"> 
+
+    </footer>
+    <script defer src="/js/app.min.js"></script>
+</body>
+</html>
