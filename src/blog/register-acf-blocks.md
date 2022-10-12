@@ -2,7 +2,7 @@
 title: How to Register Blocks with ACF and block.json
 description: Let's set the ground work and scaffold our first ACF block.
 date: 2022-10-09
-permalink: "lessons/{{ page.fileSlug }}/index.html"
+permalink: "wordress/{{ page.fileSlug }}/index.html"
 ---
 
 ## Steps in this guide: {#ignore-toc .ignore-toc x-intersect:enter="$store.showToc = false" x-intersect:leave="$store.showToc = true"}
