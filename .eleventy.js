@@ -6,9 +6,6 @@ var fs = require("fs");
 
 const sitemap = require("@quasibit/eleventy-plugin-sitemap");
 
-fs.writeFile("public/CNAME", "joeyfarruggio.com", function (err) {});
-ghpages.publish("public", function (err) {});
-
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/_images/*": "images" });
   eleventyConfig.addPassthroughCopy({ "src/_fonts/*": "fonts" });
