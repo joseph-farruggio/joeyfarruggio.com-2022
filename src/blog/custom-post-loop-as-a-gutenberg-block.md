@@ -17,11 +17,11 @@ permalink: "wordpress/{{ page.fileSlug }}/index.html"
 
 ## Creating our fields {#create-fields}
 
-What fields will our block will need to control an output of posts? Sometimes I like to start here because it gets me thinking about how I’m going to use the block. I know this block will interface with the WP_Query class, so a few fields immediately come to mind.
+Sometimes I like to start with creating my field groups because it gets me thinking about how I’m going to use the block. I know this block will interface with the [WP_Query](https://developer.wordpress.org/reference/classes/wp_query/){target="_blank"} class, so a few fields immediately come to mind.
 
-1. **Selection Type** <br/>Will we display the most recent posts or do we want to hand pick them?
-2. **Category**  <br/>If we’re displaying the most recent posts, do we want to limit them to a specific category?
-3. **Limit**  <br/>If we’re displaying the most recent posts, do we want to set a limit for how many are returned?
+1. **Selection Type** <br/>We should be able to display the most recent posts or hand pick them.
+2. **Category**  <br/>If we’re displaying the most recent posts, we should be able to limit them to a specific category.
+3. **Limit**  <br/>If we’re displaying the most recent posts, we should be able to set a limit for how many are returned.
 4. **Select Posts**  <br/>If we choose "select posts", we'll want a relationship field to hand pick our posts from a list.
 
 !["Field Group"](/images/block-guide-field-group.jpg "Creating the block's field group")
@@ -43,10 +43,33 @@ You can register blocks from a plugin or your theme. For simplicity, and to make
 └─── /blocks
 │   │   register-blocks.php
 │   │
-│   └─── /posts-block
+│   └─── /posts-loop
 │       │   block.json
 │       │   block.php
 │       │   template.php
+```
+
+In `/blocks/posts-loop/block.json`, we'll configure our block:
+
+``` json
+{
+    "name": "posts-loop",
+    "title": "Posts Loop Block",
+    "description": "Displays a list of posts.",
+    "category": "theme",
+    "apiVersion": 2,
+    "keywords": [
+        "posts",
+        "blog"
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "blocks/posts-loop/block.php"
+    },
+    "supports": {
+        "anchor": true
+    }
+}
 ```
 
 Inside of `/blocks/register-blocks.php`, we’ll include the path to our block’s json file. This is where we’ll register all of our future blocks:
@@ -65,7 +88,9 @@ require get_template_directory() . '/blocks/register-blocks.php';
 ```
 
 ## Handle our block data {#block-data}
-`/blocks/posts-block/block.php` will serve as the *model / controller* for our block. It’s where we’ll handle all of the data that gets passed into the render template or the *view*. This helps keep things clean and organized so our logic is one place (block.php) and our front-end template (template.php) is in another.
+`/blocks/posts-loop/block.php` will serve as the *model / controller* for our block. It’s where we’ll handle all of the data that gets passed into the render template or the *view*. This helps keep things clean and organized so our logic is one place (block.php) and our front-end template (template.php) is in another.
+
+Make sure to read the comments in the code sample to understand what's happening:
 
 ``` php
 <?php
@@ -80,6 +105,20 @@ $data = array(
 	'limit' => get_field( 'limit' ),
 	'select_posts' => get_field('select_posts')
 );
+
+// Dynamic block ID
+$block_id = 'posts-loop-block-' . $block['id'];
+
+// Check if a custom ID is set in the block editor
+if( !empty($block['anchor']) ) {
+    $block_id = $block['anchor'];
+}
+
+// Block classes
+$class_name = 'posts-loop-block';
+if( !empty($block['class_name']) ) {
+    $class_name .= ' ' . $block['class_name'];
+}
 
 // WP Query Args
 $queryArgs = array(
@@ -105,10 +144,6 @@ $data['posts'] = $posts;
 
 /** 
  * Pass the block data into the template part
- * @param array $block contains attributes and data for the block coming from Gutenberg
- * @param boolean $is_preview whether the block is in the preview state (the Gutenberg editor) or not (the front-end)
- * @param integer $post_id the post id of the post that the block is in
- * @param array $data is what we're going to expose to our render template
  */ 
 
 get_template_part(
@@ -118,10 +153,26 @@ get_template_part(
 		'block'      => $block,
 		'is_preview' => $is_preview,
 		'post_id'    => $post_id,
+
 		'data'       => $data,
+        'class_name' => $class_name,
+        'block_id'   => $block_id,
 	)
 );
 ```
+
+`$block`, `$is_preview`, and `$post_id` are variables given to us by the block registration API.
+
+**$block**  
+Contains all of the attributes of our block from the block API. We have access to the block's name, description, ID, class names, and many other attributes that come from the block editor.
+
+**$is_preview**  
+Either `true` or `false` – it tells us whether the block is currently being viewed in the block editor (`true`) or the front-end (`false`).
+
+**$post_id**  
+The ID of the post or page that the block is being viewed on.
+
+The other three variables, `$data`, `$class_name`, and `$block_id` are variables that we have defined ourselves.
 
 ## Create the block render template {#render-template}
 Now we can create the block’s render template: `/blocks/posts-loop/template.php`.
@@ -143,25 +194,20 @@ $data = $args['data'];
 // Dynamic block ID
 $block_id = 'posts-loop-block-' . $block['id'];
 
-// Check for custom block ID
-if( !empty($block['anchor']) ) {
-    $block_id = $block['anchor'];
-}
+// The block ID
+$block_id = $args['block_id'];
 
-// Block classes
-$className = 'posts-loop-block';
-if( !empty($block['className']) ) {
-    $className .= ' ' . $block['className'];
-}
+// The block class names
+$class_name = $args['class_name'];
 ?>
 
-<!-- Our front-end template to loop the posts -->
-<div id="<?php echo $block_id; ?>" class="<?php echo $className; ?>">
+
+<div id="<?php echo $block_id; ?>" class="<?php echo $class_name; ?>">
+    <!-- Our front-end template to loop the posts -->
     <?php
     if( $data['posts']->have_posts() ) {
         while( $data['posts']->have_posts() ) {
-            $data['posts']->the_post();
-            ?>
+            $data['posts']->the_post(); ?>
             <div class="post">
                 <h2><?php the_title(); ?></h2>
                 <div class="post-content">
@@ -175,7 +221,7 @@ if( !empty($block['className']) ) {
 </div>
 ```
 
-Within our render template, our block attributes, such as the block’s ID or classnames, are found in `$args['block']`. Our block data, fields we specified in `blocks/posts-loop/block.php`, are found in `$args[’data’]`.
+All of the data exposed to our block's render template is found in the `$args` variable.
 
 The response of WP_Query is exposed to this render template in `$data['posts']`. This is because of the work we did in `/blocks/posts-loop/block.php`. Here's the line specifically:
 
@@ -195,12 +241,6 @@ This is what our block looks like when we insert it into the editor. The block's
 !["Block backend UI - Select Posts"](/images/block-guide-select-posts.jpg "Using the block in the editor to select posts")
 
 If I change the "Selection Type" from `Recent` to `Select posts` I'll be able to use the "Select Posts" relationship field.
-
----
-
-🤜 🤛 You did it!
-
-If you've followed along, let me know how this went or if you have any questions.
 
 <aside 
   x-data="visibleNavHighlighter" 
