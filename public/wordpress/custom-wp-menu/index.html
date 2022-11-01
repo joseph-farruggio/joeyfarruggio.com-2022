@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remove white background from image – CSS solution</title>
+    <title>How to create a custom WP menu</title>
     <meta name="description" content="">
     
     <script>
@@ -40,17 +40,17 @@
     
     
     <!-- Open Graph / Facebook -->
-    <meta property="og:title" content="Remove white background from image – CSS solution"/>
-    <meta property="og:url" content="https://joeyfarruggio.com/wordpress/remove-white-background-css/" />
-    <meta property="og:description" content="There&#39;s a clever, CSS only trick to remove the background color from your images. Let&#39;s learn how..." />
+    <meta property="og:title" content="How to create a custom WP menu"/>
+    <meta property="og:url" content="https://joeyfarruggio.com/wordpress/custom-wp-menu/" />
+    <meta property="og:description" content="If you need to control the markup of your nav menu, sometimes wp_nav_menu() just won&#39;t do." />
     <meta property="og:image" content="https://joeyfarruggio.com/images/avatar-small.jpg" />
     <meta property="og:type" content="article" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" ontent="https://joeyfarruggio.com/wordpress/remove-white-background-css/" />
-    <meta property="twitter:title" content="Remove white background from image – CSS solution"/>
-    <meta property="twitter:description" content="There&#39;s a clever, CSS only trick to remove the background color from your images. Let&#39;s learn how..." />
+    <meta property="twitter:url" ontent="https://joeyfarruggio.com/wordpress/custom-wp-menu/" />
+    <meta property="twitter:title" content="How to create a custom WP menu"/>
+    <meta property="twitter:description" content="If you need to control the markup of your nav menu, sometimes wp_nav_menu() just won&#39;t do." />
     <meta property="twitter:image" content="https://joeyfarruggio.com/images/avatar-small.jpg" />
 </head>
 <body x-data="app()" class="bg-white dark:bg-[#040817] transition-colors dark:text-white text-slate-800 font-body">
@@ -75,32 +75,115 @@
     
     <main class="">
         <article id="post" class="prose lg:prose-xl max-w-screen-md mx-auto px-4 mt-12" :class="{'prose-invert': dark}">
-    <h1 class="dark:text-orange-400 text-4xl text-highlight-orange">Remove white background from image – CSS solution</h1>
-    <p class=" text-lg mt-4 leading-relaxed">There&#39;s a clever, CSS only trick to remove the background color from your images. Let&#39;s learn how...</p>
+    <h1 class="dark:text-orange-400 text-4xl text-highlight-orange">How to create a custom WP menu</h1>
+    <p class=" text-lg mt-4 leading-relaxed">If you need to control the markup of your nav menu, sometimes wp_nav_menu() just won&#39;t do.</p>
     <span class="flex items-center space-x-4 mt-4 text-gray-400">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-        <time datetime="2020-06-04">04 Jun 2020</time>
+        <time datetime="2022-01-02">02 Jan 2022</time>
     </span>
     <div class="mt-16"></div>   
-    <p>So I’m building a premium WP theme tailored for Affiliates and product review websites – and I’m hoping to release it later this year. I was just working on a product review demo page where I’ve uploaded an image of a MacBook Pro and I wanted to change the background color for the header of this product card.</p>
-<p><img src="/images/remove-bg-color.jpg" alt="Remove background color from image!" title="Remove background color from image!"></p>
-<p>And I noticed how the image’s white background doesn’t look too great over the gray background.</p>
-<p>Instead of bringing this image into photoshop, removing the background, and rey-loading it to the WordPress – what if I could take care of this right here in the Gutenerg editor?</p>
-<p>Well, we can… and with just a click of a button.</p>
-<p><img src="/images/bg-color-toggle.jpg" alt="Remove background color from image!" title="Remove background color from image!"></p>
-<p>The screenshot above shows an ACF field that adds one line of CSS to the image.
-This is a pure CSS solution and it works in most modern browsers.</p>
-<pre class="language-css"><code class="language-css"><span class="token property">mix-blend-mode</span><span class="token punctuation">:</span> multiply<span class="token punctuation">;</span></code></pre>
-<p>mix-blend-mode: multiply;
-This feature works best when the background color is light shade… and fails completely if you go too dark.</p>
-<p>Once you get your hands on this theme you can easily test it and see how it works in your own use case.</p>
-<p><img src="/images/remove-background-examples.jpg" alt="Remove background color from image!" title="Remove background color from image!"></p>
+    <h2>Why I built the create-acf-block CLI</h2>
+<p>Recently I was creating a number of ACF (Advanced Custom Field) blocks for a WordPress site and I was annoyed with the repetitive task of:</p>
+<ol>
+<li>Registering the block in <code>acf_register_block_type()</code></li>
+<li>Creating a file to hold the render template</li>
+<li>Copying and pasting in a starter template</li>
+<li>Creating a CSS and JS file for the block</li>
+</ol>
+<p>And you have to do that for each block - over and over again.</p>
+<p>In the middle of that I stopped and ran a search for something like &quot;ACF Block CLI&quot; or &quot;Create ACF Block CLI&quot;. I was surprised that there was nothing out there. Could I just build one myself? I've never built a CLI before and I didn't really know what was involved.</p>
+<p>Conceptually, I knew what I wanted the CLI to do for me and I could picture how I would interact with it:</p>
+<ol>
+<li>Provide the block's slug</li>
+<li>Provide the block's name</li>
+<li>And add a few optional preferences for <code>acf_register_block_type()</code></li>
+</ol>
+<p>Then the CLI would take care of those repetitive tasks I mentioned before.</p>
+<h2>How I learned to build the create-acf-block CLI</h2>
+<p>Since I've not built a CLI before I knew I'd need to start reading or take a course or something. That's when I remembered that <a href="https://twitter.com/MrAhmadAwais">Ahmad Awais</a> had a <a href="https://nodecli.com/">Node CLI course</a>. I didn't even have to take the entire course to start working on my CLI. In fact, I had enough knowledge to get started after just 30 minutes of his lessons.</p>
+<p>I'll definitely continue with the rest of the course. Ahmad is very enjoyable to learn from and I'm sure I'll be able to refactor and improve my CLI with what I'll learn in the future.</p>
+<h2>How to use the create-acf-block CLI</h2>
+<p>When you first run the CLI within your project, you'll be prompted to specify some project preferences:</p>
+<ol>
+<li>The path to your block registration file. This could be your functions.php file or something like <code>/inc/acf-blocks.php</code>.</li>
+<li>The path to your block render templates. This is where the CLI will create your block template files.</li>
+<li>Whether to create block assets - CSS and JS.</li>
+<li>Whether to group your block assets. Should your CSS and JS live in a separate folder or group block templates with their assets?</li>
+</ol>
+<p>Then, you'll quickly move through the block details:</p>
+<ol>
+<li>Block Name (slug)</li>
+<li>Block Title</li>
+<li>Description</li>
+<li>Use innerBlocks? This preps the render template for JSX</li>
+<li>Category</li>
+<li>Mode</li>
+<li>Align</li>
+</ol>
+<p>These are options that get passed to the <code>acf_register_block_type()</code> function. Only <em>Block Name</em> and <em>Block Title</em> are required.</p>
+<h2>How the create-acf-block CLI works</h2>
+<p>It's pretty simple actually. Here's an overview of the CLI:</p>
+<ol>
+<li>
+<p>preferences()<br>
+Check if the preferences are not set or if the <code>--preferences</code> flag is present. If ether are true, present the user with the preferences prompts.</p>
+</li>
+<li>
+<p>CheckRegistrationFile()<br>
+Check to make sure that the user supplied path to their block registration file exists.</p>
+</li>
+<li>
+<p>checkCommentMarkers()<br>
+Then we check inside that registration file to ensure that there are &quot;comment markers&quot;. There's an opening and closing comment to tell the CLI where to insert new blocks within the file.</p>
+</li>
+<li>
+<p>prompts()<br>
+Present the general block details prompts and pass those responses to the following three functions.</p>
+</li>
+<li>
+<p>registerBlocks()<br>
+Open the registration file, find the comment markers, and insert the populated <code>acf_register_block_type()</code> function.</p>
+</li>
+<li>
+<p>createRenderTemplate()<br>
+Create thee block render template. If the &quot;Group block assets&quot; preference is true, the folder structure will look something like:</p>
+</li>
+</ol>
+<pre><code>./blocks
+│
+└───hero
+│    │   block.php
+│    │   block.css
+│    │   block.php
+└───quote
+      │   block.php
+      │   block.css
+      │   block.php
+</code></pre>
+<p>Otherwise, assets will be grouped by file type:</p>
+<pre><code>./blocks
+│   hero.php
+│   quote.php
+│
+./css
+│   hero.css
+│   quote.css
+./js
+│   hero.js
+│   quote.js
+</code></pre>
+<ol start="7">
+<li>createAssets()<br>
+Optionally create the block CSS and JS and place them in the appropriate folder.</li>
+</ol>
+<p>And that's it! I was pretty pleased with how easily this all came together. And it took me less than a days worth of work to figure it out and build it. The best part is that I'm totally using this on three or four projects already. It's very helpful!</p>
+<p>If you want you checkout the code you can find it at https://github.com/joseph-farruggio/create-acf-block.</p>
 
 
     <div class="bg-slate-800  max-w-3xl mt-14 p-8 md:px-16 md:py-12 rounded-lg border border-slate-700 relative shadow-2xl shadow-cyan-900/40 md:flex items-center gap-12">
         <svg data-name="Group 20" xmlns="http://www.w3.org/2000/svg" class="h-20 mx-auto md:mx-none md:h-32" viewBox="0 0 226.913 104.472"><path data-name="Union 1" d="M159.849 104.038V.228h67.063v24.4h-42.109V42.79h40.03v24.4h-40.03v36.848Z" fill="#fff"></path><path data-name="Intersection 2" d="M159.973 61.117h17.43c-.094.551-.2 1.1-.307 1.638a51.646 51.646 0 0 1-3.027 9.75 51.889 51.889 0 0 1-4.788 8.822 52.313 52.313 0 0 1-6.342 7.69q-1.427 1.425-2.966 2.742Zm0-17.14v-31.16q1.536 1.315 2.966 2.744a52.312 52.312 0 0 1 6.342 7.687 51.927 51.927 0 0 1 4.792 8.823 51.623 51.623 0 0 1 3.023 9.746c.145.709.278 1.435.393 2.158Z" fill="#e5e5e5"></path><path data-name="Subtraction 6" d="M121.539 104.227a52.334 52.334 0 0 1-10.468-1.056 51.649 51.649 0 0 1-18.572-7.814 52.09 52.09 0 0 1-18.818-22.852 51.665 51.665 0 0 1-3.027-9.75 52.435 52.435 0 0 1 0-20.936 51.67 51.67 0 0 1 7.815-18.57A52.107 52.107 0 0 1 101.321 4.43a51.752 51.752 0 0 1 9.75-3.026 52.466 52.466 0 0 1 20.935 0 51.642 51.642 0 0 1 18.572 7.815 52.076 52.076 0 0 1 18.821 22.852 51.618 51.618 0 0 1 3.027 9.749c.145.71.278 1.436.394 2.158h-24.078c-.267-.837-.577-1.675-.923-2.492a29.012 29.012 0 0 0-2.682-4.94 29.162 29.162 0 0 0-12.8-10.538 29.046 29.046 0 0 0-27.58 2.681 29.176 29.176 0 0 0-10.538 12.8 29.049 29.049 0 0 0 2.68 27.58 29.173 29.173 0 0 0 12.8 10.539 29.051 29.051 0 0 0 27.584-2.682 29.227 29.227 0 0 0 7.856-7.857 29.034 29.034 0 0 0 3.76-7.951h23.83c-.094.551-.2 1.1-.307 1.638a51.661 51.661 0 0 1-7.815 18.572 52.09 52.09 0 0 1-22.852 18.821 51.636 51.636 0 0 1-9.749 3.026 52.332 52.332 0 0 1-10.467 1.052Z" fill="#fff"></path><path data-name="Intersection 1" d="M101.422 99.906a51.612 51.612 0 0 1-8.778-4.765A51.84 51.84 0 0 1 73.92 72.404a51.356 51.356 0 0 1-3.011-9.7 52.158 52.158 0 0 1 0-20.831 51.333 51.333 0 0 1 3.011-9.7q.998-2.362 2.238-4.625l30.231 74.163a51.327 51.327 0 0 1-4.967-1.805Z" fill="#e5e5e5"></path><path data-name="Subtraction 1" d="M101.282 104.472H73.234l-5.713-15.586H32.2l-5.713 15.585H0L41.032 0h17.66l42.59 104.471ZM49.861 41.2l-8.829 24.138h17.66L49.861 41.2Z" fill="#fff"></path></svg>
         <div class="w-full">
-            <h3 class="text-xl ignore-toc text-center font-medium mt-8 md:text-left md:m-0">Get The Free ACF Blocks Mini Course</h3>
+            <h3 class="text-xl text-center font-medium mt-8 md:text-left md:m-0">Get The Free ACF Blocks Mini Course</h3>
             <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
             <form action="https://app.convertkit.com/forms/3686824/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="3432284" data-uid="52a76ab010" data-format="inline" data-version="5" data-options="{&quot;settings&quot;:{&quot;after_subscribe&quot;:{&quot;action&quot;:&quot;message&quot;,&quot;success_message&quot;:&quot;Success! Now check your email to confirm your subscription.&quot;,&quot;redirect_url&quot;:&quot;&quot;},&quot;analytics&quot;:{&quot;google&quot;:null,&quot;fathom&quot;:null,&quot;facebook&quot;:null,&quot;segment&quot;:null,&quot;pinterest&quot;:null,&quot;sparkloop&quot;:null,&quot;googletagmanager&quot;:null},&quot;modal&quot;:{&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15},&quot;powered_by&quot;:{&quot;show&quot;:true,&quot;url&quot;:&quot;https://convertkit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic&quot;},&quot;recaptcha&quot;:{&quot;enabled&quot;:false},&quot;return_visitor&quot;:{&quot;action&quot;:&quot;show&quot;,&quot;custom_content&quot;:&quot;&quot;},&quot;slide_in&quot;:{&quot;display_in&quot;:&quot;bottom_right&quot;,&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15},&quot;sticky_bar&quot;:{&quot;display_in&quot;:&quot;top&quot;,&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15}},&quot;version&quot;:&quot;5&quot;}" min-width="400">
                 <div data-style="clean">
