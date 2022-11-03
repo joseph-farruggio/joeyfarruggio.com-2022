@@ -1,5 +1,5 @@
 ---
-title: How to create a custom nav menu without a nav walker
+title: How to create a custom nav menu in WordPress
 description: If you need to control the markup of your nav menu, and want to avoid wp_nav_menu() and nav walkers, this is for you.
 date: 2022-10-31
 permalink: "wordpress/{{ page.fileSlug }}/index.html"
