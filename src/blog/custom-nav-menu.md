@@ -7,14 +7,14 @@ permalink: "wordpress/{{ page.fileSlug }}/index.html"
 ---
 
 ## In this guide{.ignore-toc}
-1. Build a traditional menu with [wp_nav_menu()](#traditional)
-1. Modify `wp_nav_menu()` with the [Walker_Nav_Menu](#nav-walker) class
-1. Loop your menu items with [Navi](#navi) - a Composer package.
-1. Create our own custom solution with [wp_get_menu_items()](#get-menu-items).
-1. [Build a custom Menu](#tailwind-menu) in WordPress with Tailwind CSS and Alpine.js
+We learn about the [traditional way of creating a nav menu](#traditional) in WordPress: `wp_nav_menu()` and the problems it presents.
 
-## Traditional Menus with wp_nav_menu(){#traditional}
-The traditional way of building a navigation menu in WordPress is to use `wp_nav_menu()`. This WordPress function returns your menu as simple HTML:
+We'll cover a couple solutions including [Navi](#navi) and the [Walker_Nav_Walker](#nav-walker) class.
+
+Finally, we'll create our [custom nav menu](#building-a-custom-nav-menu-in-wodpress) using `wp_get_nav_menu_items()`.
+
+## Simple nav menus with wp_nav_menu(){#traditional}
+The traditional way of building a navigation menu in WordPress is to use `wp_nav_menu()`. This WordPress function returns your menu as simple HTML list. For many cases, `wp_nav_menu()` may be completely sufficient and I'd recommend using it if so.
 
 ``` php
    wp_nav_menu( array(
@@ -43,14 +43,19 @@ Some options include:
 1. Container class - in our case it's `menu-primary-container`
 1. Items wrap - defaults to `<ul>`
 
-There are a few more options, but beyond that we don't have much control over the markup. For many cases, `wp_nav_menu()` may be completely sufficient and I'd recommend using it if so.
+There are a few more options, but beyond that we don't have much control over the markup. 
 
+---
 
 ## The problem
-What if we wanted to build a nav menu with our own custom markup? Maybe our markup is too different from what is possible with `wp_nav_menu()`. Maybe we want to use a component library or our favorite CSS framework, like Tailwind CSS.
+`wp_nav_menu()` owns the markup – this becomes a problem when we need to build more complex layouts. It also prevents us from consistently using tools like Tailwind CSS and Alpine.
+
+---
 
 ## Solutions
-There are a couple ways to gain more control over our markup. The right solution for you depends on your needs and your own preferences. Ideally, we'll be able to just loop through our menu items as an array with the option of checking if the current menu item has children so that we can also control the markup of sub menus.
+There are a couple ways to gain more control over our markup. Ideally, we'll be able to loop through our menu items as an array. We should also be able to check if the current menu item has children so that we can control the markup of sub menus.
+
+---
 
 ### Nav Walker{#nav-walker}
 The `Walker_Nav_Menu` PHP Class allows you to modify the HTML that's returned from `wp_nav_menu()`. If gives you more flexibility than the arguments you pass directly into the function. Many people struggle with this Class. It's far from intuitive and it takes some time to get used to. It also doesn't let us simply loop over our menu items. Here's the gist of how it works though:
@@ -63,6 +68,8 @@ There are four primary methods you'll use to modify your menu's markup:
 1. end_lvl — Modidies the list of after the elements are added
 
 We're going to pass on this solution for something simpler.
+
+---
 
 ### Navi{#navi}  
 There's a Composer package called [Navi by @Log1x](https://github.com/Log1x/navi){target="_blank"}. This package handles all of the heavy lifting, giving you a clean array of menu items to loop through. With Navi, we can loop our nav menu like this:
@@ -97,14 +104,13 @@ Navi also lets you check for sub menus too:
 <?php endif; ?>
 ```
 
+This tutorial could easily end here, but let's learn how to build our own lightweight solution.
 
-### wp_get_nav_menu_items(){#get-menu-items}  
-`wp_get_nav_menu_items()` is a WordPress function that returns an array of your menu items. It's also what Navi uses under the hood. The problem is that it returns a single dimensional array. Child menu items are not nested under their parents in a `children[]` array. Instead, they reference their parent by ID. This makes it difficult to just loop over our menu. However, this is a great place start to build our own solution.
+---
 
-The rest of this guide will show you how to create a custom menu with `wp_get_nav_menu_items()`.
+## Building a custom nav menu in WodPress
 
-
-## Custom nav menu builder
+Our solution will be based on the WordPress function `wp_get_nav_menu_items()`. This function returns an array of your menu items. It's also what Navi uses under the hood. The problem is that it returns a single dimensional array. Child menu items are not nested under their parents in a `children[]` array. Instead, they reference their parent by ID. This makes it difficult to just loop over our menu.
 
 We're going to wrap `wp_get_nav_menu_items()` inside of a new function that transforms the returned array into something that's loopable.
 

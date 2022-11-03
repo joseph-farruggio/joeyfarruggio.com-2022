@@ -71,7 +71,7 @@ iframe {
 }
 
 :where(code):not(:where(pre > *)) {
-	@apply dark:text-cyan-400 bg-slate-100 p-1 rounded-sm dark:bg-slate-800;
+	@apply py-1 px-2 rounded-sm bg-slate-800 text-cyan-300 !important;
 }
 
 pre {

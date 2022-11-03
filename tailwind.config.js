@@ -43,6 +43,13 @@ module.exports = {
             },
           },
         },
+        xl: {
+          css: {
+            h3: {
+            fontSize: '1.25em'
+          }
+          }
+        }
       }),
     },
   },
