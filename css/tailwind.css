@@ -70,7 +70,7 @@ iframe {
 	display: none;
 }
 
-:where(code):not(:where(pre *)) {
+:where(code):not(:where(pre > *)) {
 	@apply dark:text-cyan-400 bg-slate-100 p-1 rounded-sm dark:bg-slate-800;
 }
 
