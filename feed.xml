@@ -4,14 +4,14 @@
   <subtitle>Joey Farruggio is a front-end developer writing about WordPress, JavaScript, and CSS.</subtitle>
   <link href="https://joeyfarruggio.com/feed.xml" rel="self"/>
   <link href="https://joeyfarruggio.com/blog"/>
-  <updated>2022-11-03T15:51:39Z</updated>
+  <updated>2022-11-03T15:56:50Z</updated>
   <id>https://joeyfarruggio.com/blog</id>
   <author>
     <name>Joey Farruggio</name>
     <email>joey@joeyfarruggio.coms</email>
   </author>
   <entry>
-    <title>How to create a custom nav menu without a nav walker</title>
+    <title>How to create a custom nav menu in WordPress</title>
     <link href="https://joeyfarruggio.com/wordpress/custom-nav-menu/"/>
     <updated>2022-10-31T00:00:00Z</updated>
     <id>https://joeyfarruggio.com/wordpress/custom-nav-menu/</id>
