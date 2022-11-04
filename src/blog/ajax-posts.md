@@ -1,5 +1,5 @@
 ---
-title: WordPress Posts Filter with Alpine.JS
+title: Filter Posts by Category via Ajax - with Alpine.js
 description: How to build a filter posts by category feature with Alpine.JS in WordPress.
 date: 2022-11-04
 permalink: "wordpress/{{ page.fileSlug }}/index.html"
