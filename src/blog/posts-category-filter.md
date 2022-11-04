@@ -433,6 +433,14 @@ Changes we've made:
 1. We've added `x-show.important="!touched"` to our default posts
 2. We've added in our filtered posts
 
+Alpine's `x-show` allows us to conditionally show an element based on a value. In our case, when the page initially loads, `touched` equals false and becomes true when the user clicks a category button. If the condition in `x-show` evaulates to false, the element is hidden with `display: none;`.
+
+If you're not familiar, `!touched` means touched is false while `touched` means touched is true.
+
+So the default query is shown if `touched` equals false. The filtered posts are shown if `touched` equals true.
+
+We're using the `important` modifier on `x-show`, because both divs have the class `grid` which is a display property and it conflicts with `display: none;` if the element should be hidden. Adding `important` makes `x-show` take precedence.
+
 
 ## Final result
 

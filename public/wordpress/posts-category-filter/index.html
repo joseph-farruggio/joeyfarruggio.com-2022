@@ -175,6 +175,10 @@
 <li>We've added <code>x-show.important=&quot;!touched&quot;</code> to our default posts</li>
 <li>We've added in our filtered posts</li>
 </ol>
+<p>Alpine's <code>x-show</code> allows us to conditionally show an element based on a value. In our case, when the page initially loads, <code>touched</code> equals false and becomes true when the user clicks a category button. If the condition in <code>x-show</code> evaulates to false, the element is hidden with <code>display: none;</code>.</p>
+<p>If you're not familiar, <code>!touched</code> means touched is false while <code>touched</code> means touched is true.</p>
+<p>So the default query is shown if <code>touched</code> equals false. The filtered posts are shown if <code>touched</code> equals true.</p>
+<p>We're using the <code>important</code> modifier on <code>x-show</code>, because both divs have the class <code>grid</code> which is a display property and it conflicts with <code>display: none;</code> if the element should be hidden. Adding <code>important</code> makes <code>x-show</code> take precedence.</p>
 <h2>Final result</h2>
 <p>Once we're done, we should be able to click a category in the sidebar to retrieve and display a filtered list of posts.</p>
 <div style="position: relative; padding-bottom: 61.32879045996593%; height: 0;"><iframe src="https://www.loom.com/embed/1d69642a8ec54a2e9231fe324143f1af" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
