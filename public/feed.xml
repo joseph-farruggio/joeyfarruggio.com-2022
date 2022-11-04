@@ -4,7 +4,7 @@
   <subtitle>Joey Farruggio is a front-end developer writing about WordPress, JavaScript, and CSS.</subtitle>
   <link href="https://joeyfarruggio.com/feed.xml" rel="self"/>
   <link href="https://joeyfarruggio.com/blog"/>
-  <updated>2022-11-04T20:30:07Z</updated>
+  <updated>2022-11-04T20:30:37Z</updated>
   <id>https://joeyfarruggio.com/blog</id>
   <author>
     <name>Joey Farruggio</name>
@@ -12,9 +12,9 @@
   </author>
   <entry>
     <title>Filter Posts by Category via Ajax - with Alpine.js</title>
-    <link href="https://joeyfarruggio.com/wordpress/ajax-posts/"/>
+    <link href="https://joeyfarruggio.com/wordpress/posts-category-filter/"/>
     <updated>2022-11-04T00:00:00Z</updated>
-    <id>https://joeyfarruggio.com/wordpress/ajax-posts/</id>
+    <id>https://joeyfarruggio.com/wordpress/posts-category-filter/</id>
     <content xml:lang="en" type="html">&lt;h2&gt;What we&#39;re building&lt;/h2&gt;
 &lt;p&gt;We&#39;ll build a feature for our WordPress theme to filter posts by category. This will happen asynchronously - so the browser won&#39;t reload as new posts appear. We&#39;ll use Alpine.JS on the front-end for fetching data and displaying new posts.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://joeyfarruggio.com/images/posts-filter.png&quot; alt=&quot;Filter Posts by Category in WordPress&quot; /&gt;&lt;/p&gt;
