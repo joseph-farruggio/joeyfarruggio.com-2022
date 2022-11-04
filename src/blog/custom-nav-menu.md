@@ -215,7 +215,7 @@ Inside the placeholder for our menu loop, we'll include our use of our custom `m
 ``` php
 <?php
 // Select our menu
-$menu = custom_menu('primary');
+$menu = my_menu_builder('primary');
 
 // Set class names if the menu item is active
 $menu_item_active_class = get_the_ID() == $item->ID ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white';
