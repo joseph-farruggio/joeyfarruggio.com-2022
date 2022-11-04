@@ -217,12 +217,12 @@ Inside the placeholder for our menu loop, we'll include our use of our custom `m
 // Select our menu
 $menu = my_menu_builder('primary');
 
-// Set class names if the menu item is active
-$menu_item_active_class = get_the_ID() == $item->ID ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white';
-$sub_menu_item_active_class = get_the_ID() == $item->ID ? 'bg-gray-100 text-gray-900' : 'text-gray-700';
-
 // Loop the menu
 foreach ($menu as $item) :    
+   // Set class names if the menu item is active
+   $menu_item_active_class = get_the_ID() == $item['ID'] ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white';
+   $sub_menu_item_active_class = get_the_ID() == $item['ID'] ? 'bg-gray-100 text-gray-900' : 'text-gray-700';
+   
    // If menu item has children
    if (isset($item['children'])) : ?>
       <div x-data="{open: false}" class='relative inline-block text-left'>
