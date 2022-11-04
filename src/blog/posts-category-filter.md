@@ -74,9 +74,10 @@ Here's the skeleton of our base template. The wrapper div references an Alpine.j
 </div>
 ```
 
+### Default Query
 First, let's setup the default state for the posts column. The following code goes in `/template-parts/default-query.php`.
 
-This is a simple query that returns ten blog posts and returns each post as our `/template-parts/posts-filter/post` template.
+This is a simple query that returns ten blog posts and returns each post as our `/template-parts/posts-filter/single-post.php` template.
 
 ``` php
 $query_args = array(
@@ -89,11 +90,25 @@ $the_query = new WP_Query($query_args);
 
 if ($the_query->have_posts()) :
     while ($the_query->have_posts()) : $the_query->the_post();
-        get_template_part('template-parts/posts-filter/post');
+        get_template_part('template-parts/posts-filter/single-post');
     endwhile;
     wp_reset_postdata();
 endif;
 ```
+
+### Single Post Temlate
+
+This is the single post template.
+
+``` php
+<div>
+    <?php if ( has_post_thumbnail() ) {
+        the_post_thumbnail( 'full', array( 'class' => 'm-0' ) );
+    }?>
+    <p class="text-xl font-medium mt-2"><?php the_title(); ?></p>
+</div>
+```
+
 
 Inside of our posts column div lets call display the result of that query:
 
@@ -181,14 +196,14 @@ Alpine.data("filterPosts", (adminURL) => ({
 		this.fetchPosts();
 	},
 
-	fetchPosts(category) {
+	fetchPosts() {
 		var formData = new FormData();
 		formData.append("action", "filterPosts");
 		formData.append("limit", this.limit);
 		formData.append("offset", this.offset);
 
 		if (this.category) {
-			formData.append("category", category);
+			formData.append("category", this.category);
 		}
 
 		fetch(adminURL, {
@@ -311,7 +326,7 @@ function filterPosts()
 
     if ($filter_query->have_posts()) :
         while ($filter_query->have_posts()) : $filter_query->the_post();
-            $response['posts'] .= load_template_part('/template-parts/posts-filter/post');
+            $response['posts'] .= load_template_part('/template-parts/posts-filter/single-post');
         endwhile;
         wp_reset_postdata();
     endif;
@@ -357,7 +372,7 @@ $filter_query = new WP_Query($filter_args);
 if ($filter_query->have_posts()) :
     $i = 1;
     while ($filter_query->have_posts()) : $filter_query->the_post();
-        $response['posts'] .= load_template_part('/template-parts/posts-filter/post');
+        $response['posts'] .= load_template_part('/template-parts/posts-filter/single-post');
     endwhile;
     wp_reset_postdata();
 endif;
