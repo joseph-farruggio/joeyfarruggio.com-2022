@@ -40,7 +40,7 @@ How you structure this is up to you, but I want to clearly present the parts inv
 `default-query.php` will hold our post query and args for the intitial page load. We don't need JavaScript for this.
 
 **/javascript/**  
-`posts-filter.js` will hold our Alpine.JS component. It's responsible for handling the category drop down and "load more" button.
+`posts-filter.js` will hold our Alpine.JS component. It's responsible for handling the category buttons and fetching and displaying posts.  
 
 This guide assumes you understand how to enqueue JavaScript in WordPress. Whether you want to include Alpine.js via CDN or NPM is up to you. Hit those [docs](https://alpinejs.dev/essentials/installation){target="_blank"}!
 
@@ -125,7 +125,7 @@ Inside of our posts column div lets call display the result of that query:
 This is what we've built so far:
 1. A shell for our sidebar
 2. A content area for posts
-3. A defalt query that returns 10 posts w/o JavaScript
+3. A default query that returns 10 posts w/o JavaScript
 
 ![Default Query](/images/default-query.png)
 
@@ -173,7 +173,7 @@ Now we're getting into the complex stuff. Here's what we need to do:
 
 1. Create an Alpine.js component to fetch posts
 2. Create a dynamic instance of `WP_Query()` that Alpine.js will talk to
-3. Intitiate a fetch when a category button is clicked.
+3. Initiate a fetch when a category button is clicked.
 
 ### Alpine.js component
 
@@ -186,12 +186,14 @@ import Alpine from 'alpinejs'
 
 
 Alpine.data("filterPosts", (adminURL) => ({
-	posts: null,
+	posts: "",
 	category: null,
-    touched: false,
+    showDefault: true,
+    showFiltered: false,
 
 	filterPosts(id) {
-        this.touched = true;
+        this.showDefault = false;
+        this.showFiltered = true;
         this.category = id;
 		this.fetchPosts();
 	},
@@ -199,7 +201,6 @@ Alpine.data("filterPosts", (adminURL) => ({
 	fetchPosts() {
 		var formData = new FormData();
 		formData.append("action", "filterPosts");
-		formData.append("limit", this.limit);
 		formData.append("offset", this.offset);
 
 		if (this.category) {
@@ -224,26 +225,30 @@ Alpine.start()
 Let's walk through this component:
 
 ``` js
-posts: null,
+posts: "",
 category: null,
-touched: false,
+showDefault: true,
+showFiltered: false,
 ```
 
 `posts`: will contain our post data that we receive back from WordPress.
 
 `category`: will be the category ID from clicking a button in the sidebar.
 
-`touched`: we need to track if the user has filtered posts or not. If `touched` is true, we'll hide the default posts and show the filtered ones.
+`showDefault`: If true, we'll show the default posts.
+
+`showFiltered`: If true, we'll show the filtered posts.
 
 ``` js
 filterPosts(id) {
-    this.touched = true;
+    this.showDefault = false;
+    this.showFiltered = true;
     this.category = id;
     this.fetchPosts();
 },
 ```
 
-`filterPosts(id)` takes in a category ID. It sets the current `category` to that ID and calls the `fetchPosts()` method.
+`filterPosts(id)` takes in a category ID. It sets the current `category` to that ID and calls the `fetchPosts()` method. It's also showing the filtered posts and hiding the default ones.
 
 ``` js
 fetchPosts(category) {
@@ -428,31 +433,27 @@ We've made two changes:
 
 ### Display the fitlered posts
 
-Now let's display the filtered posts that we receieved:
+Now let's display the filtered posts that we received:
 
 ``` php
 <!-- Posts Column -->
 <div class="w-3/4">
     <!-- Default posts query -->
-    <div x-show.important="!touched" class="grid grid-cols-2 gap-6">
+    <div x-show.important="showDefault" class="grid grid-cols-2 gap-6">
         <?php get_template_part( 'template-parts/posts-filter/default-query' ); ?>
     </div>
 
     <!-- Filtered posts -->
-    <div x-show.important="touched" class="grid grid-cols-2 gap-6" x-html="posts"></div>
+    <div x-show.important="showFiltered" class="grid grid-cols-2 gap-6" x-html="posts"></div>
 </div>
 ```
 
 Changes we've made:
 
-1. We've added `x-show.important="!touched"` to our default posts
+1. We've added `x-show.important="showDefault"` to our default posts
 2. We've added in our filtered posts
 
-Alpine's `x-show` allows us to conditionally show an element based on a value. In our case, when the page initially loads, `touched` equals false and becomes true when the user clicks a category button. If the condition in `x-show` evaulates to false, the element is hidden with `display: none;`.
-
-If you're not familiar, `!touched` means touched is false while `touched` means touched is true.
-
-So the default query is shown if `touched` equals false. The filtered posts are shown if `touched` equals true.
+Alpine's `x-show` allows us to conditionally show an element based on a value. In our case, when the page initially loads, `showDefault` equals `true` and becomes `false` when the user clicks a category button. If the condition in `x-show` evaluates to false, the element is hidden with `display: none;`.
 
 We're using the `important` modifier on `x-show`, because both divs have the class `grid` which is a display property and it conflicts with `display: none;` if the element should be hidden. Adding `important` makes `x-show` take precedence.
 
@@ -462,6 +463,15 @@ We're using the `important` modifier on `x-show`, because both divs have the cla
 Once we're done, we should be able to click a category in the sidebar to retrieve and display a filtered list of posts.
 
 <div style="position: relative; padding-bottom: 61.32879045996593%; height: 0;"><iframe src="https://www.loom.com/embed/1d69642a8ec54a2e9231fe324143f1af" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
+## Additional Improvements
+
+I can think of two ways to improve this feature:
+
+1. When fetching posts from WordPress display a skeleton loader until the results are ready.
+1. Add in a "Load More" button - Currently we only retrieve 10 mosts at a time with no way of viewing any more.
+
+Let's build this together in [the next lesson 👉](/wordpress/skeleton-loader)
 
 
 <aside 
