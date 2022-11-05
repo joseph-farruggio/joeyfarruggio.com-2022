@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skeleton Loader for AJAX Post Filter - Alpine.JS</title>
+    <meta name="description" content="" />
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129275479-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-129275479-1');
+    </script>
+
+    <link rel="stylesheet" href="/css/tailwind.min.css" />
+    <link rel="stylesheet" href="/css/nightowl.min.css" />
+    
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Skeleton Loader for AJAX Post Filter - Alpine.JS" />
+    <meta property="og:url" content="https://joeyfarruggio.com/wordpress/skeleton-loader/" />
+    <meta property="og:description" content="Let your reader know something is loading by displaying a skeleton loader - a temporary UI to act as a placeholder for incoming content." />
+    <meta property="twitter:description" content="Let your reader know something is loading by displaying a skeleton loader - a temporary UI to act as a placeholder for incoming content." />
+    
+        <meta property="og:image" content="https://joeyfarruggio.com/images/skeleton-loader.png" />
+    
+    <meta property="og:type" content="article" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" ontent="https://joeyfarruggio.com/wordpress/skeleton-loader/" />
+    <meta property="twitter:title" content="Skeleton Loader for AJAX Post Filter - Alpine.JS" />
+    <meta property="twitter:description" content="Let your reader know something is loading by displaying a skeleton loader - a temporary UI to act as a placeholder for incoming content." />
+    
+        <meta property="twitter:image" content="https://joeyfarruggio.com/images/skeleton-loader.png" />
+    
+
+    <link rel="canonical" href="https://joeyfarruggio.com/wordpress/skeleton-loader/" />
+</head>
+<body x-data="app()" class="bg-white dark:bg-[#040817] transition-colors dark:text-white text-slate-800 font-body">
+    <header class="max-w-screen-xl mx-auto px-4 py-4 md:py-8 text-right" x-data="{menuOpen: false}">
+        <div class="hidden fixed md:static top-0 left-0 h-screen w-screen md:h-auto md:w-full z-40 pb-16 md:p-0 bg-white dark:bg-darkBG md:bg-transparent dark:md:bg-transparent md:flex md:items-center md:justify-between" :class="{'block': menuOpen, 'hidden': !menuOpen}">
+            <nav class="text-center flex flex-col md:block text-2xl md:text-lg md:space-x-6">
+                <a href="/" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Home</a>
+                <a href="/contact" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Contact</a>
+                <a href="/blog" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Blog</a>
+            </nav>
+            
+        </div>
+        <button class="print:hidden  border-none ml-full inline-block p-4 relative z-50 md:hidden" @click="menuOpen = !menuOpen">
+            <svg xmlns="http://www.w3.org/2000/svg" x-show="!menuOpen" class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" x-show="menuOpen" x-cloak class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+    </header>
+    
+    <main data-cms-content-wrapper="/src/_includes/layouts/base.njk">
+        <article id="post" class="prose prose-invert lg:prose-xl max-w-screen-md mx-auto px-4 mt-12">
+    <h1 class="dark:text-orange-400 text-4xl text-highlight-orange">Skeleton Loader for AJAX Post Filter - Alpine.JS</h1>
+    <p class=" text-lg mt-4 leading-relaxed">Let your reader know something is loading by displaying a skeleton loader - a temporary UI to act as a placeholder for incoming content.</p>
+    <span class="flex items-center space-x-4 mt-4 text-gray-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+        <time datetime="2022-11-04">04 Nov 2022</time>
+    </span>
+    <div class="mt-16"></div>   
+    <h2>What we're building</h2>
+<p>In the last lesson we built a feature to <a href="/wordpress/posts-category-filter">filter blog posts by category</a>, but it's limited to the first 10 results. In this lesson, we'll add in a skeleton loader (a temporary loading UI) and a &quot;Load More&quot; button to fetch more posts.</p>
+<p><img src="/images/skeleton-loader.png" alt="Filter Posts by Category in WordPress"></p>
+<hr>
+<h2>Simulate a delay from the server</h2>
+<p>If you're working on your local machine, you're probably not noticing much a delay when loading in new posts, but on a production server, there could be a slight delay for a number of reasons – your reader's internet speed being one of them.</p>
+<p>Lets simulate a 1.5 second delay from the server with a JavaScript <code>setTimeout()</code>.</p>
+<p>Inside of your JavaScript, we'll wrap the <code>fetch()</code> method with a <code>setTimeout()</code>:</p>
+<pre class="language-js"><code class="language-js"><span class="token function">fetchPosts</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token operator">...</span><br><br>    <span class="token comment">// Simulate delay from server</span><br>    <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">{</span><br>        <span class="token function">fetch</span><span class="token punctuation">(</span>adminURL<span class="token punctuation">,</span> <span class="token punctuation">{</span><br>            method<span class="token operator">:</span> <span class="token string">"POST"</span><span class="token punctuation">,</span><br>            body<span class="token operator">:</span> formData<span class="token punctuation">,</span><br>        <span class="token punctuation">}</span><span class="token punctuation">)</span><br>        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token operator">=></span> res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br>        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span><br>            <span class="token keyword">this</span><span class="token punctuation">.</span>posts <span class="token operator">=</span> res<span class="token punctuation">.</span>posts<span class="token punctuation">;</span><br>        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1500</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>With that 1.5 second timeout, we should start to see what our post filter feature would look like in a production environment. There's a noticeable delay where there's not content at all until new posts appear:</p>
+<div style="position: relative; padding-bottom: 81.44796380090497%; height: 0;"><iframe src="https://www.loom.com/embed/835fde2b3c49405a87455f561d82d152" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+<hr>
+<h2>The loading state</h2>
+<p>In order to display a skeleton loader, we need to know whether or not we're in a loading state.</p>
+<ol>
+<li>When loading more posts, we'll set <code>loadingMore</code> to <code>true</code>. As soon as we get our posts, we'll set <code>loadingMore</code> to <code>false</code>.</li>
+<li>When we change to a new category, we'll set <code>loadingNew</code> to <code>true</code> and later set it to <code>false</code> when we get our posts.</li>
+</ol>
+<p>Let's add a <code>loadingNew</code> and <code>loadingMore</code> property to our Alpine component. They should both default to <code>false</code>.</p>
+<pre class="language-js"><code class="language-js">Alpine<span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span><span class="token string">"filterPosts"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">adminURL</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">{</span><br>	posts<span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span><br>	category<span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span><br>    showDefault<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span><br>    showFiltered<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span><br>    loadingNew<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment">// &lt;--- defaults to false</span><br>    loadingMore<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment">// &lt;--- defaults to false</span><br><br>    <span class="token operator">...</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
+<hr>
+<h3>Why two loading properties?</h3>
+<p>We're controlling the visibility of three sections:</p>
+<ol>
+<li>The default posts</li>
+<li>The dynamic posts</li>
+<li>The skeleton loader</li>
+</ol>
+<p>Having two loading properties helps us control the display of the default and filtered posts in four scenarios:</p>
+<ol>
+<li><strong>Initial load</strong><br>
+Show the default posts (both loading states are false).</li>
+<li><strong>Load new posts</strong><br>
+Still show the default posts while showing the skeleton loader with <code>loadingMore</code></li>
+<li><strong>Filter category</strong><br>
+Hide the default posts, show the skeleton loader with <code>loadingNew</code>, and then show the filtered posts.</li>
+<li><strong>Filter category and then load new posts</strong><br>
+Hide the default posts, show the skeleton loader (both <code>loadingNew</code> and <code>loadingMore</code> equal true), and then show the filtered posts.</li>
+</ol>
+<hr>
+<h3>Set the loading state</h3>
+<p>When changing categories, update <code>loadingNew</code> to true.</p>
+<pre class="language-js"><code class="language-js"><span class="token function">filterPosts</span><span class="token punctuation">(</span><span class="token parameter">id</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span>loadingNew <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span><br>    <span class="token operator">...</span><br><span class="token punctuation">}</span><span class="token punctuation">,</span></code></pre>
+<p>Create a new method called <code>loadMore()</code> and add it right after <code>filterPosts()</code>. When loading more posts, we'll update <code>loadingMore</code> to true.</p>
+<pre class="language-js"><code class="language-js"><span class="token function">loadMore</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span>loadingMore <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">,</span></code></pre>
+<p>Once we've received our posts, reset both loading states to <code>false</code>:</p>
+<pre class="language-js"><code class="language-js"><span class="token function">fetchPosts</span><span class="token punctuation">(</span><span class="token parameter">append <span class="token operator">=</span> <span class="token boolean">false</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token operator">...</span><br><br>    <span class="token function">fetch</span><span class="token punctuation">(</span>adminURL<span class="token punctuation">,</span> <span class="token punctuation">{</span><br>        method<span class="token operator">:</span> <span class="token string">"POST"</span><span class="token punctuation">,</span><br>        body<span class="token operator">:</span> formData<span class="token punctuation">,</span><br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><br>    <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token operator">=></span> res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br>    <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span><br>        <span class="token keyword">if</span> <span class="token punctuation">(</span>append<span class="token punctuation">)</span> <span class="token punctuation">{</span><br>            <span class="token keyword">this</span><span class="token punctuation">.</span>posts <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>posts<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>posts<span class="token punctuation">)</span><span class="token punctuation">;</span><br>        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span><br>            <span class="token keyword">this</span><span class="token punctuation">.</span>posts <span class="token operator">=</span> res<span class="token punctuation">.</span>posts<span class="token punctuation">;</span><br>        <span class="token punctuation">}</span><br><br>        <span class="token comment">// Reset both loading states</span><br>        <span class="token keyword">this</span><span class="token punctuation">.</span>loadingNew <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span><br>        <span class="token keyword">this</span><span class="token punctuation">.</span>loadingMore <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">,</span></code></pre>
+<hr>
+<h2>Skeleton Template</h2>
+<p>Let's update <code>template-parts/posts-filter/template.php</code> to include our skeleton loader template:</p>
+<pre class="language-php"><code class="language-php"><span class="token comment">&lt;!-- Posts Column --></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>w-3/4<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>    <span class="token comment">&lt;!-- Default posts query --></span><br>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">x-show.important</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>showDefault<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>grid grid-cols-2 gap-6<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>        <span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token function">get_template_part</span><span class="token punctuation">(</span> <span class="token string single-quoted-string">'template-parts/posts-filter/default-query'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter important">?></span></span><br>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><br><br>    <span class="token comment">&lt;!-- Filtered posts --></span><br>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">x-show.important</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>showFiltered<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>grid grid-cols-2 gap-6<span class="token punctuation">"</span></span> <span class="token attr-name">x-html</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>posts<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><br><br>    <span class="token comment">&lt;!-- Skeleton Loader --></span><br>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">x-if</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>loadingNew || loadingMore<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>grid grid-cols-2 gap-6<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">x-for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>i in 4<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><br>                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>h-52 w-full bg-slate-200 rounded-lg<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><br>                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>h-8 w-1/2 bg-slate-200 rounded-lg mt-4<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><br>                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><br>            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span><br>        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><br>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+<p>There are a few things going on here worth mentioning:</p>
+<ol>
+<li>
+<p>We've added in a <code>&lt;template&gt;</code> tag to wrap our skelton UI:</p>
+<p>The skeleton UI is displayed if either <code>loadNew</code> or <code>loadMore</code> are true.</p>
+</li>
+<li>
+<p>We're using <code>x-if</code></p>
+<p>The difference between <code>x-show</code> and <code>x-if</code> is x-show hides elements with <code>display: none;</code> while x-if completely removes the markup from the DOM.</p>
+</li>
+<li>
+<p>There's a second <code>&lt;template&gt;</code> to loop 4 iterations of a skeleton UI. This is the same as hardcoding 4 divs that look like a skeleton post. Looping it just makes it cleaner.</p>
+</li>
+</ol>
+<p>You should now have a functioning skeleton UI for the loading state:</p>
+<div style="position: relative; padding-bottom: 86.74698795180724%; height: 0;"><iframe src="https://www.loom.com/embed/c8a69d49aad043ff985525b51e9f1419" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+<h2>Load More Button</h2>
+<p>A &quot;Load More&quot; button will allow readers to view more than the initial 10 posts. When the button is clicked, we'll append 10 new posts to the end of the list.</p>
+<p>Let's add a button to the bottom of our posts column:</p>
+<pre class="language-html"><code class="language-html"><span class="token comment">&lt;!-- Posts Column --></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>w-3/4<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>    ...<br>    <br>    <span class="token comment">&lt;!-- Load More Posts --></span><br>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-center mt-12<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <br>            <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>loadMore()<span class="token punctuation">"</span></span> <br>            <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white border border-solid border-slate-200 hover:bg-slate-100 px-4 py-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>            Load More<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><br>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+<h2>Load more method in Alpine.JS</h2>
+<p>Our <code>loadMore()</code> method is responsible for loading 10 additional posts.</p>
+<p>We don't want to load the same 10 posts again, but instead load the next 10 posts. To do this we'll pass an <code>offset</code> to <code>WP_Query</code> that increases by 10 every time we load new posts.</p>
+<h3>Set a default offset</h3>
+<p>Add a new <code>offset</code> property to your Alpine component. It should default to zero:</p>
+<pre class="language-js"><code class="language-js">Alpine<span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span><span class="token string">"filterPosts"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">adminURL</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">{</span><br>	posts<span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span><br>	category<span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span><br>    showDefault<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span><br>    showFiltered<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span><br>	loading<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span><br>    offset<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span></code></pre>
+<p>When the Load More button is clicked, our <code>loadMore()</code> method will:</p>
+<ol>
+<li>Set <code>loadingMore()</code> to true</li>
+<li>Increase the <code>offset</code> by 10.</li>
+<li>Set <code>showFiltered</code> to true - our dynamic posts only display if the reader requests posts by changing a category or loading more posts.</li>
+<li>Call <code>fetchPosts(true)</code> with a new parameter for appending posts.</li>
+</ol>
+<pre class="language-js"><code class="language-js">    <span class="token operator">...</span><br><br>    <span class="token function">loadMore</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>        <span class="token keyword">this</span><span class="token punctuation">.</span>loadingMore <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span><br>		<span class="token keyword">this</span><span class="token punctuation">.</span>offset <span class="token operator">+=</span> <span class="token number">10</span><span class="token punctuation">;</span><br>        <span class="token keyword">this</span><span class="token punctuation">.</span>showFiltered <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span><br>        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">fetchPosts</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>	<span class="token punctuation">}</span><span class="token punctuation">,</span><br><br>    <span class="token operator">...</span></code></pre>
+<h3>Update <code>fetchPosts()</code> to support appending new posts</h3>
+<ol>
+<li>Add the new <code>append</code> parameter and default it to false.</li>
+<li>Add <code>offset</code> to the form data.</li>
+<li>Within <code>fetch()</code>, check if <code>append</code> is true and if so, append the new posts with <code>concat()</code>.</li>
+</ol>
+<pre class="language-js"><code class="language-js">    <span class="token operator">...</span><br><br>    <span class="token comment">// append defaults to false </span><br>    <span class="token function">fetchPosts</span><span class="token punctuation">(</span><span class="token parameter">append <span class="token operator">=</span> <span class="token boolean">false</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>        <span class="token keyword">var</span> formData <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FormData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>        formData<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"action"</span><span class="token punctuation">,</span> <span class="token string">"ajaxPosts"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>		formData<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"offset"</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>offset<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &lt;-- Add new data to the form</span><br><br>        <span class="token operator">...</span><br><br>        <span class="token function">fetch</span><span class="token punctuation">(</span>adminURL<span class="token punctuation">,</span> <span class="token punctuation">{</span><br>            method<span class="token operator">:</span> <span class="token string">"POST"</span><span class="token punctuation">,</span><br>            body<span class="token operator">:</span> formData<span class="token punctuation">,</span><br>        <span class="token punctuation">}</span><span class="token punctuation">)</span><br>        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token operator">=></span> res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br>        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span><br>            <span class="token keyword">if</span> <span class="token punctuation">(</span>append<span class="token punctuation">)</span> <span class="token punctuation">{</span><br>                <span class="token comment">// Appends posts to the end of existing posts data</span><br>                <span class="token keyword">this</span><span class="token punctuation">.</span>posts <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>posts<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>posts<span class="token punctuation">)</span><span class="token punctuation">;</span><br>            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span><br>                <span class="token comment">// Resets the posts data with new data</span><br>                <span class="token keyword">this</span><span class="token punctuation">.</span>posts <span class="token operator">=</span> res<span class="token punctuation">.</span>posts<span class="token punctuation">;</span><br>            <span class="token punctuation">}</span><br><br>            <span class="token keyword">this</span><span class="token punctuation">.</span>loading <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span><br>        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span></code></pre>
+<h3>Reset offset if changing categories</h3>
+<p>We need to reset the <code>offset</code> to zero if we change categories. Otherwise we'll load in the wrong set of posts for the new category selected.</p>
+<pre class="language-js"><code class="language-js"><span class="token function">filterPosts</span><span class="token punctuation">(</span><span class="token parameter">id</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span>loadingNew <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span>showFiltered <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span>category <span class="token operator">=</span> id<span class="token punctuation">;</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span>offset <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">// &lt;-- reset offset to zero</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">fetchPosts</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">,</span></code></pre>
+<h2>Final product</h2>
+<div style="position: relative; padding-bottom: 73.46938775510203%; height: 0;"><iframe src="https://www.loom.com/embed/a62bf31a75ca48b2bd77d035b2495eaa" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+<aside 
+  x-data="visibleNavHighlighter" 
+  x-on:scroll.window.throttle.50ms="onScroll()" 
+  x-cloak>
+  <div class="fixed mt-20 right-0 bottom-0 hidden w-64 overflow-y-auto py-8 px-6 md:top-[4rem] xl:block">
+    <p class="text-base">In This Guide</p>
+    <ul class="space-y-3 list-none m-0 p-0">
+        <template x-for="heading in headings">
+            <li class="text-base p-0" :class="if (heading.tagName.toLowerCase() === 'h3') { return 'ml-4' } else if (heading.tagName.toLowerCase() === 'h4') { return 'ml-8' }">
+                <a :href="'#'+heading.id" class="no-underline" 
+                :class="visibleHeadingId == heading.id ? 'font-medium text-orange-400 dark:text-orange-400' : 'text-slate-800 dark:text-white'" x-text="heading.innerText"></a>
+            </li>
+        </template>
+    </ul>
+  </div>
+</aside>
+
+
+    <div class="bg-slate-800  max-w-3xl mt-14 p-8 md:px-16 md:py-12 rounded-lg border border-slate-700 relative shadow-2xl shadow-cyan-900/40 md:flex items-center gap-12">
+        <svg data-name="Group 20" xmlns="http://www.w3.org/2000/svg" class="h-20 mx-auto md:mx-none md:h-32" viewBox="0 0 226.913 104.472"><path data-name="Union 1" d="M159.849 104.038V.228h67.063v24.4h-42.109V42.79h40.03v24.4h-40.03v36.848Z" fill="#fff"></path><path data-name="Intersection 2" d="M159.973 61.117h17.43c-.094.551-.2 1.1-.307 1.638a51.646 51.646 0 0 1-3.027 9.75 51.889 51.889 0 0 1-4.788 8.822 52.313 52.313 0 0 1-6.342 7.69q-1.427 1.425-2.966 2.742Zm0-17.14v-31.16q1.536 1.315 2.966 2.744a52.312 52.312 0 0 1 6.342 7.687 51.927 51.927 0 0 1 4.792 8.823 51.623 51.623 0 0 1 3.023 9.746c.145.709.278 1.435.393 2.158Z" fill="#e5e5e5"></path><path data-name="Subtraction 6" d="M121.539 104.227a52.334 52.334 0 0 1-10.468-1.056 51.649 51.649 0 0 1-18.572-7.814 52.09 52.09 0 0 1-18.818-22.852 51.665 51.665 0 0 1-3.027-9.75 52.435 52.435 0 0 1 0-20.936 51.67 51.67 0 0 1 7.815-18.57A52.107 52.107 0 0 1 101.321 4.43a51.752 51.752 0 0 1 9.75-3.026 52.466 52.466 0 0 1 20.935 0 51.642 51.642 0 0 1 18.572 7.815 52.076 52.076 0 0 1 18.821 22.852 51.618 51.618 0 0 1 3.027 9.749c.145.71.278 1.436.394 2.158h-24.078c-.267-.837-.577-1.675-.923-2.492a29.012 29.012 0 0 0-2.682-4.94 29.162 29.162 0 0 0-12.8-10.538 29.046 29.046 0 0 0-27.58 2.681 29.176 29.176 0 0 0-10.538 12.8 29.049 29.049 0 0 0 2.68 27.58 29.173 29.173 0 0 0 12.8 10.539 29.051 29.051 0 0 0 27.584-2.682 29.227 29.227 0 0 0 7.856-7.857 29.034 29.034 0 0 0 3.76-7.951h23.83c-.094.551-.2 1.1-.307 1.638a51.661 51.661 0 0 1-7.815 18.572 52.09 52.09 0 0 1-22.852 18.821 51.636 51.636 0 0 1-9.749 3.026 52.332 52.332 0 0 1-10.467 1.052Z" fill="#fff"></path><path data-name="Intersection 1" d="M101.422 99.906a51.612 51.612 0 0 1-8.778-4.765A51.84 51.84 0 0 1 73.92 72.404a51.356 51.356 0 0 1-3.011-9.7 52.158 52.158 0 0 1 0-20.831 51.333 51.333 0 0 1 3.011-9.7q.998-2.362 2.238-4.625l30.231 74.163a51.327 51.327 0 0 1-4.967-1.805Z" fill="#e5e5e5"></path><path data-name="Subtraction 1" d="M101.282 104.472H73.234l-5.713-15.586H32.2l-5.713 15.585H0L41.032 0h17.66l42.59 104.471ZM49.861 41.2l-8.829 24.138h17.66L49.861 41.2Z" fill="#fff"></path></svg>
+        <div class="w-full">
+            <h3 class="text-xl ignore-toc text-center font-medium mt-8 md:text-left md:m-0">Get The Free ACF Blocks Mini Course</h3>
+            <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+            <form action="https://app.convertkit.com/forms/3686824/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="3432284" data-uid="52a76ab010" data-format="inline" data-version="5" data-options="{&quot;settings&quot;:{&quot;after_subscribe&quot;:{&quot;action&quot;:&quot;message&quot;,&quot;success_message&quot;:&quot;Success! Now check your email to confirm your subscription.&quot;,&quot;redirect_url&quot;:&quot;&quot;},&quot;analytics&quot;:{&quot;google&quot;:null,&quot;fathom&quot;:null,&quot;facebook&quot;:null,&quot;segment&quot;:null,&quot;pinterest&quot;:null,&quot;sparkloop&quot;:null,&quot;googletagmanager&quot;:null},&quot;modal&quot;:{&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15},&quot;powered_by&quot;:{&quot;show&quot;:true,&quot;url&quot;:&quot;https://convertkit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic&quot;},&quot;recaptcha&quot;:{&quot;enabled&quot;:false},&quot;return_visitor&quot;:{&quot;action&quot;:&quot;show&quot;,&quot;custom_content&quot;:&quot;&quot;},&quot;slide_in&quot;:{&quot;display_in&quot;:&quot;bottom_right&quot;,&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15},&quot;sticky_bar&quot;:{&quot;display_in&quot;:&quot;top&quot;,&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15}},&quot;version&quot;:&quot;5&quot;}" min-width="400">
+                <div data-style="clean">
+                    <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
+                    <div data-element="fields" data-stacked="false" class="flex flex-col md:flex-row items-center gap-4 mt-3 w-full">
+                        <input class="formkit-input px-3 py-3 max-w-xs w-full text-base rounded-md min-w-0 text-white placeholder:text-slate-200 bg-slate-900" name="email_address" aria-label="Email Address" placeholder="Email Address" required="" type="email">
+
+                        <button data-element="submit" class="formkit-submit formkit-submit text-base bg-cyan-300 px-3 py-3 rounded-md w-full max-w-xs md:w-auto">
+                            <div class="formkit-spinner">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div><span class="text-cyan-900 whitespace-nowrap">Keep me updated</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            
+        
+            <a href="https://www.modernwpdev.co/#acf" class="mt-8 md:mt-5 flex items-center md:text-left justify-center md:justify-start gap-2 no-underline text-white text-opacity-70 transition-colors hover:text-opacity-100">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75l3 3m0 0l3-3m-3 3v-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+
+                <span>Checkout the lesson outline</span>
+            </a>
+            
+        </div>
+        <div class="absolute top-0 left-11 right-20 h-px bg-gradient-to-r from-slate-800/0 via-cyan-400 to-slate-800/0"></div>
+        <div class="absolute -bottom-px left-11 right-20 h-px bg-gradient-to-r from-slate-800/0 via-cyan-400 to-slate-800/0"></div>
+    </div>
+</article>
+
+<div class=" max-w-screen-md mx-auto px-4 mt-12">
+    <div id="disqus_thread"></div>
+</div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://joeyfarruggio-com.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </main>
+
+    <footer class="py-16 bg-slate-900 mt-16"> 
+
+    </footer>
+    <script defer src="/js/app.min.js"></script>
+</body>
+</html>
