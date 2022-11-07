@@ -1,7 +1,7 @@
 ---
 title: Skeleton Loader for AJAX Post Filter - Alpine.JS
 description: Let your reader know something is loading by displaying a skeleton loader - a temporary UI to act as a placeholder for incoming content.
-date: 2022-11-04
+date: 2022-11-05
 permalink: "wordpress/{{ page.fileSlug }}/index.html"
 featuredImage: "/images/skeleton-loader.png"
 ---
