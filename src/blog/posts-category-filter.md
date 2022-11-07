@@ -187,6 +187,7 @@ import Alpine from 'alpinejs'
 
 Alpine.data("filterPosts", (adminURL) => ({
 	posts: "",
+    limit: 10,
 	category: null,
     showDefault: true,
     showFiltered: false,
@@ -202,6 +203,7 @@ Alpine.data("filterPosts", (adminURL) => ({
 		var formData = new FormData();
 		formData.append("action", "filterPosts");
 		formData.append("offset", this.offset);
+        formData.append("limit", this.limit);
 
 		if (this.category) {
 			formData.append("category", this.category);
@@ -251,9 +253,11 @@ filterPosts(id) {
 `filterPosts(id)` takes in a category ID. It sets the current `category` to that ID and calls the `fetchPosts()` method. It's also showing the filtered posts and hiding the default ones.
 
 ``` js
-fetchPosts(category) {
+fetchPosts() {
     var formData = new FormData();
     formData.append("action", "filterPosts");
+    formData.append("offset", this.offset);
+    formData.append("limit", this.limit);
 
     if (this.category) {
         formData.append("category", this.category);
@@ -270,7 +274,7 @@ fetchPosts(category) {
 }
 ```
 
-`fetchPosts(category)` is responsible for making an API call to WordPress. We give WordPress a category ID and we get back a list of blog posts. We can add data to our API call with `FormData()`.
+`fetchPosts()` is responsible for making an API call to WordPress. We give WordPress a category ID and we get back a list of blog posts. We can add data to our API call with `FormData()`.
 
 Here we prep our form data:
 ``` js
@@ -280,6 +284,7 @@ var formData = new FormData();
 Then we add to that data with a key/value pair:
 ``` js
 formData.append("action", "filterPosts");
+...
 ```
 
 `action` is the key and `filterPosts` is the value. 
@@ -317,11 +322,13 @@ function filterPosts()
     ];
 
     $filter_args = array(
-        'posts_per_page' => 10,
         'post_status' => 'publish',
         'post_type' => 'post'
     );
 
+    if ($_POST['limit']) {
+        $filter_args['posts_per_page'] = $_POST['limit'];
+    }
 
     if ($_POST['category']) {
         $filter_args['cat'] = $_POST['category'];
@@ -349,20 +356,24 @@ add_action('wp_ajax_filterPosts', 'filterPosts');
 add_action('wp_ajax_nopriv_filterPosts', 'filterPosts');
 ```
 
-Now we prep that response that holds our `posts`. It's in an array so that we can add more data to our reponse if we expand our code and add new features.
+Now we prep that response that holds our `posts`. It's in an array so that we can add more data to our response if we expand our code and add new features.
 ``` php
 $response = [
     'posts' => "",
 ];
 ```
 
-In order to query posts we need to pass in arguments. `$filter_args` is pretty standard and self explanatory. If our request contains a category ID (`$_POST['category']`), we add a category filter to our args.
+`$filter_args()` is an array that holds two default parameters - which limits the query to published blog posts. Second, we dynamically set a `limit` and `category` if one is supplied.
+
 ``` php
 $filter_args = array(
-    'posts_per_page' => 10,
     'post_status' => 'publish',
     'post_type' => 'post'
 );
+
+if ($_POST['limit']) {
+    $filter_args['posts_per_page'] = $_POST['limit'];
+}
 
 if ($_POST['category']) {
     $filter_args['cat'] = $_POST['category'];

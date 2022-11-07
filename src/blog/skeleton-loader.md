@@ -43,7 +43,7 @@ fetchPosts() {
 
 With that 1.5 second timeout, we should start to see what our post filter feature would look like in a production environment. There's a noticeable delay where there's not content at all until new posts appear:
 
-<div style="position: relative; padding-bottom: 81.44796380090497%; height: 0;"><iframe src="https://www.loom.com/embed/835fde2b3c49405a87455f561d82d152" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+<div style="position: relative; padding-bottom: 63.38028169014085%; height: 0;"><iframe src="https://www.loom.com/embed/ded10d8bd8454c8c9440d668d0f9d08c" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
 ---
 
@@ -180,7 +180,7 @@ There are a few things going on here worth mentioning:
 
 You should now have a functioning skeleton UI for the loading state:
 
-<div style="position: relative; padding-bottom: 86.74698795180724%; height: 0;"><iframe src="https://www.loom.com/embed/c8a69d49aad043ff985525b51e9f1419" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+<div style="position: relative; padding-bottom: 60.029069767441854%; height: 0;"><iframe src="https://www.loom.com/embed/8070f8b0d2bc4c29b174b0a8bfd9bfbe" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
 ## Load More Button
 
@@ -278,6 +278,7 @@ When the Load More button is clicked, our `loadMore()` method will:
         });
     },
 ```
+___
 
 ### Reset offset if changing categories
 
@@ -292,10 +293,110 @@ filterPosts(id) {
     this.fetchPosts();
 },
 ```
+___
+
+### Hiding the Load More button
+
+If there are no more posts to load, we should hide the Load More button.
+
+To do that, Alpine needs know how many posts are available total - regardless of the limit and offset that we supply in WP_Query.
+
+That means we need to include a `total` in the response from our `filterPosts()` PHP function in `./inc/query-posts.php`.
+
+``` php
+function filterPosts()
+{
+    $response = [
+        'posts' => "",
+    ];
+
+    // New args for an All Posts Query
+    $all_args = array(
+        'posts_per_page' => -1, // returns all posts
+        'post_status' => 'publish',
+        'post_type' => 'post'
+    );
+
+    
+    $filter_args = array(
+        'post_status' => 'publish',
+        'post_type' => 'post'
+    );
+
+    if ($_POST['limit']) {
+        $filter_args['posts_per_page'] = $_POST['limit'];
+    }
+
+    if ($_POST['category']) {
+        $filter_args['cat'] = $_POST['category'];
+
+        // Get the total number of posts for the category
+        $all_args['cat'] = $_POST['category'];
+    }
+
+    $filter_query = new WP_Query($filter_args);
+    
+    // New All Posts Query
+    $all_query = new WP_Query($all_args);
+
+    if ($filter_query->have_posts()) :
+        while ($filter_query->have_posts()) : $filter_query->the_post();
+            $response['posts'] .= load_template_part('/template-parts/posts-filter/single-post');
+        endwhile;
+        wp_reset_postdata();
+    endif;
+
+    echo json_encode($response);
+    die();
+}
+```
+
+Now when Alpine makes a request to this function, we'll get back a `total` of all published posts in addition to the blog posts from that query.
+
+We can update our Load More button to contain an `x-show` to only display of the `total` is greater than the current number of posts displayed.
+
+Add `x-show="total > (limit + offset)"` to the `<button>`
+
+``` html
+ <!-- Load More Posts -->
+<div @click="loadMore()" x-show="total > (limit + offset)" class="text-center mt-12">
+    <button class="border border-solid border-slate-700 text-slate-100 hover:bg-slate-800 px-4 py-2">
+        Load More
+    </button>
+</div>
+```
+
+Lastly, we need fetch the `total` even when the initial default posts display. Currently, when the page initially loads, Alpine is not calling our `filterPosts()` PHP function. 
+
+Alpine has an `init()` method that allows us to run some code when the component initializes. We'll create a new `getTotal()` method that runs on `init()`. You can add this new `getTotal()` and the `init()` method right after `fetchPosts()`:
+
+``` js
+getTotal() {
+    var formData = new FormData();
+    formData.append("action", "filterPosts");
+
+    fetch(adminURL, {
+        method: "POST",
+        body: formData,
+    })
+    .then((res) => res.json())
+    .then((res) => {
+        this.total = res.total;
+    });
+},
+
+init() {
+    this.getTotal();
+}
+```
+
+Now when the page loads and the Alpine component initializes, we'll have a `total` to start with. That `total` is updated if we change categories too.
+
+___
 
 ## Final product
 
-<div style="position: relative; padding-bottom: 73.46938775510203%; height: 0;"><iframe src="https://www.loom.com/embed/a62bf31a75ca48b2bd77d035b2495eaa" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+<div style="position: relative; padding-bottom: 64.56241032998565%; height: 0;"><iframe src="https://www.loom.com/embed/6ee503b803c34ff4a0e7e43d994a5e83" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
 
 <aside 
