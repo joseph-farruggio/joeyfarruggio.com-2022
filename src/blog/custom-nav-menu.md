@@ -131,7 +131,7 @@ function my_menu_builder($menu_id = '') {
 		// If menu item has children
 		if (menu_item_has_children($menu, $item->ID) != false) {
 			$new_menu[] = [
-				'ID' => $item->ID,
+				'ID' => url_to_postid($item->url),
 				'title' => $item->title,
 				'url' => $item->url,
 				'children' => []
@@ -148,7 +148,7 @@ function my_menu_builder($menu_id = '') {
 			$parent = array_key_last($new_menu);
 			array_push($new_menu[$parent]['children'],
 				[
-					'ID' => $item->ID,
+					'ID' => url_to_postid($item->url),
 					'title' => $item->title,
 					'url' => $item->url,
 				]);
@@ -157,7 +157,7 @@ function my_menu_builder($menu_id = '') {
 
 		// Just a normal menu item
 		$new_menu[] = [
-			'ID' => $item->ID,
+			'ID' => url_to_postid($item->url),
 			'title' => $item->title,
 			'url' => $item->url,
 		];
