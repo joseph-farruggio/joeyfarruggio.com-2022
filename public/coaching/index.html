@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog | Joey Farruggio</title>
+    <title>Joey Farruggio</title>
     <meta name="description" content="">
 
 
@@ -33,8 +33,8 @@
     
     
     <!-- Open Graph / Facebook -->
-    <meta property="og:title" content="Blog | Joey Farruggio"/>
-    <meta property="og:url" content="https://joeyfarruggio.com/blog/page-4/" />
+    <meta property="og:title" content="Joey Farruggio"/>
+    <meta property="og:url" content="https://joeyfarruggio.com/coaching/" />
     <meta property="og:description" content="Joey Farruggio is a front-end engineer and designer based in Wisconsin." />
     <meta property="twitter:description" content="Joey Farruggio is a front-end engineer and designer based in Wisconsin." />
     
@@ -44,14 +44,14 @@
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" ontent="https://joeyfarruggio.com/blog/page-4/" />
-    <meta property="twitter:title" content="Blog | Joey Farruggio"/>
+    <meta property="twitter:url" ontent="https://joeyfarruggio.com/coaching/" />
+    <meta property="twitter:title" content="Joey Farruggio"/>
     <meta property="twitter:description" content="Joey Farruggio is a front-end engineer and designer based in Wisconsin." />
     
         <meta property="twitter:image" content="https://joeyfarruggio.com/images/avatar-small.jpg" />
     
 
-    <link rel="canonical" href="https://joeyfarruggio.com/blog/page-4/" />
+    <link rel="canonical" href="https://joeyfarruggio.com/coaching/" />
 </head>
 <body x-data="app()" class="bg-white dark:bg-[#040817] transition-colors dark:text-white text-slate-800 font-body">
     <div class="p-4 bg-orange-300 text-slate-900 font-bold text-center text-sm">
@@ -76,56 +76,28 @@
     
     <main class="">
         
-<section class="max-w-screen-md mx-auto px-4 mt-32">
-    <h2 class="font-bold text-orange-400 text-3xl text-highlight-orange">Articles</h2>
-
-    
-        
-            <article class="mt-16 first:mt-0 relative">
-    <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/wordpress/acf-block-cli/" class="text-orange-400">A CLI to create ACF blocks</a></h1>
-    <p class=" text-lg mt-4 leading-relaxed">The create-acf-block CLI registers your block within the acf_register_block_type() function, scaffolds a block render template, and optionally preps CSS and JS.</p>
-    <span class="flex items-center space-x-4 mt-4 text-gray-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-        <time datetime="2022-01-02">02 Jan 2022</time>
-    </span>
-</article>    
-        
-        
-    
-        
-        
-    
-        
-        
-    
-        
-            <article class="mt-16 first:mt-0 relative">
-    <h1 class="font-bold text-xl text-highlight-orange mt-0"><a href="/wordpress/remove-white-background-css/" class="text-orange-400">Remove white background from image – CSS solution</a></h1>
-    <p class=" text-lg mt-4 leading-relaxed">There&#39;s a clever, CSS only trick to remove the background color from your images. Let&#39;s learn how...</p>
-    <span class="flex items-center space-x-4 mt-4 text-gray-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-        <time datetime="2020-06-04">04 Jun 2020</time>
-    </span>
-</article>    
-        
-        
-    
-
-    <ol class="max-w-xs mx-auto flex items-center justify-between mt-32">
-    
-        <li>
-            
-                <a href="/blog/page-3/" class="bg-orange-100 text-orange-600 dark:text-white dark:bg-white dark:bg-opacity-10 px-4 py-3 rounded-md">Previous</a>
-            
-        </li>
-    
-        <li>
-            
-                <a href="/blog/page-5/" class="bg-orange-100 text-orange-600 dark:text-white dark:bg-white dark:bg-opacity-10 px-4 py-3 rounded-md">Next</a>
-            
-        </li>
-    </ol>
-</section>
+<div class="relative" x-data="{showLeft: false, showRight: false}" x-init="showLeft = true;showRight = true">
+    <section class="md:grid grid-cols-2 gap-12 items-center max-w-screen-xl mx-auto px-4 py-8 relative z-10">
+        <div class="transition ease-in opacity-0 translate-y-4 delay-200 duration-500" :class="{'opacity-100 translate-y-0': showLeft, 'opacity-0 translate-y-4': !showLeft}">
+             <h1 class="font-bold">
+                <span class="text-orange-400 text-4xl text-highlight-orange">Contact</span> <br> 
+                <span class="text-6xl block mt-3 dark:text-white text-slate-900 text-highlight-white">Joey Farruggio</span>
+            </h1>
+            <p class="text-slate-500 text-xl mt-12 leading-relaxed">Interested in working together? Feel free to reach me at <span class="whitespace-nowrap">joey [at] joeyfarruggio.com</span> or schedule a <a href="https://calendly.com/joey-farruggio/one-on-one-chat" class="underline">1-on-1 call here</a>.</p>
+            <div class="flex items-center flex-wrap mt-8">
+                <a href="https://twitter.com/Joey_Farruggio" class="flex items-center space-x-4 underline p-2" target="_blank">
+                    <svg data-name="Group 464" xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 45 36.573"><defs><path data-name="Rectangle 261" fill="#ffa62c" d="M0 0h45v36.573H0z"/></defs><g data-name="Group 463" clip-path="url(#a)"><path data-name="Path 510" d="M45 4.33a18.487 18.487 0 0 1-5.3 1.453A9.257 9.257 0 0 0 43.757.674 18.432 18.432 0 0 1 37.9 2.913a9.237 9.237 0 0 0-15.97 6.322 9.429 9.429 0 0 0 .238 2.1A26.217 26.217 0 0 1 3.133 1.689a9.248 9.248 0 0 0 2.858 12.327 9.211 9.211 0 0 1-4.182-1.156v.119a9.237 9.237 0 0 0 7.406 9.053 9.372 9.372 0 0 1-4.17.159 9.237 9.237 0 0 0 8.626 6.409A18.527 18.527 0 0 1 2.2 32.554a18.829 18.829 0 0 1-2.2-.129 26.11 26.11 0 0 0 14.15 4.148c16.984 0 26.269-14.067 26.269-26.268 0-.4-.01-.8-.028-1.193A18.77 18.77 0 0 0 45 4.336Z" fill="#ffa62c"/></g></svg>
+                    <span>@Joey_Farruggio</span>
+                </a>
+               
+            </div>
+        </div>
+        <div class="mt-16 md:mt-0">
+            <img src="/images/avatar-3.jpg" alt="" class="w-full h-[40rem] object-cover rounded-lg shadow-xl shadow-slate-950">
+        </div>
+    </section>
+    <div class="dark:bg-slate-900 bg-slate-50 h-full w-10/12 md:w-96 absolute top-0 right-0 rounded-l-lg"></div>
+</div>
 
     </main>
 
