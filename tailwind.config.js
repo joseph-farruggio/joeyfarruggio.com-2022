@@ -1,5 +1,4 @@
 module.exports = {
-  mode: "jit",
   important: true,
   darkMode: "class",
   content: [
@@ -46,8 +45,8 @@ module.exports = {
         xl: {
           css: {
             h3: {
-            fontSize: '1.25em'
-          }
+              fontSize: '1.25em'
+            }
           }
         }
       }),

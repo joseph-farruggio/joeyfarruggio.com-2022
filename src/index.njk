@@ -21,7 +21,7 @@ description: Joey Farruggio is a front-end engineer and designer based in Wiscon
             </div>
         </div>
         <div class="mt-16 md:mt-0">
-            <img src="images/avatar-small.jpg" alt="" class="w-full h-[40rem] object-cover rounded-lg shadow-xl">
+            <img src="/images/avatar-small.jpg" alt="" class="w-full h-[40rem] object-cover rounded-lg shadow-xl">
         </div>
     </section>
     <div class="dark:bg-slate-900 bg-slate-50 h-full w-10/12 md:w-96 absolute top-0 right-0 rounded-l-lg"></div>
@@ -104,21 +104,21 @@ description: Joey Farruggio is a front-end engineer and designer based in Wiscon
         {% include "video-modal.njk" %}            
     </figure>
 
-    <div :class="{'max-h-[none] pb-32': showAll, 'max-h-[43rem]': !showAll}" class="max-h-[43rem] md:max-h-[none] max-w-screen-xl mx-auto mt-12 grid grid-cols-1 gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3" id="testimonials" x-data="{shown: false}" x-intersect:enter="shown = true">
+    <div :class="{'max-h-[none] pb-32': showAll, 'max-h-[43rem]': !showAll}" class="max-h-[43rem] md:max-h-[none] max-w-screen-xl mx-auto mt-12 grid grid-cols-1 gap-6 lg:gap-8 md:grid-cols-2 lg:grid-cols-3" id="testimonials" x-data="{shown: false}" x-intersect:enter="shown = true">
         {% for testimonial in testimonials %}
                 <figure 
                     x-data="{url: '/images/{{ testimonial.image }}'}"
-                    class="relative flex flex-col-reverse justify-end bg-gray-50 rounded-lg p-6 dark:bg-slate-900 dark:highlight-white/5">
-                    <blockquote class="mt-6 text-gray-700 text-base opacity-75 font-normal dark:text-gray-300">
-                        <p>{{ testimonial.body }}</p>
-                    </blockquote>
-                    <figcaption class="flex items-center space-x-4">
+                    class="relative flex flex-col justify-beween bg-slate-900 border border-slate-900 rounded-lg p-6">
+                    <figcaption class="mb-10 flex items-center space-x-4">
                         <img :src="!shown || url" alt="" class="flex-none w-14 h-14 rounded-full object-cover" loading="lazy">
                         <div class="flex-auto">
                             <span class="text-lg">{{ testimonial.name }}</span>
                             <span class="mt-0.5 block opacity-60">{{ testimonial.title }}</span>
                         </div>
                     </figcaption>
+                    <blockquote class="text-slate-100 text-xl font-normal">
+                        <p>{{ testimonial.body }}</p>
+                    </blockquote>
                 </figure>
         {% endfor %}
     </div>
