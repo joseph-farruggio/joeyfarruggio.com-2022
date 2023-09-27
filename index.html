@@ -58,7 +58,7 @@
         <div class="hidden fixed md:static top-0 left-0 h-screen w-screen md:h-auto md:w-full z-40 pb-16 md:p-0 bg-white dark:bg-darkBG md:bg-transparent dark:md:bg-transparent md:flex md:items-center md:justify-between" :class="{'block': menuOpen, 'hidden': !menuOpen}">
             <nav class="text-center flex flex-col md:block text-2xl md:text-lg md:space-x-6">
                 <a href="/" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Home</a>
-                <a href="/contact" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Contact</a>
+                <a href="/work-with-me" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Work With Me</a>
                 <a href="/coaching" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">WP Dev Coaching</a>
                 <a href="/blog" class="block md:inline dark:text-slate-500  dark:hover:text-white text-slate-900 transition-colors hover:text-orange-400  no-underline  px-4 py-3 rounded-lg">Blog</a>
 
@@ -90,7 +90,7 @@
             </div>
         </div>
         <div class="mt-16 md:mt-0">
-            <img src="images/avatar-small.jpg" alt="" class="w-full h-[40rem] object-cover rounded-lg shadow-xl">
+            <img src="/images/avatar-small.jpg" alt="" class="w-full h-[40rem] object-cover rounded-lg shadow-xl">
         </div>
     </section>
     <div class="dark:bg-slate-900 bg-slate-50 h-full w-10/12 md:w-96 absolute top-0 right-0 rounded-l-lg"></div>
@@ -238,96 +238,96 @@
 </div>            
     </figure>
 
-    <div :class="{'max-h-[none] pb-32': showAll, 'max-h-[43rem]': !showAll}" class="max-h-[43rem] md:max-h-[none] max-w-screen-xl mx-auto mt-12 grid grid-cols-1 gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3" id="testimonials" x-data="{shown: false}" x-intersect:enter="shown = true">
+    <div :class="{'max-h-[none] pb-32': showAll, 'max-h-[43rem]': !showAll}" class="max-h-[43rem] md:max-h-[none] max-w-screen-xl mx-auto mt-12 grid grid-cols-1 gap-6 lg:gap-8 md:grid-cols-2 lg:grid-cols-3" id="testimonials" x-data="{shown: false}" x-intersect:enter="shown = true">
+        
+                <figure 
+                    x-data="{url: '/images/ian.jpg'}"
+                    class="relative flex flex-col justify-beween bg-slate-900 border border-slate-900 rounded-lg p-6">
+                    <figcaption class="mb-10 flex items-center space-x-4">
+                        <img :src="!shown || url" alt="" class="flex-none w-14 h-14 rounded-full object-cover" loading="lazy">
+                        <div class="flex-auto">
+                            <span class="text-lg">Ian Howells</span>
+                            <span class="mt-0.5 block opacity-60">Co-Founder Traffic Think Tank</span>
+                        </div>
+                    </figcaption>
+                    <blockquote class="text-slate-100 text-xl font-normal">
+                        <p>Working with Joey is always smooth. Really impressive front-end chops too.</p>
+                    </blockquote>
+                </figure>
+        
+                <figure 
+                    x-data="{url: '/images/jon.jpeg'}"
+                    class="relative flex flex-col justify-beween bg-slate-900 border border-slate-900 rounded-lg p-6">
+                    <figcaption class="mb-10 flex items-center space-x-4">
+                        <img :src="!shown || url" alt="" class="flex-none w-14 h-14 rounded-full object-cover" loading="lazy">
+                        <div class="flex-auto">
+                            <span class="text-lg">Jon Henshaw</span>
+                            <span class="mt-0.5 block opacity-60">Sr. Director, Technical SEO - Vimeo</span>
+                        </div>
+                    </figcaption>
+                    <blockquote class="text-slate-100 text-xl font-normal">
+                        <p>Joey is incredible at what he does. Dependable, competent, and fun to work with.</p>
+                    </blockquote>
+                </figure>
         
                 <figure 
                     x-data="{url: '/images/christianT.jpg'}"
-                    class="relative flex flex-col-reverse justify-end bg-gray-50 rounded-lg p-6 dark:bg-slate-900 dark:highlight-white/5">
-                    <blockquote class="mt-6 text-gray-700 text-base opacity-75 font-normal dark:text-gray-300">
-                        <p>The quality of Joey’s work is great, and I’ve always found him both easy to work with, and professional in his approach. Not only would I recommend him to others, I already have.</p>
-                    </blockquote>
-                    <figcaption class="flex items-center space-x-4">
+                    class="relative flex flex-col justify-beween bg-slate-900 border border-slate-900 rounded-lg p-6">
+                    <figcaption class="mb-10 flex items-center space-x-4">
                         <img :src="!shown || url" alt="" class="flex-none w-14 h-14 rounded-full object-cover" loading="lazy">
                         <div class="flex-auto">
                             <span class="text-lg">Christian Thurston</span>
                             <span class="mt-0.5 block opacity-60">COO SearchEye</span>
                         </div>
                     </figcaption>
+                    <blockquote class="text-slate-100 text-xl font-normal">
+                        <p>Joey’s work quality is great –and I’ve always found him easy to work with. Highly recommend.</p>
+                    </blockquote>
                 </figure>
         
                 <figure 
                     x-data="{url: '/images/arvinD.jpg'}"
-                    class="relative flex flex-col-reverse justify-end bg-gray-50 rounded-lg p-6 dark:bg-slate-900 dark:highlight-white/5">
-                    <blockquote class="mt-6 text-gray-700 text-base opacity-75 font-normal dark:text-gray-300">
-                        <p>I recommend Joey often to other clients because of his reliability, focus, and approach. I trust him with my clients, my work, and I very much look forward to future opportunities together.</p>
-                    </blockquote>
-                    <figcaption class="flex items-center space-x-4">
+                    class="relative flex flex-col justify-beween bg-slate-900 border border-slate-900 rounded-lg p-6">
+                    <figcaption class="mb-10 flex items-center space-x-4">
                         <img :src="!shown || url" alt="" class="flex-none w-14 h-14 rounded-full object-cover" loading="lazy">
                         <div class="flex-auto">
                             <span class="text-lg">Arvin Dang</span>
                             <span class="mt-0.5 block opacity-60">Sr. Product Designer - Table XI</span>
                         </div>
                     </figcaption>
+                    <blockquote class="text-slate-100 text-xl font-normal">
+                        <p>I trust Joey with my clients, my work, and I very much look forward to future opportunities together.</p>
+                    </blockquote>
                 </figure>
         
                 <figure 
                     x-data="{url: '/images/devonH.jpg'}"
-                    class="relative flex flex-col-reverse justify-end bg-gray-50 rounded-lg p-6 dark:bg-slate-900 dark:highlight-white/5">
-                    <blockquote class="mt-6 text-gray-700 text-base opacity-75 font-normal dark:text-gray-300">
-                        <p>Joey is exactly who you want working on your web project. Extremely responsive, extremely professional, 110% recommend.</p>
-                    </blockquote>
-                    <figcaption class="flex items-center space-x-4">
+                    class="relative flex flex-col justify-beween bg-slate-900 border border-slate-900 rounded-lg p-6">
+                    <figcaption class="mb-10 flex items-center space-x-4">
                         <img :src="!shown || url" alt="" class="flex-none w-14 h-14 rounded-full object-cover" loading="lazy">
                         <div class="flex-auto">
                             <span class="text-lg">Devon Hennig</span>
                             <span class="mt-0.5 block opacity-60">VP of Marketing - Docebo</span>
                         </div>
                     </figcaption>
+                    <blockquote class="text-slate-100 text-xl font-normal">
+                        <p>The only dev you want working on your web project. Extremely responsive, professional, 110% recommend.</p>
+                    </blockquote>
                 </figure>
         
                 <figure 
                     x-data="{url: '/images/loyldS.jpg'}"
-                    class="relative flex flex-col-reverse justify-end bg-gray-50 rounded-lg p-6 dark:bg-slate-900 dark:highlight-white/5">
-                    <blockquote class="mt-6 text-gray-700 text-base opacity-75 font-normal dark:text-gray-300">
-                        <p>I&#39;ve wasted so much time looking for a great developer. I&#39;m now done looking. Joey has completely exceeded my expectations on all. He&#39;s an absolute pleasure to work with.</p>
-                    </blockquote>
-                    <figcaption class="flex items-center space-x-4">
+                    class="relative flex flex-col justify-beween bg-slate-900 border border-slate-900 rounded-lg p-6">
+                    <figcaption class="mb-10 flex items-center space-x-4">
                         <img :src="!shown || url" alt="" class="flex-none w-14 h-14 rounded-full object-cover" loading="lazy">
                         <div class="flex-auto">
                             <span class="text-lg">Loyld Silver</span>
                             <span class="mt-0.5 block opacity-60">Founder &amp; CEO - ContentRamp</span>
                         </div>
                     </figcaption>
-                </figure>
-        
-                <figure 
-                    x-data="{url: '/images/wyattM.jpg'}"
-                    class="relative flex flex-col-reverse justify-end bg-gray-50 rounded-lg p-6 dark:bg-slate-900 dark:highlight-white/5">
-                    <blockquote class="mt-6 text-gray-700 text-base opacity-75 font-normal dark:text-gray-300">
-                        <p>Joey is my go to for design/development. If you need a full stack guy that gets the job done quickly, efficiently and professionally, he is your guy.</p>
+                    <blockquote class="text-slate-100 text-xl font-normal">
+                        <p>I&#39;ve wasted so much time looking for a great developer. I&#39;m now done looking. He&#39;s an absolute pleasure to work with.</p>
                     </blockquote>
-                    <figcaption class="flex items-center space-x-4">
-                        <img :src="!shown || url" alt="" class="flex-none w-14 h-14 rounded-full object-cover" loading="lazy">
-                        <div class="flex-auto">
-                            <span class="text-lg">Wyatt Mayham</span>
-                            <span class="mt-0.5 block opacity-60">Director of SEO, MyHealthTeams</span>
-                        </div>
-                    </figcaption>
-                </figure>
-        
-                <figure 
-                    x-data="{url: '/images/joshS.jpg'}"
-                    class="relative flex flex-col-reverse justify-end bg-gray-50 rounded-lg p-6 dark:bg-slate-900 dark:highlight-white/5">
-                    <blockquote class="mt-6 text-gray-700 text-base opacity-75 font-normal dark:text-gray-300">
-                        <p>I have worked with Joey on multiple projects and he&#39;s been great. Highly recommend him for any dev work you have. The best experience i have had working with devs.</p>
-                    </blockquote>
-                    <figcaption class="flex items-center space-x-4">
-                        <img :src="!shown || url" alt="" class="flex-none w-14 h-14 rounded-full object-cover" loading="lazy">
-                        <div class="flex-auto">
-                            <span class="text-lg">Josh</span>
-                            <span class="mt-0.5 block opacity-60">Founder, Passion into Paychecks</span>
-                        </div>
-                    </figcaption>
                 </figure>
         
     </div>
