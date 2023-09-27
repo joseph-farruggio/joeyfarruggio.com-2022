@@ -6,8 +6,6 @@ var fs = require("fs");
 
 const sitemap = require("@quasibit/eleventy-plugin-sitemap");
 
-const pluginRss = require("@11ty/eleventy-plugin-rss");
-
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/_images/*": "images" });
   eleventyConfig.addPassthroughCopy({ "src/_fonts/*": "fonts" });
@@ -18,7 +16,6 @@ module.exports = function (eleventyConfig) {
   });
   eleventyConfig.addPassthroughCopy({ "src/netlify.toml": "netlify.toml" });
 
-  eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(sitemap, {
     sitemap: {
